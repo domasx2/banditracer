@@ -1,7 +1,1 @@
-var Game = require('./game'),
-	$    = require('zepto-browserify').$;
-
-$(function() {
-
-	var game = new Game($('#container'));
-});
+window.Racer = require('./game');

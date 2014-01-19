@@ -1,11 +1,15 @@
 module.exports = function(grunt) {
     grunt.initConfig({
         browserify: {
-            'build/js/racer.js':['src/main.js']
+            'build/dist/racer.js':['src/main.js']
         },
         watch: {
+            compassets: {
+                files: ['assets/images/**/*'],
+                tasks: ['compileassets']
+            },
             js: {
-                files: ['src/**/*.js'],
+                files: ['src/**/*.js', 'data/**/*.js'],
                 tasks: ['browserify']
             },
             livereload: {
@@ -37,9 +41,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-concurrent');
+    grunt.loadTasks('tasks');
+
 
     //build all resources
-    grunt.registerTask('build', ['browserify']);
+    grunt.registerTask('build', ['compileassets', 'browserify']);
 
     // start watch & server
     grunt.registerTask('develop', ['build', 'concurrent:develop']);

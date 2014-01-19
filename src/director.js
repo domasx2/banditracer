@@ -21,9 +21,8 @@ Director.prototype.stop = function () {
 };
 
 Director.prototype.tick = function (timestamp) {
-	var msDuration = this.prev_ts ? timestamp - this.prev_ts: 0;
+	var msDuration = this.prev_ts && timestamp ? timestamp - this.prev_ts: 0;
 	this.prev_ts = timestamp;
-	console.log('tick', msDuration);
 	if(this.running) {
 		if(this.scene) {
 			this.scene.tick(msDuration);
