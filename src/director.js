@@ -1,8 +1,10 @@
+window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                              window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
 var Director = module.exports = function Director() {
 	this.scene = null;
 	this.running = false;
-	this.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
-                              window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+	this.prev_ts = null;
 };
 
 Director.prototype.setScene = function(scene) {
@@ -18,15 +20,17 @@ Director.prototype.stop = function () {
 	this.running = false;
 };
 
-Director.prototype.tick = function (msDuration) {
+Director.prototype.tick = function (timestamp) {
+	var msDuration = this.prev_ts ? timestamp - this.prev_ts: 0;
+	this.prev_ts = timestamp;
 	console.log('tick', msDuration);
 	if(this.running) {
 		if(this.scene) {
 			this.scene.tick(msDuration);
 		}
 		var self = this;
-		this.requestAnimationFrame(function(ms){
-			self.tick(ms);
+		window.requestAnimationFrame(function(ts){
+			self.tick(ts);
 		});
 	}
 };
