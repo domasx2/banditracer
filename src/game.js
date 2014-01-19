@@ -26,11 +26,11 @@ Game.prototype.start = function () {
 
 Game.prototype.initAndRun = function () {
 	var self = this;
-	console.log('loading assets..');
+	console.log('loading assets...');
 	this.loadAssets(function(remaining, total){
 		console.log((total-remaining)+'/'+total);
 	}, function () {
-		console.log('assets loaded, starting');
+		console.log('starting...');
 		self.start();
 	});
 };
