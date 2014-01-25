@@ -1,5 +1,5 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-exports.images=["assets/images/backgrounds/snow.png","assets/images/backgrounds/grass.png","assets/images/backgrounds/sand.png","assets/images/cars/thunderbolt_blue.png","assets/images/cars/thunderbolt_yellow.png","assets/images/cars/thunderbolt_green.png","assets/images/cars/thunderbolt_red.png"];
+exports.images=["assets/images/generic/sprite_placeholder.png","assets/images/backgrounds/snow.png","assets/images/backgrounds/grass.png","assets/images/backgrounds/sand.png","assets/images/cars/thunderbolt_blue.png","assets/images/cars/thunderbolt_yellow.png","assets/images/cars/thunderbolt_green.png","assets/images/cars/thunderbolt_red.png"];
 },{}],2:[function(require,module,exports){
 module.exports = {
 
@@ -7,7 +7,10 @@ module.exports = {
     _objects_by_id: {},
     length: 0,
 
-
+    bootstrap: function () {
+        this._objects = [];
+        this._objects_by_id = {};
+    },
 
     add: function(object){
         this._objects.push(object);
@@ -55,12 +58,14 @@ module.exports = {
 
     bootstrap: function () {
         //make event_x work
+        this._callbacks = {};
+        this._observed_by = [];
 
         for(var key in this) {
             if(key.substring(0, 6) == 'event_'){
                 (function(key, fn, self){
                     self[key] = function () {
-                        self.trigger(key, arguments);
+                        self.trigger(key, Array.prototype.slice.call(arguments));
                     }
                     self.on(key, fn, self);
                 })(key.substring(6), this[key], this);
@@ -113,6 +118,9 @@ module.exports = {
     },
 
     observe: function(prefix, target) {
+        if(target === this) {
+            throw new Error("Tryin to obsrver self.");
+        }
         if(target._observed_by) {
             target._observed_by.push({
                 prefix: prefix,
@@ -144,9 +152,7 @@ module.exports = {
     
     trigger: function(event, args){
         args = (args || []).slice(0);
-        //console.log(event, args);
         if(this._suppress_events) return;
-        
         for(var key in this) {
             if(key.indexOf('on_'+event) == 0 && !this.destroyed) {
                 this[key].apply(this, args);
@@ -156,10 +162,9 @@ module.exports = {
         if(!args) args = [this];
         else args.splice(0, 0, this);
         this._trigger(event, args);
-
         this._observed_by.forEach(function(o){
             o.observer.trigger(o.prefix+':'+event, args);
-        });
+        }, this);
 
         args.splice(0, 0, event);
         this._trigger('*', args);
@@ -248,7 +253,7 @@ Entity.prototype.__extend = function(component) {
 
     //copy properties
     Object.keys(component).forEach(function(key) {
-        if(key.slice(0, 2) != '__' && !RESERVED[key]){
+        if(key.slice(0, 2) !== '__' && !RESERVED[key]){
             property = component[key];
             if((typeof property) === 'function') {
                 if(!component.__name) {
@@ -257,25 +262,28 @@ Entity.prototype.__extend = function(component) {
                 self[key] = property;
 
             } else {
+                if(key.slice(0, 1) !== '_') {
+                    if ((typeof property) === 'object') {
+                        property = utils.deep_copy(property);
+                    } 
 
-                if ((typeof property) === 'object') {
-                    property = utils.deep_copy(property);
-                } 
+                    if(self.__properties[key] === undefined){
 
-                if(self.__properties[key] === undefined){
+                        Object.defineProperty(self, key, {
+                            set: function (val){
+                                self.__properties[key] = val;
+                                if(self.trigger) self.trigger('set_'+key, [val]);
+                            },
+                            get: function () {
+                                return self.__properties[key];
+                            }   
+                        });
+                    }
 
-                    Object.defineProperty(self, key, {
-                        set: function (val){
-                            self.__properties[key] = val;
-                            if(self.trigger) self.trigger('set_'+key, [val]);
-                        },
-                        get: function () {
-                            return self.__properties[key];
-                        }   
-                    });
+                    self.__properties[key] = property;
+                } else {
+                    self[key] = property;
                 }
-
-                self.__properties[key] = property;
             }
         }
     });
@@ -3491,25 +3499,183 @@ var m = require('./index');
 
 m.c('base', {
 
+	event_update: function(msDuration) {
+
+	}
 });
-},{"./index":85}],85:[function(require,module,exports){
+},{"./index":90}],85:[function(require,module,exports){
+var m = require('../index'),
+	PIXI = require('pixi');
+
+m.c('drawable', {
+
+	//apply changes to PIXI drawable object
+	event_render: function (drawable) {
+
+	},
+
+	//return PIXI drawable object
+	create_drawable: function () {
+		//don't change this once initiatlized
+		return  new PIXI.DisplayObjectContainer();
+	},
+
+	bootstrap: function () {
+		this.create_drawable();
+	}
+});
+},{"../index":90,"pixi":51}],86:[function(require,module,exports){
+var m = require('../index'),
+	PIXI = require('pixi');
+
+m.c('drawable_sprite', {
+	requires: 'drawable',
+
+	sprite_filename: 'generic/sprite_placeholder.png',
+
+	create_drawable: function(){
+		return new PIXI.Sprite(PIXI.Texture.fromImage('assets/images/'+this.sprite_filename));
+	}
+});
+},{"../index":90,"pixi":51}],87:[function(require,module,exports){
+require('./drawable');
+require('./drawable_sprite');
+},{"./drawable":85,"./drawable_sprite":86}],88:[function(require,module,exports){
+var m = require('../index');
+
+m.c('car', {
+	requires:'base physical drawable_sprite'
+});
+},{"../index":90}],89:[function(require,module,exports){
+require('./car');
+
+},{"./car":88}],90:[function(require,module,exports){
 var CEM = require('cem');
 module.exports = new CEM.Manager();
 
 require('./base');
-},{"./base":84,"cem":6}],86:[function(require,module,exports){
-var manager = require('./objects');
+require('./drawables');
+require('./physics');
+require('./game');
+},{"./base":84,"./drawables":87,"./game":89,"./physics":91,"cem":6}],91:[function(require,module,exports){
+require('./physical');
+},{"./physical":92}],92:[function(require,module,exports){
+var m = require('../index');
+
+m.c('physical', {
+	x: 0,
+	y: 0,
+	angle : 0,
+
+	on_render_set_position: function(drawable) {
+		drawable.position.x = this.x;
+		drawable.position.y = this.y;
+		drawable.rotation  = this.angle;
+	}
+});
+},{"../index":90}],93:[function(require,module,exports){
+var manager = require('./objects'),
+	CEM = require('cem');
 
 var World = module.exports = function World(size) {
 	this.size = size;
 	this.manager = manager.clone();
 	this.objects = this.manager.e('collection');
+	this.time = 0;
+};
+
+
+World.prototype.publish_event = function(event_name, data) {
+
+	//TODO: multiplayerize this s***
+	this.handle_event({
+		event:event_name,
+		data: data,
+		ts: this.time
+	});
+};
+
+//API
+World.prototype.spawn = function(entity, properties) {
+	this.publish_event('spawn', {
+		entity: entity,
+		properties: this.serialize_props(properties)
+	});
 };
 
 World.prototype.update = function(msDuration) {
-
+	this.time = this.time + msDuration;
+	this.objects.each(function(obj){
+		obj.update(msDuration);
+	}, this);
 };
-},{"./objects":85}],87:[function(require,module,exports){
+
+//EVENT HANDLING
+World.prototype.handle_event = function(msg) {
+	if(this['handle_event_'+msg.event]) {
+		this['handle_event_'+msg.event](msg.data);
+	} else {
+		throw new Error("world.handle_event unknown event ["+msg.event+"]");
+	}
+};
+
+World.prototype.handle_event_spawn = function(data) {
+	var props = this.deserialize_props(data.properties), self = this;
+	props._world = this;
+	console.log('world:spawn ['+data.entity+']', props);
+	var e = this.manager.e(data.entity, props);
+	
+	e.on('destroy', function(){
+		self.publish_event('destroy', {id: e.id});
+	});
+
+	this.objects.add(e);
+};
+
+World.prototype.handle_event_destroy = function(data){
+	console.log('world:destroy ['+data.id+']');
+};
+
+
+//UTILS
+World.prototype.serialize_props = function(properties) {
+	var retv = {}, val, self = this;
+	Object.keys(properties).forEach(function(key) {
+		val = properties[key];
+		if(val === self){
+			return;
+		} else if(val instanceof CEM.Entity) {
+			val = '$E:'+val.id;
+		//validate that there are no fishy props
+		} else if(val === null || typeof val === 'string' || typeof val === 'number') {
+			//ok
+		} else {
+			throw new Error("World.serialize_props unserializable parameter ["+key+"] type is ["+(typeof val)+"] value is ["+val+"]");
+		}
+		retv[key] = val;
+	});
+	return retv;
+};
+
+World.prototype.deserialize_props = function(properties) {
+	var retv = {}, val;
+	Object.keys(properties).forEach(function(key) {
+		val = properties[key];
+		if(typeof val === 'string' && val.slice(0, 2) === '$E') {
+			val = this.objects.get(val.slice(2));
+			if(!val) {
+				throw new Error("deserialize_props: Object ["+val.slice(2)+"] not found");
+			}
+		}
+		retv[key] = val;
+	});
+	return retv;
+};
+
+
+	
+
+},{"./objects":90,"cem":6}],94:[function(require,module,exports){
 var Director = require('./director'),
 	GameScene = require('./scenes/game'),
 	PIXI = require('pixi'),
@@ -3546,15 +3712,16 @@ Game.prototype.initAndRun = function () {
 		self.start();
 	});
 };
-},{"../data/assets":1,"./director":83,"./scenes/game":91,"pixi":51,"zepto-browserify":82}],88:[function(require,module,exports){
+},{"../data/assets":1,"./director":83,"./scenes/game":98,"pixi":51,"zepto-browserify":82}],95:[function(require,module,exports){
 window.Racer = require('./game');
-},{"./game":87}],89:[function(require,module,exports){
+},{"./game":94}],96:[function(require,module,exports){
 var PIXI = require('pixi'),
 	$    = require('zepto-browserify').$;
 
 var Renderer = module.exports = function Renderer(container, size, world) {
 	this.world = world;
-	this.container = container; //DOM element
+	this.container = container; //DOM element\
+	this.drawable_cache = {};
 
 	//initialize size
 	size = size || [container.width(), container.height()]; // [width,height]
@@ -3572,20 +3739,37 @@ var Renderer = module.exports = function Renderer(container, size, world) {
 	var background = new PIXI.Sprite(bgtexture);
 	this.object_container.addChild(background);
 
-	//some random sprite
-	var texture = PIXI.Texture.fromImage('assets/images/cars/thunderbolt_yellow.png');
-	var sprite = new PIXI.Sprite(texture);
-	sprite.position.x = 100;
-	sprite.position.y = 100;
-	this.object_container.addChild(sprite);
-
 	//init renderer
     this.renderer = PIXI.autoDetectRenderer(this.size[0], this.size[1]);
     this.container.empty().append(this.renderer.view);
+
+    this.world.objects.on('remove', function(obj){
+    	if(this.drawable_cache[obj.id]){
+    		this.object_container.removeChild(this.drawable_cache[obj.id]);
+    		delete this.drawable_cache[obj.id];
+    	}
+    }, this);
 };
 
+Renderer.prototype.render = function (msDuration) {
+	//render all drawable objects
+	this.world.objects.each(function(obj){
+		if(obj.is('drawable')) {
+			//initialize pixi drawable and add it to scene if it does not exist yet
+			if(!this.drawable_cache[obj.id]) {
+				this.drawable_cache[obj.id] = obj.create_drawable();
+				this.object_container.addChild(this.drawable_cache[obj.id]);
+			}
+			//update pixi drawable
+			obj.render(this.drawable_cache[obj.id]);
+		}
+	}, this);
+	this.renderer.render(this.stage);
+};
+
+
 Renderer.renderBackgroundTexture = function(texture, size){
-	//render background
+	//STATIC render background
 	var doc = new PIXI.DisplayObjectContainer();
 	var sprite; 
 	var x=0, y=0;
@@ -3605,12 +3789,9 @@ Renderer.renderBackgroundTexture = function(texture, size){
 	return renderTexture;
 };
 
-Renderer.prototype.render = function (msDuration) {
-	this.renderer.render(this.stage);
-};
 
 
-},{"pixi":51,"zepto-browserify":82}],90:[function(require,module,exports){
+},{"pixi":51,"zepto-browserify":82}],97:[function(require,module,exports){
 var BaseScene = module.exports = function BaseScene() {
 
 };
@@ -3618,7 +3799,7 @@ var BaseScene = module.exports = function BaseScene() {
 BaseScene.prototype.tick = function(msDuration) {
 	console.log('BaseScene.tick');
 };
-},{}],91:[function(require,module,exports){
+},{}],98:[function(require,module,exports){
 var Renderer = require('../renderer'),
 	util = require('util'),
 	BaseScene = require('./base'),
@@ -3627,6 +3808,12 @@ var Renderer = require('../renderer'),
 var GameScene = module.exports = function GameScene(container) {
 	this.world = new World([2000, 2000]);
 	this.renderer = new Renderer(container, null, this.world);
+	this.world.spawn('car', {
+		x: 100,
+		y: 100,
+		sprite_filename: 'cars/thunderbolt_red.png',
+		angle: 1
+	});
 };
 
 util.inherits(GameScene, BaseScene);
@@ -3638,4 +3825,4 @@ GameScene.prototype.tick = function(msDuration) {
 
 
 
-},{"../engine/world":86,"../renderer":89,"./base":90,"util":13}]},{},[88])
+},{"../engine/world":93,"../renderer":96,"./base":97,"util":13}]},{},[95])
