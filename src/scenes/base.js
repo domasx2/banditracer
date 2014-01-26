@@ -1,4 +1,4 @@
-var BaseScene = module.exports = function BaseScene() {
+var BaseScene = module.exports = function BaseScene(game) {
 
 };
 

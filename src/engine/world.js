@@ -1,11 +1,14 @@
 var manager = require('./objects'),
-	CEM = require('cem');
+	CEM = require('cem'),
+	box2d = require('box2dweb');
 
 var World = module.exports = function World(size) {
 	this.size = size;
+	this.SCALE = 15; //pixes in meter
 	this.manager = manager.clone();
 	this.objects = this.manager.e('collection');
 	this.time = 0;
+	this.b2world = new box2d.Dynamics.b2World(new box2d.b2Vec2(0, 0), false);
 };
 
 
@@ -29,8 +32,16 @@ World.prototype.spawn = function(entity, properties) {
 
 World.prototype.update = function(msDuration) {
 	this.time = this.time + msDuration;
+
 	this.objects.each(function(obj){
 		obj.update(msDuration);
+	}, this);
+
+	this.b2world.Step(msDuration / 1000, 10, 8);
+	this.b2world.ClearForces();
+
+	this.objects.each(function(obj) {
+		obj.update_after_physics(msDuration);
 	}, this);
 };
 
@@ -73,7 +84,7 @@ World.prototype.serialize_props = function(properties) {
 		//validate that there are no fishy props
 		} else if(val === null || typeof val === 'string' || typeof val === 'number') {
 			//ok
-		} else {
+		} else if(!val.__serializable) {
 			throw new Error("World.serialize_props unserializable parameter ["+key+"] type is ["+(typeof val)+"] value is ["+val+"]");
 		}
 		retv[key] = val;
