@@ -25,7 +25,7 @@ var generic = {
 	},
 
 	//car characteristics
-	max_steer_angle: 0.5,
+	max_steer_angle: 0.35,
 	max_speed: 100,
 	power: 60
 };
@@ -14685,7 +14685,12 @@ m.c('drawable_sprite', {
 	sprite_filename: 'generic/sprite_placeholder.png',
 
 	create_drawable: function(){
-		return new PIXI.Sprite(PIXI.Texture.fromImage('assets/images/'+this.sprite_filename));
+		var sprite =  new PIXI.Sprite(PIXI.Texture.fromImage('assets/images/'+this.sprite_filename));
+		sprite.anchor.x = 0.5;
+		sprite.anchor.y = 0.5;
+		sprite.pivot.x = 0.5;
+		sprite.pivot.y = 0.5;
+		return sprite;
 	}
 });
 },{"../index":104,"pixi":54}],100:[function(require,module,exports){
@@ -15214,9 +15219,18 @@ var Renderer = module.exports = function Renderer(container, size, world, level)
 	var background = new PIXI.Sprite(bgtexture);
 	this.object_container.addChild(background);
 
+	//fps counter
+	this.fps = new PIXI.Text('00', {
+		fill: 'red'
+	});
+	this.fps.position.x = 30;
+	this.fps.position.y = 30;
+	this.stage.addChild(this.fps);
+
 	//init renderer
     this.renderer = PIXI.autoDetectRenderer(this.size[0], this.size[1]);
     this.container.empty().append(this.renderer.view);
+
 
     this.world.objects.on('remove', function(obj){
     	if(this.drawable_cache[obj.id]){
@@ -15232,8 +15246,7 @@ Renderer.prototype.follow = function(object){
 
 Renderer.prototype.updateOffset = function(){
 	if(this.follow_target && this.follow_target.get_position_px) {
-		pos = this.follow_target.get_position_px()
-		console.log(pos, this.size);
+		pos = this.follow_target.get_position_px();
 		var x = Math.max(Math.min(pos[0] - this.size[0] / 2, this.world.size[0] - this.size[0]), 0);
 		var y = Math.max(Math.min(pos[1] - this.size[1] / 2, this.world.size[1] - this.size[1]), 0);
 		this.object_container.position.x = -x;
@@ -15243,6 +15256,7 @@ Renderer.prototype.updateOffset = function(){
 
 
 Renderer.prototype.render = function (msDuration) {
+	this.fps.setText(parseInt(1000/msDuration));
 	this.updateOffset();
 
 	//render all drawable objects
@@ -15300,8 +15314,7 @@ Renderer.renderBackgroundTexture = function(level){
 		sprite.anchor.y = 0.5;
 		sprite.rotation = utils.radians(decal.a);
 		sprite.pivot.x = 0.5
-		sprite.pivot.y = 0.5;;
-		console.log(sprite.position, sprite.anchor, sprite.rotation, decal.a);
+		sprite.pivot.y = 0.5;
 		doc.addChild(sprite);
 	}, this);
 
