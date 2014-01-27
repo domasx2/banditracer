@@ -15260,12 +15260,21 @@ Renderer.prototype.render = function (msDuration) {
 	this.renderer.render(this.stage);
 };
 
+Renderer.adjustLevelPos = function (size, pos) {
+	if(size[0]>size[1]) {
+		return [pos[0], pos[1]+ (size[0]-size[1]) /2];
+	} else if(size[1] > size[0]){
+		return [pos[0] + (size[1] - size[0]) / 2, pos[1]];
+	}
+	return pos;
+};
 
 Renderer.renderBackgroundTexture = function(level){
 	//STATIC render background
 	var doc = new PIXI.DisplayObjectContainer();
 	var texture = PIXI.Texture.fromImage('assets/images/backgrounds/'+level.bgtile);
 	var sprite; 
+	var pos;
 	var x=0, y=0;
 	while(x<level.size[0]){
 		while(y<level.size[1]){
@@ -15283,9 +15292,15 @@ Renderer.renderBackgroundTexture = function(level){
 	level.decals.forEach(function(decal){
 		texture = PIXI.Texture.fromImage('assets/images/decals/'+level.dict[decal.f]);
 		sprite = new PIXI.Sprite(texture);
-		sprite.position.x = decal.p[0];
-		sprite.position.y = decal.p[1];
+		//pos = Renderer.adjustLevelPos([sprite.width, sprite.height], decal.p);
+		var mp = Math.max(sprite.width, sprite.height);
+		sprite.position.x = decal.p[0] + mp/2;
+		sprite.position.y = decal.p[1] + mp/2;
+		sprite.anchor.x = 0.5;
+		sprite.anchor.y = 0.5;
 		sprite.rotation = utils.radians(decal.a);
+		sprite.pivot.x = 0.5
+		sprite.pivot.y = 0.5;;
 		console.log(sprite.position, sprite.anchor, sprite.rotation, decal.a);
 		doc.addChild(sprite);
 	}, this);
