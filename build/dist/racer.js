@@ -15335,25 +15335,30 @@ var Renderer = require('../renderer'),
 	BaseScene = require('./base'),
 	World = require('../engine/world'),
 	cars = require('../../data/cars'),
-	controllers = require('../engine/controllers');
+	controllers = require('../engine/controllers'),
+	utils = require('../utils');
 
 var GameScene = module.exports = function GameScene(game) {
-	var level = require('../../data/levels/deathvalley');
+	var level = this.level = require('../../data/levels/deathvalley');
 	this.game = game;
 	this.world = new World(level.size);
 	this.renderer = new Renderer(game.container, null, this.world, level);
-	var car = this.world.spawn('car', {
-		x: 5,
-		y: 5,
-		sprite_filename: 'cars/thunderbolt_red.png',
-		angle: 1,
-		def: cars.generic,
-		_controller: new controllers.KeyboardController(this.game.input)
-	});
+	var car = this.spawnCar(cars.generic, new controllers.KeyboardController(this.game.input), 0);
 	this.renderer.follow(car);
 };
 
 util.inherits(GameScene, BaseScene);
+
+GameScene.prototype.spawnCar = function(definition, controller, start_position ) {
+	return this.world.spawn('car', {
+		x: this.level.start_positions[start_position].p[0] / this.world.SCALE + definition.physical_properties.width / 2,
+		y: this.level.start_positions[start_position].p[1] / this.world.SCALE + definition.physical_properties.length /2,
+		sprite_filename: 'cars/thunderbolt_red.png',
+		angle: utils.radians(this.level.start_positions[start_position].a),
+		def: definition,
+		_controller: controller
+	});
+};
 
 GameScene.prototype.tick = function(msDuration) {
 	this.world.update(msDuration);
@@ -15362,7 +15367,7 @@ GameScene.prototype.tick = function(msDuration) {
 
 
 
-},{"../../data/cars":2,"../../data/levels/deathvalley":3,"../engine/controllers":95,"../engine/world":107,"../renderer":111,"./base":112,"util":16}],114:[function(require,module,exports){
+},{"../../data/cars":2,"../../data/levels/deathvalley":3,"../engine/controllers":95,"../engine/world":107,"../renderer":111,"../utils":114,"./base":112,"util":16}],114:[function(require,module,exports){
 var box2d = require('box2dweb');
 
 box2d.b2Vec2 = box2d.Common.Math.b2Vec2;
