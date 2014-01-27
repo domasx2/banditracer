@@ -120,8 +120,6 @@ Renderer.renderBackgroundTexture = function(level){
 		sprite.anchor.x = 0.5;
 		sprite.anchor.y = 0.5;
 		sprite.rotation = utils.radians(decal.a);
-		sprite.pivot.x = 0.5
-		sprite.pivot.y = 0.5;
 		doc.addChild(sprite);
 	}, this);
 
