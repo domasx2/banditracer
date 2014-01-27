@@ -12,3 +12,11 @@ box2d.b2Vec2.prototype.dotProd = function(vec) {
 	//return (v1[0] * v2[0]) + (v1[1] * v2[1]);
 	return this.x * vec.x + this.y * vec.y;
 }
+
+exports.degrees = function(radians) {
+	return radians * (180 / Math.PI);
+};
+
+exports.radians = function(degrees) {
+	return degrees * (Math.PI / 180);
+};

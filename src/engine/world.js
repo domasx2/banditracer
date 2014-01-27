@@ -15,7 +15,7 @@ var World = module.exports = function World(size) {
 World.prototype.publish_event = function(event_name, data) {
 
 	//TODO: multiplayerize this s***
-	this.handle_event({
+	return this.handle_event({
 		event:event_name,
 		data: data,
 		ts: this.time
@@ -24,7 +24,7 @@ World.prototype.publish_event = function(event_name, data) {
 
 //API
 World.prototype.spawn = function(entity, properties) {
-	this.publish_event('spawn', {
+	return this.publish_event('spawn', {
 		entity: entity,
 		properties: this.serialize_props(properties)
 	});
@@ -48,7 +48,7 @@ World.prototype.update = function(msDuration) {
 //EVENT HANDLING
 World.prototype.handle_event = function(msg) {
 	if(this['handle_event_'+msg.event]) {
-		this['handle_event_'+msg.event](msg.data);
+		return this['handle_event_'+msg.event](msg.data);
 	} else {
 		throw new Error("world.handle_event unknown event ["+msg.event+"]");
 	}
@@ -65,6 +65,7 @@ World.prototype.handle_event_spawn = function(data) {
 	});
 
 	this.objects.add(e);
+	return e;
 };
 
 World.prototype.handle_event_destroy = function(data){

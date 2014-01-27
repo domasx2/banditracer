@@ -1,10 +1,14 @@
 var PIXI = require('pixi'),
-	$    = require('zepto-browserify').$;
+	$    = require('zepto-browserify').$,
+	utils = require('./utils');
 
-var Renderer = module.exports = function Renderer(container, size, world) {
+var Renderer = module.exports = function Renderer(container, size, world, level) {
 	this.world = world;
 	this.container = container; //DOM element\
 	this.drawable_cache = {};
+	this.level = level;
+
+	this.follow_target = null;
 
 	//initialize size
 	size = size || [container.width(), container.height()]; // [width,height]
@@ -18,7 +22,7 @@ var Renderer = module.exports = function Renderer(container, size, world) {
 	this.stage.addChild(this.object_container);
 
 	//init background
-	var bgtexture = Renderer.renderBackgroundTexture("assets/images/backgrounds/sand.png", this.world.size);
+	var bgtexture = Renderer.renderBackgroundTexture(level);
 	var background = new PIXI.Sprite(bgtexture);
 	this.object_container.addChild(background);
 
@@ -34,7 +38,25 @@ var Renderer = module.exports = function Renderer(container, size, world) {
     }, this);
 };
 
+Renderer.prototype.follow = function(object){
+	this.follow_target = object;
+};
+
+Renderer.prototype.updateOffset = function(){
+	if(this.follow_target && this.follow_target.get_position_px) {
+		pos = this.follow_target.get_position_px()
+		console.log(pos, this.size);
+		var x = Math.max(Math.min(pos[0] - this.size[0] / 2, this.world.size[0] - this.size[0]), 0);
+		var y = Math.max(Math.min(pos[1] - this.size[1] / 2, this.world.size[1] - this.size[1]), 0);
+		this.object_container.position.x = -x;
+		this.object_container.position.y = -y;
+	}
+};
+
+
 Renderer.prototype.render = function (msDuration) {
+	this.updateOffset();
+
 	//render all drawable objects
 	this.world.objects.each(function(obj){
 		if(obj.is('drawable')) {
@@ -51,14 +73,15 @@ Renderer.prototype.render = function (msDuration) {
 };
 
 
-Renderer.renderBackgroundTexture = function(texture, size){
+Renderer.renderBackgroundTexture = function(level){
 	//STATIC render background
 	var doc = new PIXI.DisplayObjectContainer();
+	var texture = PIXI.Texture.fromImage('assets/images/backgrounds/'+level.bgtile);
 	var sprite; 
 	var x=0, y=0;
-	while(x<size[0]){
-		while(y<size[1]){
-			sprite = new PIXI.Sprite(new PIXI.Texture.fromImage(texture));
+	while(x<level.size[0]){
+		while(y<level.size[1]){
+			sprite = new PIXI.Sprite(texture);
 			sprite.position.x = x;
 			sprite.position.y = y;
 			doc.addChild(sprite);
@@ -67,7 +90,19 @@ Renderer.renderBackgroundTexture = function(texture, size){
 		x+= sprite.width;
 		y=0;
 	}
-	var renderTexture = new PIXI.RenderTexture(size[0], size[1]);
+	
+
+	level.decals.forEach(function(decal){
+		texture = PIXI.Texture.fromImage('assets/images/decals/'+level.dict[decal.f]);
+		sprite = new PIXI.Sprite(texture);
+		sprite.position.x = decal.p[0];
+		sprite.position.y = decal.p[1];
+		sprite.rotation = utils.radians(decal.a);
+		console.log(sprite.position, sprite.anchor, sprite.rotation, decal.a);
+		doc.addChild(sprite);
+	}, this);
+
+	var renderTexture = new PIXI.RenderTexture(level.size[0], level.size[1]);
 	renderTexture.render(doc);
 	return renderTexture;
 };

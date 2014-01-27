@@ -16,6 +16,10 @@ m.c('physical', {
 		this._body = this.create_body();
 	},
 
+	get_position_px: function () {
+		return [this.x * this._world.SCALE, this.y * this._world.SCALE];
+	},
+
 
 	on_destroy_destroy_body: function () {
 		this.world.b2world.DestroyBody(this._body);
