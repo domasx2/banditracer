@@ -1,1 +1,2 @@
 require('./car');
+require('./prop');

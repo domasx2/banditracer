@@ -52,10 +52,9 @@ Renderer.prototype.follow = function(object){
 };
 
 Renderer.prototype.updateOffset = function(){
-	if(this.follow_target && this.follow_target.get_position_px) {
-		pos = this.follow_target.get_position_px();
-		var x = Math.max(Math.min(pos[0] - this.size[0] / 2, this.world.size[0] - this.size[0]), 0);
-		var y = Math.max(Math.min(pos[1] - this.size[1] / 2, this.world.size[1] - this.size[1]), 0);
+	if(this.follow_target && this.follow_target.x !== undefined && this.follow_target.y !== undefined) {
+		var x = Math.max(Math.min(this.follow_target.x - this.size[0] / 2, this.world.size[0] - this.size[0]), 0);
+		var y = Math.max(Math.min(this.follow_target.y - this.size[1] / 2, this.world.size[1] - this.size[1]), 0);
 		this.object_container.position.x = -x;
 		this.object_container.position.y = -y;
 	}
@@ -91,7 +90,7 @@ Renderer.adjustLevelPos = function (size, pos) {
 };
 
 Renderer.renderBackgroundTexture = function(level){
-	//STATIC render background
+	//add background
 	var doc = new PIXI.DisplayObjectContainer();
 	var texture = PIXI.Texture.fromImage('assets/images/backgrounds/'+level.bgtile);
 	var sprite; 
@@ -108,20 +107,22 @@ Renderer.renderBackgroundTexture = function(level){
 		x+= sprite.width;
 		y=0;
 	}
-	
 
-	level.decals.forEach(function(decal){
-		texture = PIXI.Texture.fromImage('assets/images/decals/'+level.dict[decal.f]);
+	var renderObj = function(obj, folder) {
+		texture = PIXI.Texture.fromImage('assets/images/'+folder+'/'+level.dict[obj.f]);
 		sprite = new PIXI.Sprite(texture);
-		//pos = Renderer.adjustLevelPos([sprite.width, sprite.height], decal.p);
+		//pos = Renderer.adjustLevelPos([sprite.width, sprite.height], obj.p);
 		var mp = Math.max(sprite.width, sprite.height);
-		sprite.position.x = decal.p[0] + mp/2;
-		sprite.position.y = decal.p[1] + mp/2;
+		sprite.position.x = obj.p[0] + mp/2;
+		sprite.position.y = obj.p[1] + mp/2;
 		sprite.anchor.x = 0.5;
 		sprite.anchor.y = 0.5;
-		sprite.rotation = utils.radians(decal.a);
+		sprite.rotation = utils.radians(obj.a);
 		doc.addChild(sprite);
-	}, this);
+	}
+	
+	level.decals.forEach(function(obj){renderObj(obj, 'decals');});
+	level.props.forEach(function(obj){renderObj(obj, 'props');});
 
 	var renderTexture = new PIXI.RenderTexture(level.size[0], level.size[1]);
 	renderTexture.render(doc);

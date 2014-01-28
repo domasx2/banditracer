@@ -6,8 +6,8 @@ var generic = {
 	sprite_name: 'cars/thunderbolt_red.png',
 
 	physical_properties: { 
-		width: 2,
-		length: 4,
+		width: 1.4,
+		length: 3.26,
 
 		//general physics properties
 		linearDamping: 0.15,

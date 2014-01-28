@@ -24,7 +24,7 @@ m.c('car', {
 		 //initialize body
 	    var def = new box2d.Dynamics.b2BodyDef();
 	    def.type = box2d.Dynamics.b2Body.b2_dynamicBody;
-	    def.position = new box2d.b2Vec2(this.x, this.y);
+	    def.position = new box2d.b2Vec2(this.x / this._world.SCALE, this.y / this._world.SCALE);
 	    def.angle = this.angle; 
 	    def.linearDamping - this.def.physical_properties.linearDamping; 
 	    def.bullet = true; 

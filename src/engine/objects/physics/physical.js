@@ -16,11 +16,6 @@ m.c('physical', {
 		this._body = this.create_body();
 	},
 
-	get_position_px: function () {
-		return [this.x * this._world.SCALE, this.y * this._world.SCALE];
-	},
-
-
 	on_destroy_destroy_body: function () {
 		this.world.b2world.DestroyBody(this._body);
 	},
@@ -29,14 +24,14 @@ m.c('physical', {
 	//relay position & angle to body & vice versa
 	on_update_update_body: function () {
 		if(this._pos_dirty) {
-			this._body.SetTransform(new box2d.b2Vec(this.x, this.y), this.angle);
+			this._body.SetTransform(new box2d.b2Vec(this.x / this._world.SCALE, this.y / this._world.SCALE), this.angle);
 		}
 	},
 
 	on_update_after_physics_update_position: function () {
 		var pos = this._body.GetPosition();
-		this.x = pos.x;
-		this.y = pos.y;
+		this.x = pos.x * this._world.SCALE;
+		this.y = pos.y * this._world.SCALE;
 		this.angle = this._body.GetAngle();
 		this._pos_dirty = false;
 	},
@@ -81,8 +76,8 @@ m.c('physical', {
 
 	//render
 	on_render_set_position: function(drawable) {
-		drawable.position.x = this.x * this._world.SCALE;
-		drawable.position.y = this.y * this._world.SCALE;
+		drawable.position.x = this.x;
+		drawable.position.y = this.y;
 		drawable.rotation  = this.angle;
 	}
 });

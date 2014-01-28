@@ -1,5 +1,5 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-exports.images=["assets/images/generic/sprite_placeholder.png","assets/images/backgrounds/snow.png","assets/images/backgrounds/grass.png","assets/images/backgrounds/sand.png","assets/images/cars/thunderbolt_blue.png","assets/images/cars/thunderbolt_yellow.png","assets/images/cars/thunderbolt_green.png","assets/images/cars/thunderbolt_red.png","assets/images/decals/siauras.png","assets/images/decals/lenktas.png","assets/images/decals/siaurejantis2.png","assets/images/decals/issisakojimas.png","assets/images/decals/uglyduckling.png","assets/images/decals/siaurejantis1.png","assets/images/decals/arrow5.png","assets/images/decals/sonaslenktas2.png","assets/images/decals/paprastas.png","assets/images/decals/arrow3.png","assets/images/decals/startbar.png","assets/images/decals/sonaslenktas1.png","assets/images/decals/arrow2.png","assets/images/decals/arrow.png","assets/images/decals/siaurasiplatu.png","assets/images/decals/arrow4.png","assets/images/decals/trumpas.png","assets/images/decals/white_bar.png","assets/images/decals/dideliskampas.png","assets/images/decals/susikerta.png","assets/images/decals/ilgas.png","assets/images/decals/kryzius.png"];
+exports.images=["assets/images/generic/sprite_placeholder.png","assets/images/backgrounds/snow.png","assets/images/backgrounds/grass.png","assets/images/backgrounds/sand.png","assets/images/cars/thunderbolt_blue.png","assets/images/cars/thunderbolt_yellow.png","assets/images/cars/thunderbolt_green.png","assets/images/cars/thunderbolt_red.png","assets/images/decals/siauras.png","assets/images/decals/lenktas.png","assets/images/decals/siaurejantis2.png","assets/images/decals/issisakojimas.png","assets/images/decals/uglyduckling.png","assets/images/decals/siaurejantis1.png","assets/images/decals/arrow5.png","assets/images/decals/sonaslenktas2.png","assets/images/decals/paprastas.png","assets/images/decals/arrow3.png","assets/images/decals/startbar.png","assets/images/decals/sonaslenktas1.png","assets/images/decals/arrow2.png","assets/images/decals/arrow.png","assets/images/decals/siaurasiplatu.png","assets/images/decals/arrow4.png","assets/images/decals/trumpas.png","assets/images/decals/white_bar.png","assets/images/decals/dideliskampas.png","assets/images/decals/susikerta.png","assets/images/decals/ilgas.png","assets/images/decals/kryzius.png","assets/images/props/3tires.png","assets/images/props/9tires.png","assets/images/props/tire.png"];
 },{}],2:[function(require,module,exports){
 var extend = require('xtend');
 
@@ -9,8 +9,8 @@ var generic = {
 	sprite_name: 'cars/thunderbolt_red.png',
 
 	physical_properties: { 
-		width: 2,
-		length: 4,
+		width: 1.4,
+		length: 3.26,
 
 		//general physics properties
 		linearDamping: 0.15,
@@ -14654,7 +14654,7 @@ m.c('base', {
 
 	}
 });
-},{"./index":104}],98:[function(require,module,exports){
+},{"./index":105}],98:[function(require,module,exports){
 var m = require('../index'),
 	PIXI = require('pixi');
 
@@ -14675,7 +14675,7 @@ m.c('drawable', {
 		this.create_drawable();
 	}
 });
-},{"../index":104,"pixi":54}],99:[function(require,module,exports){
+},{"../index":105,"pixi":54}],99:[function(require,module,exports){
 var m = require('../index'),
 	PIXI = require('pixi');
 
@@ -14691,7 +14691,7 @@ m.c('drawable_sprite', {
 		return sprite;
 	}
 });
-},{"../index":104,"pixi":54}],100:[function(require,module,exports){
+},{"../index":105,"pixi":54}],100:[function(require,module,exports){
 require('./drawable');
 require('./drawable_sprite');
 },{"./drawable":98,"./drawable_sprite":99}],101:[function(require,module,exports){
@@ -14721,7 +14721,7 @@ m.c('car', {
 		 //initialize body
 	    var def = new box2d.Dynamics.b2BodyDef();
 	    def.type = box2d.Dynamics.b2Body.b2_dynamicBody;
-	    def.position = new box2d.b2Vec2(this.x, this.y);
+	    def.position = new box2d.b2Vec2(this.x / this._world.SCALE, this.y / this._world.SCALE);
 	    def.angle = this.angle; 
 	    def.linearDamping - this.def.physical_properties.linearDamping; 
 	    def.bullet = true; 
@@ -14818,10 +14818,36 @@ m.c('car', {
 		
 	}
 });
-},{"../../constants":93,"../index":104,"./wheel":103,"box2dweb":4,"xtend":86}],102:[function(require,module,exports){
+},{"../../constants":93,"../index":105,"./wheel":104,"box2dweb":4,"xtend":86}],102:[function(require,module,exports){
 require('./car');
+require('./prop');
 
-},{"./car":101}],103:[function(require,module,exports){
+},{"./car":101,"./prop":103}],103:[function(require,module,exports){
+var m = require('../index'),
+	box2d = require('box2dweb');
+
+m.c('prop', {
+
+	requires:'base physical',// drawable_sprite',
+
+	create_body: function () {
+		var def = new box2d.Dynamics.b2BodyDef();
+		def.position = new box2d.b2Vec2(this.x / this._world.SCALE, this.y / this._world.SCALE);
+		def.angle = this.angle;
+		def.fixedRotation = true;
+		var body = this._world.b2world.CreateBody(def);
+
+		var fixdef = new box2d.Dynamics.b2FixtureDef();
+		fixdef.restitution = 0.4;
+		fixdef.shape = new box2d.Collision.Shapes.b2PolygonShape;
+		fixdef.shape.SetAsBox(this.width / 2, this.length /2);
+		body.CreateFixture(fixdef);
+		return body;
+	},  
+
+	on_update_after_physics_update_position: function(){}
+});
+},{"../index":105,"box2dweb":4}],104:[function(require,module,exports){
 var box2d = require('box2dweb');
 
 var Wheel = module.exports =  function(pars){
@@ -14913,7 +14939,7 @@ Wheel.prototype.killSidewaysVelocity=function(){
 
 };
 
-},{"box2dweb":4}],104:[function(require,module,exports){
+},{"box2dweb":4}],105:[function(require,module,exports){
 var CEM = require('cem');
 module.exports = new CEM.Manager();
 
@@ -14921,9 +14947,9 @@ require('./base');
 require('./drawables');
 require('./physics');
 require('./game');
-},{"./base":97,"./drawables":100,"./game":102,"./physics":105,"cem":9}],105:[function(require,module,exports){
+},{"./base":97,"./drawables":100,"./game":102,"./physics":106,"cem":9}],106:[function(require,module,exports){
 require('./physical');
-},{"./physical":106}],106:[function(require,module,exports){
+},{"./physical":107}],107:[function(require,module,exports){
 var m = require('../index'),
 	box2d = require('box2dweb');
 
@@ -14942,11 +14968,6 @@ m.c('physical', {
 		this._body = this.create_body();
 	},
 
-	get_position_px: function () {
-		return [this.x * this._world.SCALE, this.y * this._world.SCALE];
-	},
-
-
 	on_destroy_destroy_body: function () {
 		this.world.b2world.DestroyBody(this._body);
 	},
@@ -14955,14 +14976,14 @@ m.c('physical', {
 	//relay position & angle to body & vice versa
 	on_update_update_body: function () {
 		if(this._pos_dirty) {
-			this._body.SetTransform(new box2d.b2Vec(this.x, this.y), this.angle);
+			this._body.SetTransform(new box2d.b2Vec(this.x / this._world.SCALE, this.y / this._world.SCALE), this.angle);
 		}
 	},
 
 	on_update_after_physics_update_position: function () {
 		var pos = this._body.GetPosition();
-		this.x = pos.x;
-		this.y = pos.y;
+		this.x = pos.x * this._world.SCALE;
+		this.y = pos.y * this._world.SCALE;
 		this.angle = this._body.GetAngle();
 		this._pos_dirty = false;
 	},
@@ -15007,15 +15028,16 @@ m.c('physical', {
 
 	//render
 	on_render_set_position: function(drawable) {
-		drawable.position.x = this.x * this._world.SCALE;
-		drawable.position.y = this.y * this._world.SCALE;
+		drawable.position.x = this.x;
+		drawable.position.y = this.y;
 		drawable.rotation  = this.angle;
 	}
 });
-},{"../index":104,"box2dweb":4}],107:[function(require,module,exports){
+},{"../index":105,"box2dweb":4}],108:[function(require,module,exports){
 var manager = require('./objects'),
 	CEM = require('cem'),
-	box2d = require('box2dweb');
+	box2d = require('box2dweb'),
+	utils = require('../utils');
 
 var World = module.exports = function World(size) {
 	this.size = size;
@@ -15089,6 +15111,34 @@ World.prototype.handle_event_destroy = function(data){
 
 
 //UTILS
+World.prototype.loadPropsFromLevel = function(level) {
+	level.props.forEach(function(prop){
+		var texture = level.dict[prop.f];
+		var dims;
+		//TODO: add dimensions to level format
+		if(texture === '9tires.png') {
+			dims = [29, 269];
+		} else if (texture === '3tires.png') {
+			dims = [29, 89];
+		} else if(texture === 'tire.png') {
+			dims = [29, 29];
+		} else {
+			throw new Error('loadPropsFromLevel: unknown prop ['+texture+']');
+		}
+		this.handle_event_spawn({
+			entity: 'prop',
+			properties: {
+				sprite_filename: 'props/'+level.dict[prop.f],
+				x: prop.p[0] + dims[1] / 2,
+				y: prop.p[1] + dims[1] / 2,
+				angle: utils.radians(prop.a),
+				width: dims[0] / this.SCALE,
+				length: dims[1] / this.SCALE
+			}
+		});
+	}, this);
+},
+
 World.prototype.serialize_props = function(properties) {
 	var retv = {}, val, self = this;
 	Object.keys(properties).forEach(function(key) {
@@ -15126,7 +15176,7 @@ World.prototype.deserialize_props = function(properties) {
 
 	
 
-},{"./objects":104,"box2dweb":4,"cem":9}],108:[function(require,module,exports){
+},{"../utils":115,"./objects":105,"box2dweb":4,"cem":9}],109:[function(require,module,exports){
 var Director = require('./director'),
 	GameScene = require('./scenes/game'),
 	PIXI = require('pixi'),
@@ -15166,7 +15216,7 @@ Game.prototype.initAndRun = function () {
 		self.start();
 	});
 };
-},{"../data/assets":1,"./director":92,"./input":109,"./scenes/game":113,"./utils":114,"pixi":54,"zepto-browserify":91}],109:[function(require,module,exports){
+},{"../data/assets":1,"./director":92,"./input":110,"./scenes/game":114,"./utils":115,"pixi":54,"zepto-browserify":91}],110:[function(require,module,exports){
 $    = require('zepto-browserify').$;
 
 var Input = module.exports = function () {
@@ -15186,9 +15236,9 @@ Input.prototype.onKeyUp = function(e) {
 Input.prototype.isDown = function(key) {
 	return this.keys_down[key] !== undefined ? this.keys_down[key] : false;
 };
-},{"zepto-browserify":91}],110:[function(require,module,exports){
+},{"zepto-browserify":91}],111:[function(require,module,exports){
 window.Racer = require('./game');
-},{"./game":108}],111:[function(require,module,exports){
+},{"./game":109}],112:[function(require,module,exports){
 var PIXI = require('pixi'),
 	$    = require('zepto-browserify').$,
 	utils = require('./utils');
@@ -15243,10 +15293,9 @@ Renderer.prototype.follow = function(object){
 };
 
 Renderer.prototype.updateOffset = function(){
-	if(this.follow_target && this.follow_target.get_position_px) {
-		pos = this.follow_target.get_position_px();
-		var x = Math.max(Math.min(pos[0] - this.size[0] / 2, this.world.size[0] - this.size[0]), 0);
-		var y = Math.max(Math.min(pos[1] - this.size[1] / 2, this.world.size[1] - this.size[1]), 0);
+	if(this.follow_target && this.follow_target.x !== undefined && this.follow_target.y !== undefined) {
+		var x = Math.max(Math.min(this.follow_target.x - this.size[0] / 2, this.world.size[0] - this.size[0]), 0);
+		var y = Math.max(Math.min(this.follow_target.y - this.size[1] / 2, this.world.size[1] - this.size[1]), 0);
 		this.object_container.position.x = -x;
 		this.object_container.position.y = -y;
 	}
@@ -15282,7 +15331,7 @@ Renderer.adjustLevelPos = function (size, pos) {
 };
 
 Renderer.renderBackgroundTexture = function(level){
-	//STATIC render background
+	//add background
 	var doc = new PIXI.DisplayObjectContainer();
 	var texture = PIXI.Texture.fromImage('assets/images/backgrounds/'+level.bgtile);
 	var sprite; 
@@ -15299,20 +15348,22 @@ Renderer.renderBackgroundTexture = function(level){
 		x+= sprite.width;
 		y=0;
 	}
-	
 
-	level.decals.forEach(function(decal){
-		texture = PIXI.Texture.fromImage('assets/images/decals/'+level.dict[decal.f]);
+	var renderObj = function(obj, folder) {
+		texture = PIXI.Texture.fromImage('assets/images/'+folder+'/'+level.dict[obj.f]);
 		sprite = new PIXI.Sprite(texture);
-		//pos = Renderer.adjustLevelPos([sprite.width, sprite.height], decal.p);
+		//pos = Renderer.adjustLevelPos([sprite.width, sprite.height], obj.p);
 		var mp = Math.max(sprite.width, sprite.height);
-		sprite.position.x = decal.p[0] + mp/2;
-		sprite.position.y = decal.p[1] + mp/2;
+		sprite.position.x = obj.p[0] + mp/2;
+		sprite.position.y = obj.p[1] + mp/2;
 		sprite.anchor.x = 0.5;
 		sprite.anchor.y = 0.5;
-		sprite.rotation = utils.radians(decal.a);
+		sprite.rotation = utils.radians(obj.a);
 		doc.addChild(sprite);
-	}, this);
+	}
+	
+	level.decals.forEach(function(obj){renderObj(obj, 'decals');});
+	level.props.forEach(function(obj){renderObj(obj, 'props');});
 
 	var renderTexture = new PIXI.RenderTexture(level.size[0], level.size[1]);
 	renderTexture.render(doc);
@@ -15321,7 +15372,7 @@ Renderer.renderBackgroundTexture = function(level){
 
 
 
-},{"./utils":114,"pixi":54,"zepto-browserify":91}],112:[function(require,module,exports){
+},{"./utils":115,"pixi":54,"zepto-browserify":91}],113:[function(require,module,exports){
 var BaseScene = module.exports = function BaseScene(game) {
 
 };
@@ -15329,7 +15380,7 @@ var BaseScene = module.exports = function BaseScene(game) {
 BaseScene.prototype.tick = function(msDuration) {
 	console.log('BaseScene.tick');
 };
-},{}],113:[function(require,module,exports){
+},{}],114:[function(require,module,exports){
 var Renderer = require('../renderer'),
 	util = require('util'),
 	BaseScene = require('./base'),
@@ -15342,6 +15393,7 @@ var GameScene = module.exports = function GameScene(game) {
 	var level = this.level = require('../../data/levels/deathvalley');
 	this.game = game;
 	this.world = new World(level.size);
+	this.world.loadPropsFromLevel(level);
 	this.renderer = new Renderer(game.container, null, this.world, level);
 	var car = this.spawnCar(cars.generic, new controllers.KeyboardController(this.game.input), 0);
 	this.renderer.follow(car);
@@ -15351,8 +15403,8 @@ util.inherits(GameScene, BaseScene);
 
 GameScene.prototype.spawnCar = function(definition, controller, start_position ) {
 	return this.world.spawn('car', {
-		x: this.level.start_positions[start_position].p[0] / this.world.SCALE + definition.physical_properties.width / 2,
-		y: this.level.start_positions[start_position].p[1] / this.world.SCALE + definition.physical_properties.length /2,
+		x: this.level.start_positions[start_position].p[0] + (definition.physical_properties.width * this.world.SCALE) / 2,
+		y: this.level.start_positions[start_position].p[1] + (definition.physical_properties.length * this.world.SCALE) /2,
 		sprite_filename: 'cars/thunderbolt_red.png',
 		angle: utils.radians(this.level.start_positions[start_position].a),
 		def: definition,
@@ -15367,7 +15419,7 @@ GameScene.prototype.tick = function(msDuration) {
 
 
 
-},{"../../data/cars":2,"../../data/levels/deathvalley":3,"../engine/controllers":95,"../engine/world":107,"../renderer":111,"../utils":114,"./base":112,"util":16}],114:[function(require,module,exports){
+},{"../../data/cars":2,"../../data/levels/deathvalley":3,"../engine/controllers":95,"../engine/world":108,"../renderer":112,"../utils":115,"./base":113,"util":16}],115:[function(require,module,exports){
 var box2d = require('box2dweb');
 
 box2d.b2Vec2 = box2d.Common.Math.b2Vec2;
@@ -15390,4 +15442,4 @@ exports.degrees = function(radians) {
 exports.radians = function(degrees) {
 	return degrees * (Math.PI / 180);
 };
-},{"box2dweb":4}]},{},[110])
+},{"box2dweb":4}]},{},[111])

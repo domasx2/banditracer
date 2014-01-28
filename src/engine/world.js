@@ -1,6 +1,7 @@
 var manager = require('./objects'),
 	CEM = require('cem'),
-	box2d = require('box2dweb');
+	box2d = require('box2dweb'),
+	utils = require('../utils');
 
 var World = module.exports = function World(size) {
 	this.size = size;
@@ -74,6 +75,34 @@ World.prototype.handle_event_destroy = function(data){
 
 
 //UTILS
+World.prototype.loadPropsFromLevel = function(level) {
+	level.props.forEach(function(prop){
+		var texture = level.dict[prop.f];
+		var dims;
+		//TODO: add dimensions to level format
+		if(texture === '9tires.png') {
+			dims = [29, 269];
+		} else if (texture === '3tires.png') {
+			dims = [29, 89];
+		} else if(texture === 'tire.png') {
+			dims = [29, 29];
+		} else {
+			throw new Error('loadPropsFromLevel: unknown prop ['+texture+']');
+		}
+		this.handle_event_spawn({
+			entity: 'prop',
+			properties: {
+				sprite_filename: 'props/'+level.dict[prop.f],
+				x: prop.p[0] + dims[1] / 2,
+				y: prop.p[1] + dims[1] / 2,
+				angle: utils.radians(prop.a),
+				width: dims[0] / this.SCALE,
+				length: dims[1] / this.SCALE
+			}
+		});
+	}, this);
+},
+
 World.prototype.serialize_props = function(properties) {
 	var retv = {}, val, self = this;
 	Object.keys(properties).forEach(function(key) {
