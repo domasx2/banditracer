@@ -1,5 +1,4 @@
 var PIXI = require('pixi'),
-	$    = require('zepto-browserify').$,
 	utils = require('./utils');
 
 var Renderer = module.exports = function Renderer(container, size, world, level) {

@@ -7,16 +7,25 @@ var Renderer = require('../renderer'),
 	utils = require('../utils');
 
 var GameScene = module.exports = function GameScene(game) {
-	var level = this.level = require('../../data/levels/deathvalley');
 	this.game = game;
-	this.world = new World(level.size);
-	this.world.loadPropsFromLevel(level);
-	this.renderer = new Renderer(game.container, null, this.world, level);
+	var level = this.level = require('../../data/levels/deathvalley');
+	this.initWorld();
+	this.initRenderer();
 	var car = this.spawnCar(cars.generic, new controllers.KeyboardController(this.game.input), 0);
 	this.renderer.follow(car);
 };
 
 util.inherits(GameScene, BaseScene);
+
+GameScene.prototype.initWorld = function(level) {
+	this.world = new World(this.level.size);
+	this.world.loadPropsFromLevel(this.level);
+	
+};
+
+GameScene.prototype.initRenderer = function () {
+	this.renderer = new Renderer(game.container, null, this.world, this.level);
+};
 
 GameScene.prototype.spawnCar = function(definition, controller, start_position ) {
 	return this.world.spawn('car', {

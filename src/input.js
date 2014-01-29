@@ -1,5 +1,3 @@
-$    = require('zepto-browserify').$;
-
 var Input = module.exports = function () {
 	this.keys_down = {};
 	$('body').on('keydown', $.proxy(this.onKeyDown, this));

@@ -33,7 +33,13 @@
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <div id="container"></div>
-        <script src="build/dist/racer.js"></script>
+        <link rel="stylesheet" type="text/css" href="build//style.css">
+        <script src="lib/zepto.min.js"></script>
+        <script src="lib/underscore.min.js"></script>
+        <script src="lib/backbone.min.js"></script>
+        <script src="lib/handlebars.runtime.js"></script>
+        <script src="build/templates.js"></script>
+        <script src="build/racer.js"></script>
         <script src="http://localhost:35729/livereload.js"></script>
         <script>
             var game = new Racer('#container');

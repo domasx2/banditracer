@@ -1,5 +1,4 @@
 var util = require('util'),
-	$    = require('zepto-browserify').$
 	BaseController = require('./base-controller');
 
 var KeyboardController = module.exports= function (input, bindings) {

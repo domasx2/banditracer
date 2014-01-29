@@ -3,7 +3,6 @@ var Director = require('./director'),
 	PIXI = require('pixi'),
 	assets = require('../data/assets'),
 	utils = require('./utils'),
-	$    = require('zepto-browserify').$,
 	Input = require('./input');
 
 var Game = module.exports = function Game(container) {

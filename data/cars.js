@@ -23,8 +23,8 @@ var generic = {
 
 	//car characteristics
 	max_steer_angle: 0.35,
-	max_speed: 100,
-	power: 60
+	max_speed: 90,
+	power: 50
 };
 	
 
