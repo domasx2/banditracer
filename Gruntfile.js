@@ -43,7 +43,7 @@ module.exports = function(grunt) {
             },
             livereload: {
                 options: { livereload: true },
-                files: ['build/**/*']
+                files: ['build/*', 'build/**/*']
             },
             options: {
                 spawn: false
@@ -52,6 +52,7 @@ module.exports = function(grunt) {
         connect: {
             server: {
               options: {
+                hostname: "*",
                 port: 9000,
                 keepalive: true
               }

@@ -5,6 +5,8 @@ m.c('prop', {
 
 	requires:'base physical',// drawable_sprite',
 
+	_sync: false,
+
 	create_body: function () {
 		var def = new box2d.Dynamics.b2BodyDef();
 		def.position = new box2d.b2Vec2(this.x / this._world.SCALE, this.y / this._world.SCALE);

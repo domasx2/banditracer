@@ -20,6 +20,19 @@ module.exports = function(grunt) {
         process('assets/images');
 
         fs.writeFileSync('data/assets.js', 'exports.images='+JSON.stringify(assets)+';');
+
+
+        var files = fs.readdirSync('data/levels');
+        var levels = [];
+        files.forEach(function(fname){
+            if(fname != 'index.js') {
+                levels.push(fname.replace('.js', ''));
+            }
+        });
+        fs.writeFileSync('data/levels/index.js', levels.map(function(x){
+            return 'exports["'+x+'"] = require("./'+x+'.js");';
+        }).join('\n'));
+
         done();
 
     });

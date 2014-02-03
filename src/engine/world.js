@@ -3,24 +3,35 @@ var manager = require('./objects'),
 	box2d = require('box2dweb'),
 	utils = require('../utils');
 
-var World = module.exports = function World(size) {
+var World = module.exports = function World(size, slave) {
+	this.slave = slave;
 	this.size = size;
 	this.SCALE = 15; //pixes in meter
 	this.manager = manager.clone();
 	this.objects = this.manager.e('collection');
 	this.time = 0;
 	this.b2world = new box2d.Dynamics.b2World(new box2d.b2Vec2(0, 0), false);
+	this.event_no = 0;
+	this.events = {};
+	this.spawn_events = {};
 };
 
 
 World.prototype.publish_event = function(event_name, data) {
-
+	if(this.slave) {
+		return;
+	}
 	//TODO: multiplayerize this s***
-	return this.handle_event({
-		event:event_name,
-		data: data,
-		ts: this.time
-	});
+	var evt = {
+		n:     ++this.event_no,
+		event: event_name,
+		data:  data,
+		ts:    this.time
+	};
+	if(!(event_name === 'spawn' && data.entity === 'prop')){
+		this.events[evt.no] = evt;
+	}
+	return this.handle_event(evt);
 };
 
 //API
@@ -46,19 +57,27 @@ World.prototype.update = function(msDuration) {
 	}, this);
 };
 
+World.prototype.handle_event_destroy = function(msg){
+	var obj = this.objects.get(msg.data.id);
+	if(obj) {
+		obj.destroy();
+	}
+};
+
 //EVENT HANDLING
 World.prototype.handle_event = function(msg) {
 	if(this['handle_event_'+msg.event]) {
-		return this['handle_event_'+msg.event](msg.data);
+		return this['handle_event_'+msg.event](msg);
 	} else {
 		throw new Error("world.handle_event unknown event ["+msg.event+"]");
 	}
 };
 
-World.prototype.handle_event_spawn = function(data) {
+World.prototype.handle_event_spawn = function(msg) {
+	var data = msg.data;
 	var props = this.deserialize_props(data.properties), self = this;
 	props._world = this;
-	console.log('world:spawn ['+data.entity+']', props);
+	//console.log('world:spawn ['+data.entity+']', props);
 	var e = this.manager.e(data.entity, props);
 	
 	e.on('destroy', function(){
@@ -66,13 +85,10 @@ World.prototype.handle_event_spawn = function(data) {
 	});
 
 	this.objects.add(e);
+	this.spawn_events[e.id] = msg;
+	msg.data.properties.id = e.id;
 	return e;
 };
-
-World.prototype.handle_event_destroy = function(data){
-	console.log('world:destroy ['+data.id+']');
-};
-
 
 //UTILS
 World.prototype.loadPropsFromLevel = function(level) {
@@ -89,16 +105,13 @@ World.prototype.loadPropsFromLevel = function(level) {
 		} else {
 			throw new Error('loadPropsFromLevel: unknown prop ['+texture+']');
 		}
-		this.handle_event_spawn({
-			entity: 'prop',
-			properties: {
-				sprite_filename: 'props/'+level.dict[prop.f],
-				x: prop.p[0] + dims[1] / 2,
-				y: prop.p[1] + dims[1] / 2,
-				angle: utils.radians(prop.a),
-				width: dims[0] / this.SCALE,
-				length: dims[1] / this.SCALE
-			}
+		this.spawn('prop', {
+			sprite_filename: 'props/'+level.dict[prop.f],
+			x: prop.p[0] + dims[1] / 2,
+			y: prop.p[1] + dims[1] / 2,
+			angle: utils.radians(prop.a),
+			width: dims[0] / this.SCALE,
+			length: dims[1] / this.SCALE
 		});
 	}, this);
 },

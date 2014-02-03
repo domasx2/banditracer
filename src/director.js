@@ -24,7 +24,7 @@ Director.prototype.tick = function (timestamp) {
 	var msDuration = this.prev_ts && timestamp ? timestamp - this.prev_ts: 0;
 	this.prev_ts = timestamp;
 	if(this.running) {
-		if(this.scene) {
+		if(this.scene && this.scene.tick) {
 			this.scene.tick(msDuration);
 		}
 		var self = this;

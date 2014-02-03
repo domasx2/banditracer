@@ -1,5 +1,5 @@
 var Director = require('./director'),
-	GameScene = require('./scenes/game'),
+	scenes = require('./scenes');
 	PIXI = require('pixi'),
 	assets = require('../data/assets'),
 	utils = require('./utils'),
@@ -19,9 +19,17 @@ Game.prototype.loadAssets = function(onProgress, onComplete) {
 	loader.load();
 };
 
+Game.prototype.setScene = function(name, options) {
+	if(scenes[name]) {
+		this.director.setScene(new scenes[name](this, options));
+	} else {
+		throw new Error('Scene ['+name+'] not found!');
+	}
+};
+
 Game.prototype.start = function () {
 	this.director = new Director();
-	this.director.setScene(new GameScene(this));
+	this.setScene('main');
 	this.director.start();
 };
 

@@ -1,1 +1,9 @@
-p hello
+h1 Bandit Racer
+
+ul.menu
+	li.play
+		button data-action="play" Play
+	li.multiplayer
+		input type="text" placeholder="Enter game ID" name="game-id" 
+		button data-action="host" Host 
+		button data-action="join" Join
