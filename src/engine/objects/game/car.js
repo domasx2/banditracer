@@ -11,10 +11,11 @@ m.c('car', {
 
 	wheel_angle: 0,
 
-	controls: {
-		steer: constants.CONTROLS.STEER.NONE, //-1 left, 0 none, 1 right
-		acc: constants.CONTROLS.ACC.NONE //-1 reverse/brake, 0 none, 1 accelerate
+	_default_controls: {
+		acceleration: 0,
+		steer: 0
 	},
+
 
 	bootstrap: function () {
 		this._wheels = [];
@@ -62,8 +63,8 @@ m.c('car', {
 	on_update_car: function(msDuration) {
 
 		if(this._controller) {
-			this.controls.steer = this._controller.get_steer();
-			this.controls.acc = this._controller.get_acceleration();
+			var steer = this._controller.get('steer') || 0;
+			var acc = this._controller.get('acceleration') || 0;
 		}
 
 		//kill velocity
@@ -74,8 +75,8 @@ m.c('car', {
 
 		//set wheel angle
 		var incr = (this.def.max_steer_angle / 200) * msDuration;
-		if(this.controls.steer) {
-			if(this.controls.steer === constants.CONTROLS.STEER.RIGHT) {
+		if(steer) {
+			if(steer === constants.CONTROLS.STEER.RIGHT) {
 				this.wheel_angle = Math.min(Math.max(this.wheel_angle, 0) + incr, this.def.max_steer_angle);
 			} else {
 				this.wheel_angle = Math.max(Math.min(this.wheel_angle, 0) - incr, - this.def.max_steer_angle);
@@ -92,8 +93,8 @@ m.c('car', {
 
 		//calc base vector
 		var base_vec;
-		if(this.controls.acc){
-			if(this.controls.acc == constants.CONTROLS.ACC.FORWARD){
+		if(acc){
+			if(acc == constants.CONTROLS.ACC.FORWARD){
 				if(this.get_speed_kmh() < this.def.max_speed) {
 					base_vec = new box2d.b2Vec2(0, -1);
 				}
@@ -115,7 +116,7 @@ m.c('car', {
 			wheel.body.ApplyForce(wheel.body.GetWorldVector(base_vec), pos);
 		}, this);
 
-		if( (this.get_speed_kmh()<4) &&(!this.controls.acc)){
+		if( (this.get_speed_kmh()<4) &&(!acc)){
             this.set_speed(0);
         }
 		

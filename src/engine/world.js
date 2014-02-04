@@ -15,12 +15,26 @@ var World = module.exports = function World(size, slave) {
 	this.events = {};
 	this.spawn_events = {};
 	this.level = null;
+	this.start_position = 0;
 };
 
 World.prototype.loadLevel = function(level) {
 	this.level = level;
 	this.size = level.size;
 	this.loadPropsFromLevel(level);
+};
+
+World.prototype.spawnCar = function(definition, controller) {
+	var car =  this.spawn('car', {
+		x: this.level.start_positions[this.start_position].p[0] + (definition.physical_properties.width * this.SCALE) / 2,
+		y: this.level.start_positions[this.start_position].p[1] + (definition.physical_properties.length * this.SCALE) /2,
+		sprite_filename: 'cars/'+definition.sprite+'_red.png',
+		angle: utils.radians(this.level.start_positions[this.start_position].a),
+		def: definition,
+	});
+	this.start_position++;
+	car._controller = controller;
+	return car;
 };
 
 

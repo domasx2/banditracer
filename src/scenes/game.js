@@ -11,7 +11,7 @@ var GameScene = module.exports = function GameScene(game, options) {
 	this.setLevel(options.levelid);
 	this.initWorld();
 	this.initRenderer();
-	var car = this.spawnCar(cars.generic, new controllers.KeyboardController(this.game.input), 0);
+	var car = this.world.spawnCar(cars.generic, new controllers.KeyboardController(this.game.input));
 	this.renderer.follow(car);
 };
 
@@ -27,18 +27,6 @@ GameScene.prototype.initWorld = function() {
 
 GameScene.prototype.initRenderer = function () {
 	this.renderer = new Renderer(game.container, null, this.world, this.level);
-};
-
-GameScene.prototype.spawnCar = function(definition, controller, start_position ) {
-	var car =  this.world.spawn('car', {
-		x: this.level.start_positions[start_position].p[0] + (definition.physical_properties.width * this.world.SCALE) / 2,
-		y: this.level.start_positions[start_position].p[1] + (definition.physical_properties.length * this.world.SCALE) /2,
-		sprite_filename: 'cars/'+definition.sprite+'_red.png',
-		angle: utils.radians(this.level.start_positions[start_position].a),
-		def: definition,
-	});
-	car._controller = controller;
-	return car;
 };
 
 GameScene.prototype.tick = function(msDuration) {

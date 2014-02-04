@@ -13,13 +13,16 @@ var MPClientScene = module.exports = function MPClientScene(game, options) {
 	game.container.empty().append('<p>Connecting...</p>');
 	this.adapter = new networking.PeerClient();
 	this.world = new World([1000, 1000]);
-	this.client = new Client(this.world, this.adapter),
+	this.client = new Client(this.world, this.adapter, this.controller),
 	this.adapter.connect(this.options.gameid);
 
 	var self = this;
 	this.client.on('level_loaded', function(){
 		self.level = self.world.level;
 		self.initRenderer();
+		self.client.requestCar(cars.generic);
+	}).on('yourcar', function(car){
+		self.renderer.follow(car);
 	});
 };
 

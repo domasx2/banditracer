@@ -13287,10 +13287,14 @@ var util = require('util'),
 	EventEmitter = require('events').EventEmitter,
 	levels = require('../../data/levels');
 
-var Client = module.exports = function(world, adapter) {
+var Client = module.exports = function(world, adapter, controller) {
 	this.world = world;
 	this.adapter = adapter;
+	this.controller = controller;
 	this.time = 0;
+	this.my_car_id = null;
+	this.car = null;
+	this.prevcontrols;
 
 	var self = this;
 	this.adapter
@@ -13303,6 +13307,10 @@ var Client = module.exports = function(world, adapter) {
 };
 
 util.inherits(Client, EventEmitter);
+
+Client.prototype.requestCar = function(def) {
+	this.adapter.send('requestcar', def);
+};
 
 Client.prototype.handle_connected = function () {
 	this.adapter.send('givelevel');
@@ -13330,9 +13338,24 @@ Client.prototype.handle_message_level = function (data) {
 	}
 };
 
+Client.prototype.handle_message_yourcar = function(data) {
+	var car = this.world.objects.get(data);
+	if(car) {
+		this.emit('yourcar', car);
+		this.car = car;
+	} else {
+		this.my_car_id = data;
+	}
+};
+
 Client.prototype.handle_message_event = function (data) {
 	console.log('receive event', data);
-	this.world.handle_event(data);
+	var obj = this.world.handle_event(data);
+	if(this.my_car_id && obj && obj.id === this.my_car_id) {
+		this.emit('yourcar', obj);
+		this.my_car_id = null;
+		this.car = obj;
+	}
 };
 
 Client.prototype.handle_message_update = function (data) {
@@ -13353,6 +13376,21 @@ Client.prototype.handle_message_update = function (data) {
 
 Client.prototype.tick = function(msDuration) {
 	this.time += msDuration;
+	if(this.car) {
+		var data = {};
+		Object.keys(this.car._default_controls).forEach(function(key){
+			data[key] = this.controller.get(key);
+		if(data[key] === undefined) {
+				data[key] = this.car._default_controls[key];
+			}
+		}, this);
+		var sdata = JSON.stringify(data);
+		if(this.prevcontrols !== sdata) {
+			console.log('controls', data);
+			this.adapter.send('controls', data);
+		}
+		this.prevcontrols = sdata;
+	}
 };
 },{"../../data/levels":8,"events":20,"util":24}],101:[function(require,module,exports){
 exports.CONTROLS = {
@@ -13399,10 +13437,27 @@ BaseController.prototype.get_steer = function () {
 	return 0;
 };	
 },{}],103:[function(require,module,exports){
+var util = require('util'),
+	BaseController = require('./base-controller');
+
+var DummyController = module.exports = function() {
+	this.values = {
+		steer: 0,
+		acceleration: 0
+	};
+};
+
+util.inherits(DummyController, BaseController);
+
+DummyController.prototype.get = function(x){
+	return this.values[x];
+};
+},{"./base-controller":102,"util":24}],104:[function(require,module,exports){
 exports.BaseController = require('./base-controller');
 exports.KeyboardController = require('./keyboard-controller');
+exports.DummyController = require('./dummy-controller');
 
-},{"./base-controller":102,"./keyboard-controller":104}],104:[function(require,module,exports){
+},{"./base-controller":102,"./dummy-controller":103,"./keyboard-controller":105}],105:[function(require,module,exports){
 var util = require('util'),
 	BaseController = require('./base-controller');
 
@@ -13434,14 +13489,10 @@ BaseController.prototype._get_variable = function(fn) {
 	return retv;
 }
 
-BaseController.prototype.get_acceleration = function () {
-	return this._get_variable('acceleration');
+BaseController.prototype.get = function (x) {
+	return this._get_variable(x);
 };
-
-BaseController.prototype.get_steer = function () {
-	return this._get_variable('steer');
-};	
-},{"./base-controller":102,"util":24}],105:[function(require,module,exports){
+},{"./base-controller":102,"util":24}],106:[function(require,module,exports){
 var m = require('./index');
 
 m.c('base', {
@@ -13454,7 +13505,7 @@ m.c('base', {
 
 	}
 });
-},{"./index":113}],106:[function(require,module,exports){
+},{"./index":114}],107:[function(require,module,exports){
 var m = require('../index'),
 	PIXI = require('pixi');
 
@@ -13475,7 +13526,7 @@ m.c('drawable', {
 		this.create_drawable();
 	}
 });
-},{"../index":113,"pixi":62}],107:[function(require,module,exports){
+},{"../index":114,"pixi":62}],108:[function(require,module,exports){
 var m = require('../index'),
 	PIXI = require('pixi');
 
@@ -13491,10 +13542,10 @@ m.c('drawable_sprite', {
 		return sprite;
 	}
 });
-},{"../index":113,"pixi":62}],108:[function(require,module,exports){
+},{"../index":114,"pixi":62}],109:[function(require,module,exports){
 require('./drawable');
 require('./drawable_sprite');
-},{"./drawable":106,"./drawable_sprite":107}],109:[function(require,module,exports){
+},{"./drawable":107,"./drawable_sprite":108}],110:[function(require,module,exports){
 var m = require('../index'),
 	box2d = require('box2dweb'),
 	Wheel = require('./wheel'),
@@ -13508,10 +13559,11 @@ m.c('car', {
 
 	wheel_angle: 0,
 
-	controls: {
-		steer: constants.CONTROLS.STEER.NONE, //-1 left, 0 none, 1 right
-		acc: constants.CONTROLS.ACC.NONE //-1 reverse/brake, 0 none, 1 accelerate
+	_default_controls: {
+		acceleration: 0,
+		steer: 0
 	},
+
 
 	bootstrap: function () {
 		this._wheels = [];
@@ -13559,8 +13611,8 @@ m.c('car', {
 	on_update_car: function(msDuration) {
 
 		if(this._controller) {
-			this.controls.steer = this._controller.get_steer();
-			this.controls.acc = this._controller.get_acceleration();
+			var steer = this._controller.get('steer') || 0;
+			var acc = this._controller.get('acceleration') || 0;
 		}
 
 		//kill velocity
@@ -13571,8 +13623,8 @@ m.c('car', {
 
 		//set wheel angle
 		var incr = (this.def.max_steer_angle / 200) * msDuration;
-		if(this.controls.steer) {
-			if(this.controls.steer === constants.CONTROLS.STEER.RIGHT) {
+		if(steer) {
+			if(steer === constants.CONTROLS.STEER.RIGHT) {
 				this.wheel_angle = Math.min(Math.max(this.wheel_angle, 0) + incr, this.def.max_steer_angle);
 			} else {
 				this.wheel_angle = Math.max(Math.min(this.wheel_angle, 0) - incr, - this.def.max_steer_angle);
@@ -13589,8 +13641,8 @@ m.c('car', {
 
 		//calc base vector
 		var base_vec;
-		if(this.controls.acc){
-			if(this.controls.acc == constants.CONTROLS.ACC.FORWARD){
+		if(acc){
+			if(acc == constants.CONTROLS.ACC.FORWARD){
 				if(this.get_speed_kmh() < this.def.max_speed) {
 					base_vec = new box2d.b2Vec2(0, -1);
 				}
@@ -13612,17 +13664,17 @@ m.c('car', {
 			wheel.body.ApplyForce(wheel.body.GetWorldVector(base_vec), pos);
 		}, this);
 
-		if( (this.get_speed_kmh()<4) &&(!this.controls.acc)){
+		if( (this.get_speed_kmh()<4) &&(!acc)){
             this.set_speed(0);
         }
 		
 	}
 });
-},{"../../constants":101,"../index":113,"./wheel":112,"box2dweb":11,"xtend":94}],110:[function(require,module,exports){
+},{"../../constants":101,"../index":114,"./wheel":113,"box2dweb":11,"xtend":94}],111:[function(require,module,exports){
 require('./car');
 require('./prop');
 
-},{"./car":109,"./prop":111}],111:[function(require,module,exports){
+},{"./car":110,"./prop":112}],112:[function(require,module,exports){
 var m = require('../index'),
 	box2d = require('box2dweb');
 
@@ -13649,7 +13701,7 @@ m.c('prop', {
 
 	on_update_after_physics_update_position: function(){}
 });
-},{"../index":113,"box2dweb":11}],112:[function(require,module,exports){
+},{"../index":114,"box2dweb":11}],113:[function(require,module,exports){
 var box2d = require('box2dweb');
 
 var Wheel = module.exports =  function(pars){
@@ -13741,7 +13793,7 @@ Wheel.prototype.killSidewaysVelocity=function(){
 
 };
 
-},{"box2dweb":11}],113:[function(require,module,exports){
+},{"box2dweb":11}],114:[function(require,module,exports){
 var CEM = require('cem');
 module.exports = new CEM.Manager();
 
@@ -13749,9 +13801,9 @@ require('./base');
 require('./drawables');
 require('./physics');
 require('./game');
-},{"./base":105,"./drawables":108,"./game":110,"./physics":114,"cem":16}],114:[function(require,module,exports){
+},{"./base":106,"./drawables":109,"./game":111,"./physics":115,"cem":16}],115:[function(require,module,exports){
 require('./physical');
-},{"./physical":115}],115:[function(require,module,exports){
+},{"./physical":116}],116:[function(require,module,exports){
 var m = require('../index'),
 	box2d = require('box2dweb');
 
@@ -13835,7 +13887,9 @@ m.c('physical', {
 		drawable.rotation  = this.angle;
 	}
 });
-},{"../index":113,"box2dweb":11}],116:[function(require,module,exports){
+},{"../index":114,"box2dweb":11}],117:[function(require,module,exports){
+var controllers = require('./controllers');
+
 var Server = module.exports = function(world, adapter) {
 	this.world = world;
 	this.adapter = adapter;
@@ -13861,7 +13915,8 @@ var Server = module.exports = function(world, adapter) {
 Server.prototype.handle_connect = function (client_id){
 	this.clients[client_id] = {
 		max_event: 0,
-		id: client_id
+		id: client_id,
+		car: null
 	};
 };
 
@@ -13904,6 +13959,22 @@ Server.prototype.handle_message_spawns = function(client, data) {
 	});
 };
 
+Server.prototype.handle_message_requestcar = function(client, def) {
+	if(!client.car) {
+		client.car = this.world.spawnCar(def);
+		client.car._controller = new controllers.DummyController();
+		this.adapter.send(client.id, "yourcar", client.car.id);
+	}
+};
+
+Server.prototype.handle_message_controls = function(client, controls) {
+	if(client.car && client.car._controller){
+		Object.keys(controls).forEach(function(key){
+			client.car._controller.values[key] = controls[key];
+		});
+	}
+};
+
 
 
 /* UTILS */
@@ -13930,7 +14001,11 @@ Server.prototype.tick = function(msDuration) {
 	updates = [];
 	this.world.objects.each(function(obj){
 		if(obj._sync !== false) {
-			updates.push([obj.id, obj.__properties]);
+			updates.push([obj.id, {
+				x: obj.__properties.x,
+				y: obj.__properties.y,
+				angle: obj.__properties.angle
+			}]);
 		}
 	});
 	this.adapter.broadcast('update', {
@@ -13938,7 +14013,7 @@ Server.prototype.tick = function(msDuration) {
 		u: updates
 	});
 };
-},{}],117:[function(require,module,exports){
+},{"./controllers":104}],118:[function(require,module,exports){
 var manager = require('./objects'),
 	CEM = require('cem'),
 	box2d = require('box2dweb'),
@@ -13956,12 +14031,26 @@ var World = module.exports = function World(size, slave) {
 	this.events = {};
 	this.spawn_events = {};
 	this.level = null;
+	this.start_position = 0;
 };
 
 World.prototype.loadLevel = function(level) {
 	this.level = level;
 	this.size = level.size;
 	this.loadPropsFromLevel(level);
+};
+
+World.prototype.spawnCar = function(definition, controller) {
+	var car =  this.spawn('car', {
+		x: this.level.start_positions[this.start_position].p[0] + (definition.physical_properties.width * this.SCALE) / 2,
+		y: this.level.start_positions[this.start_position].p[1] + (definition.physical_properties.length * this.SCALE) /2,
+		sprite_filename: 'cars/'+definition.sprite+'_red.png',
+		angle: utils.radians(this.level.start_positions[this.start_position].a),
+		def: definition,
+	});
+	this.start_position++;
+	car._controller = controller;
+	return car;
 };
 
 
@@ -14101,7 +14190,7 @@ World.prototype.deserialize_props = function(properties) {
 
 	
 
-},{"../utils":135,"./objects":113,"box2dweb":11,"cem":16}],118:[function(require,module,exports){
+},{"../utils":136,"./objects":114,"box2dweb":11,"cem":16}],119:[function(require,module,exports){
 var Director = require('./director'),
 	scenes = require('./scenes');
 	PIXI = require('pixi'),
@@ -14148,7 +14237,7 @@ Game.prototype.initAndRun = function () {
 		self.start();
 	});
 };
-},{"../data/assets":1,"./director":99,"./input":119,"./scenes":129,"./utils":135,"pixi":62}],119:[function(require,module,exports){
+},{"../data/assets":1,"./director":99,"./input":120,"./scenes":130,"./utils":136,"pixi":62}],120:[function(require,module,exports){
 var Input = module.exports = function () {
 	this.keys_down = {};
 	$('body').on('keydown', $.proxy(this.onKeyDown, this));
@@ -14166,9 +14255,9 @@ Input.prototype.onKeyUp = function(e) {
 Input.prototype.isDown = function(key) {
 	return this.keys_down[key] !== undefined ? this.keys_down[key] : false;
 };
-},{}],120:[function(require,module,exports){
+},{}],121:[function(require,module,exports){
 window.Racer = require('./game');
-},{"./game":118}],121:[function(require,module,exports){
+},{"./game":119}],122:[function(require,module,exports){
 var EventEmitter = require('events').EventEmitter;
 var util = require('util');
 
@@ -14190,7 +14279,7 @@ Base.prototype.fmt_message = function(message, data){
 		d: data 
 	};
 };
-},{"events":20,"util":24}],122:[function(require,module,exports){
+},{"events":20,"util":24}],123:[function(require,module,exports){
 var BaseAdapter = require('../base');
 var util = require('util');
 
@@ -14211,7 +14300,7 @@ Base.prototype.send = function(msg, data) {
 Base.prototype.disconnect = function(){
 	throw new Error('disconnect');
 };
-},{"../base":121,"util":24}],123:[function(require,module,exports){
+},{"../base":122,"util":24}],124:[function(require,module,exports){
 var BaseClient = require('./base'),
 	util = require('util'),
 	config = require('../../../data/config');
@@ -14256,10 +14345,10 @@ PeerClient.prototype.send = function(msg, data){
 PeerClient.prototype.disconnect = function(){
 	this.conn.disconnect();
 };
-},{"../../../data/config":3,"./base":122,"util":24}],124:[function(require,module,exports){
+},{"../../../data/config":3,"./base":123,"util":24}],125:[function(require,module,exports){
 exports.PeerServer = require('./server/peer');
 exports.PeerClient = require('./client/peer');
-},{"./client/peer":123,"./server/peer":126}],125:[function(require,module,exports){
+},{"./client/peer":124,"./server/peer":127}],126:[function(require,module,exports){
 var BaseAdapter = require('../base');
 var util = require('util');
 
@@ -14292,7 +14381,7 @@ Base.prototype.send = function(client_id, message, data){
 Base.prototype.destroy = function(){
 	this.broadcast('destroyed');
 };
-},{"../base":121,"util":24}],126:[function(require,module,exports){
+},{"../base":122,"util":24}],127:[function(require,module,exports){
 var Base = require('./base'),
 	util = require('util'),
 	config = require('../../../data/config');
@@ -14389,7 +14478,7 @@ PeerServer.prototype.handleClose = function(client_id) {
 
 
 
-},{"../../../data/config":3,"./base":125,"util":24}],127:[function(require,module,exports){
+},{"../../../data/config":3,"./base":126,"util":24}],128:[function(require,module,exports){
 var PIXI = require('pixi'),
 	utils = require('./utils');
 
@@ -14522,7 +14611,7 @@ Renderer.renderBackgroundTexture = function(level){
 
 
 
-},{"./utils":135,"pixi":62}],128:[function(require,module,exports){
+},{"./utils":136,"pixi":62}],129:[function(require,module,exports){
 var Renderer = require('../renderer'),
 	util = require('util'),
 	World = require('../engine/world'),
@@ -14536,7 +14625,7 @@ var GameScene = module.exports = function GameScene(game, options) {
 	this.setLevel(options.levelid);
 	this.initWorld();
 	this.initRenderer();
-	var car = this.spawnCar(cars.generic, new controllers.KeyboardController(this.game.input), 0);
+	var car = this.world.spawnCar(cars.generic, new controllers.KeyboardController(this.game.input));
 	this.renderer.follow(car);
 };
 
@@ -14554,18 +14643,6 @@ GameScene.prototype.initRenderer = function () {
 	this.renderer = new Renderer(game.container, null, this.world, this.level);
 };
 
-GameScene.prototype.spawnCar = function(definition, controller, start_position ) {
-	var car =  this.world.spawn('car', {
-		x: this.level.start_positions[start_position].p[0] + (definition.physical_properties.width * this.world.SCALE) / 2,
-		y: this.level.start_positions[start_position].p[1] + (definition.physical_properties.length * this.world.SCALE) /2,
-		sprite_filename: 'cars/'+definition.sprite+'_red.png',
-		angle: utils.radians(this.level.start_positions[start_position].a),
-		def: definition,
-	});
-	car._controller = controller;
-	return car;
-};
-
 GameScene.prototype.tick = function(msDuration) {
 	if(this.world) {
 		this.world.update(msDuration);
@@ -14577,12 +14654,12 @@ GameScene.prototype.tick = function(msDuration) {
 
 
 
-},{"../../data/cars":2,"../../data/levels":8,"../engine/controllers":103,"../engine/world":117,"../renderer":127,"../utils":135,"util":24}],129:[function(require,module,exports){
+},{"../../data/cars":2,"../../data/levels":8,"../engine/controllers":104,"../engine/world":118,"../renderer":128,"../utils":136,"util":24}],130:[function(require,module,exports){
 exports.game = require('./game');
 exports.main = require('./main');
 exports.mpserver = require('./mpserver');
 exports.mpclient = require('./mpclient');
-},{"./game":128,"./main":130,"./mpclient":131,"./mpserver":132}],130:[function(require,module,exports){
+},{"./game":129,"./main":131,"./mpclient":132,"./mpserver":133}],131:[function(require,module,exports){
 var View = require('./view');
 
 module.exports = View.extend({
@@ -14630,7 +14707,7 @@ module.exports = View.extend({
 
 	template: 'main'
 });
-},{"./view":133}],131:[function(require,module,exports){
+},{"./view":134}],132:[function(require,module,exports){
 var GameScene = require('./game'),
 	util = require('util'),
 	cars = require('../../data/cars'),
@@ -14646,13 +14723,16 @@ var MPClientScene = module.exports = function MPClientScene(game, options) {
 	game.container.empty().append('<p>Connecting...</p>');
 	this.adapter = new networking.PeerClient();
 	this.world = new World([1000, 1000]);
-	this.client = new Client(this.world, this.adapter),
+	this.client = new Client(this.world, this.adapter, this.controller),
 	this.adapter.connect(this.options.gameid);
 
 	var self = this;
 	this.client.on('level_loaded', function(){
 		self.level = self.world.level;
 		self.initRenderer();
+		self.client.requestCar(cars.generic);
+	}).on('yourcar', function(car){
+		self.renderer.follow(car);
 	});
 };
 
@@ -14662,7 +14742,7 @@ MPClientScene.prototype.tick = function(msDuration) {
 	GameScene.prototype.tick.apply(this, arguments);
 	this.client.tick(msDuration);
 };
-},{"../../data/cars":2,"../engine/client":100,"../engine/controllers":103,"../engine/world":117,"../networking":124,"./game":128,"util":24}],132:[function(require,module,exports){
+},{"../../data/cars":2,"../engine/client":100,"../engine/controllers":104,"../engine/world":118,"../networking":125,"./game":129,"util":24}],133:[function(require,module,exports){
 var GameScene = require('./game'),
 	util = require('util'),
 	cars = require('../../data/cars'),
@@ -14678,8 +14758,7 @@ var MPServerScene = module.exports = function MPServerScene (game, options) {
 	this.adapter = new networking.PeerServer(6, this.options.gameid);
 	this.server = new Server(this.world, this.adapter);
 	this.initRenderer();
-	this.start_pos = 0;
-	var car = this.spawnCar(cars.generic, new controllers.KeyboardController(this.game.input), this.start_pos++);
+	var car = this.world.spawnCar(cars.generic, new controllers.KeyboardController(this.game.input));
 	this.renderer.follow(car);
 };
 
@@ -14689,7 +14768,7 @@ MPServerScene.prototype.tick = function(msDuration) {
 	GameScene.prototype.tick.apply(this, arguments);
 	this.server.tick(msDuration);
 };
-},{"../../data/cars":2,"../engine/controllers":103,"../engine/server":116,"../networking":124,"./game":128,"util":24}],133:[function(require,module,exports){
+},{"../../data/cars":2,"../engine/controllers":104,"../engine/server":117,"../networking":125,"./game":129,"util":24}],134:[function(require,module,exports){
 var util = require('util'),
 	View = require('../ui/view');
 
@@ -14710,7 +14789,7 @@ module.exports = View.extend({
 	}
 });
 
-},{"../ui/view":134,"util":24}],134:[function(require,module,exports){
+},{"../ui/view":135,"util":24}],135:[function(require,module,exports){
 module.exports = Backbone.View.extend({
 	template: 'main',
 	
@@ -14726,7 +14805,7 @@ module.exports = Backbone.View.extend({
 		this.$el.html(this.renderTemplate(context || {}));
 	}
 });
-},{}],135:[function(require,module,exports){
+},{}],136:[function(require,module,exports){
 var box2d = require('box2dweb');
 
 box2d.b2Vec2 = box2d.Common.Math.b2Vec2;
@@ -14749,4 +14828,4 @@ exports.degrees = function(radians) {
 exports.radians = function(degrees) {
 	return degrees * (Math.PI / 180);
 };
-},{"box2dweb":11}]},{},[120])
+},{"box2dweb":11}]},{},[121])

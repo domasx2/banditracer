@@ -13,8 +13,7 @@ var MPServerScene = module.exports = function MPServerScene (game, options) {
 	this.adapter = new networking.PeerServer(6, this.options.gameid);
 	this.server = new Server(this.world, this.adapter);
 	this.initRenderer();
-	this.start_pos = 0;
-	var car = this.spawnCar(cars.generic, new controllers.KeyboardController(this.game.input), this.start_pos++);
+	var car = this.world.spawnCar(cars.generic, new controllers.KeyboardController(this.game.input));
 	this.renderer.follow(car);
 };
 

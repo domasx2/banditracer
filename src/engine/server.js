@@ -1,3 +1,5 @@
+var controllers = require('./controllers');
+
 var Server = module.exports = function(world, adapter) {
 	this.world = world;
 	this.adapter = adapter;
@@ -23,7 +25,8 @@ var Server = module.exports = function(world, adapter) {
 Server.prototype.handle_connect = function (client_id){
 	this.clients[client_id] = {
 		max_event: 0,
-		id: client_id
+		id: client_id,
+		car: null
 	};
 };
 
@@ -66,6 +69,22 @@ Server.prototype.handle_message_spawns = function(client, data) {
 	});
 };
 
+Server.prototype.handle_message_requestcar = function(client, def) {
+	if(!client.car) {
+		client.car = this.world.spawnCar(def);
+		client.car._controller = new controllers.DummyController();
+		this.adapter.send(client.id, "yourcar", client.car.id);
+	}
+};
+
+Server.prototype.handle_message_controls = function(client, controls) {
+	if(client.car && client.car._controller){
+		Object.keys(controls).forEach(function(key){
+			client.car._controller.values[key] = controls[key];
+		});
+	}
+};
+
 
 
 /* UTILS */
@@ -92,7 +111,11 @@ Server.prototype.tick = function(msDuration) {
 	updates = [];
 	this.world.objects.each(function(obj){
 		if(obj._sync !== false) {
-			updates.push([obj.id, obj.__properties]);
+			updates.push([obj.id, {
+				x: obj.__properties.x,
+				y: obj.__properties.y,
+				angle: obj.__properties.angle
+			}]);
 		}
 	});
 	this.adapter.broadcast('update', {

@@ -29,10 +29,6 @@ BaseController.prototype._get_variable = function(fn) {
 	return retv;
 }
 
-BaseController.prototype.get_acceleration = function () {
-	return this._get_variable('acceleration');
+BaseController.prototype.get = function (x) {
+	return this._get_variable(x);
 };
-
-BaseController.prototype.get_steer = function () {
-	return this._get_variable('steer');
-};	
