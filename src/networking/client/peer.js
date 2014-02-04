@@ -26,7 +26,7 @@ PeerClient.prototype.connect = function(server_id) {
 	});
 
 	conn.on('data', function(data){
-		self.log('data', data);
+		//self.log('data', data);
 		self.emit('message', data.m, data.d);
 	});
 

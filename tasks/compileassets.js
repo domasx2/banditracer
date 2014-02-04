@@ -30,7 +30,7 @@ module.exports = function(grunt) {
             }
         });
         fs.writeFileSync('data/levels/index.js', levels.map(function(x){
-            return 'exports["'+x+'"] = require("./'+x+'.js");';
+            return 'exports["'+x+'"] = require("./'+x+'.js");exports["'+x+'"].id = "'+x+'";';
         }).join('\n'));
 
         done();

@@ -24,7 +24,6 @@ m.c('physical', {
 	//relay position & angle to body & vice versa
 	on_update_update_body: function () {
 		if(this._pos_dirty) {
-			console.log('setpos');
 			this._body.SetPositionAndAngle(new box2d.b2Vec2(this.x / this._world.SCALE, this.y / this._world.SCALE), this.angle);
 		}
 	},

@@ -6,7 +6,7 @@ var extend = require('xtend');
 var generic = {
 	name:'Generic Car', 
 	__serializable: true,
-	sprite_name: 'cars/thunderbolt_red.png',
+	sprite: 'thunderbolt',
 
 	physical_properties: { 
 		width: 1.4,
@@ -47,12 +47,12 @@ module.exports ={"size":[2500,2500],"title":"Frogfoot Circuit","bgtile":"sand.pn
 },{}],7:[function(require,module,exports){
 module.exports ={"size":[2700,2100],"title":"Grennglade Ring","bgtile":"grass.png","props":[{"p":[998,187],"f":1,"a":270},{"p":[1268,187],"f":1,"a":270},{"p":[1540,187],"f":1,"a":270},{"p":[1810,188],"f":1,"a":270},{"p":[2081,277],"f":2,"a":270},{"p":[2173,277],"f":2,"a":270},{"p":[2252,281],"f":2,"a":285},{"p":[2327,310],"f":2,"a":300},{"p":[2388,374],"f":2,"a":330},{"p":[2428,463],"f":2,"a":345},{"p":[2357,563],"f":1,"a":0},{"p":[2448,834],"f":2,"a":0},{"p":[2425,912],"f":2,"a":15},{"p":[2374,981],"f":2,"a":45},{"p":[2307,1042],"f":2,"a":60},{"p":[2228,1084],"f":2,"a":75},{"p":[2150,1101],"f":2,"a":90},{"p":[2046,1101],"f":2,"a":60},{"p":[2049,1189],"f":3,"a":0},{"p":[1927,1219],"f":1,"a":0},{"p":[2018,1490],"f":2,"a":0},{"p":[1975,1559],"f":2,"a":30},{"p":[1919,1629],"f":2,"a":45},{"p":[1853,1687],"f":2,"a":75},{"p":[1778,1718],"f":2,"a":90},{"p":[1507,1630],"f":1,"a":270},{"p":[1235,1629],"f":1,"a":270},{"p":[965,1631],"f":1,"a":270},{"p":[692,1629],"f":1,"a":270},{"p":[589,1670],"f":2,"a":120},{"p":[522,1608],"f":2,"a":150},{"p":[489,1531],"f":2,"a":165},{"p":[398,1271],"f":1,"a":180},{"p":[500,1170],"f":2,"a":30},{"p":[561,1102],"f":2,"a":60},{"p":[645,1066],"f":2,"a":75},{"p":[743,1061],"f":2,"a":90},{"p":[834,1090],"f":3,"a":0},{"p":[852,1062],"f":3,"a":0},{"p":[768,964],"f":2,"a":135},{"p":[525,860],"f":1,"a":90},{"p":[434,955],"f":2,"a":90},{"p":[345,954],"f":2,"a":90},{"p":[245,915],"f":2,"a":120},{"p":[165,864],"f":2,"a":135},{"p":[111,793],"f":2,"a":150},{"p":[13,542],"f":1,"a":0},{"p":[101,451],"f":2,"a":180},{"p":[100,360],"f":2,"a":180},{"p":[99,271],"f":2,"a":180},{"p":[104,169],"f":2,"a":210},{"p":[154,95],"f":2,"a":225},{"p":[230,47],"f":2,"a":240},{"p":[334,-54],"f":1,"a":270},{"p":[605,34],"f":2,"a":270},{"p":[694,35],"f":2,"a":270},{"p":[783,35],"f":2,"a":270},{"p":[853,46],"f":2,"a":300},{"p":[915,109],"f":2,"a":330},{"p":[957,213],"f":2,"a":0},{"p":[511,180],"f":1,"a":270},{"p":[726,331],"f":2,"a":0},{"p":[737,401],"f":2,"a":330},{"p":[801,465],"f":2,"a":300},{"p":[903,417],"f":1,"a":270},{"p":[1173,418],"f":1,"a":270},{"p":[1443,416],"f":1,"a":270},{"p":[1713,415],"f":1,"a":270},{"p":[1985,504],"f":2,"a":270},{"p":[2075,504],"f":2,"a":270},{"p":[2144,505],"f":2,"a":300},{"p":[2120,593],"f":1,"a":180},{"p":[2152,832],"f":2,"a":240},{"p":[2080,867],"f":2,"a":270},{"p":[1979,865],"f":2,"a":255},{"p":[1889,890],"f":2,"a":240},{"p":[1822,950],"f":2,"a":210},{"p":[1787,1038],"f":2,"a":195},{"p":[1692,1138],"f":1,"a":180},{"p":[1763,1398],"f":2,"a":195},{"p":[1702,1457],"f":2,"a":240},{"p":[1452,1401],"f":1,"a":90},{"p":[1182,1402],"f":1,"a":90},{"p":[910,1402],"f":1,"a":90},{"p":[809,1477],"f":2,"a":285},{"p":[719,1427],"f":2,"a":315},{"p":[716,1352],"f":2,"a":15},{"p":[778,1292],"f":2,"a":75},{"p":[878,1290],"f":2,"a":90},{"p":[945,1244],"f":2,"a":60},{"p":[1012,1186],"f":2,"a":30},{"p":[967,935],"f":1,"a":0},{"p":[1008,836],"f":2,"a":330},{"p":[951,761],"f":2,"a":315},{"p":[879,724],"f":2,"a":285},{"p":[617,634],"f":1,"a":270},{"p":[408,264],"f":2,"a":255},{"p":[342,322],"f":2,"a":195},{"p":[248,422],"f":1,"a":180},{"p":[346,669],"f":2,"a":135},{"p":[443,718],"f":2,"a":90},{"p":[530,724],"f":2,"a":90}],"decals":[{"p":[168,102],"f":4,"a":0},{"p":[480,54],"f":5,"a":0},{"p":[768,102],"f":6,"a":90},{"p":[792,318],"f":6,"a":270},{"p":[480,738],"f":5,"a":0},{"p":[168,666],"f":4,"a":270},{"p":[168,474],"f":7,"a":0},{"p":[168,366],"f":8,"a":0},{"p":[1008,294],"f":5,"a":180},{"p":[1296,294],"f":5,"a":180},{"p":[1584,294],"f":5,"a":180},{"p":[1872,294],"f":5,"a":180},{"p":[768,786],"f":4,"a":90},{"p":[864,1098],"f":6,"a":180},{"p":[552,1122],"f":4,"a":0},{"p":[552,1434],"f":4,"a":270},{"p":[864,1506],"f":5,"a":180},{"p":[1152,1506],"f":5,"a":180},{"p":[1440,1506],"f":5,"a":180},{"p":[1728,1434],"f":4,"a":180},{"p":[1848,1242],"f":7,"a":0},{"p":[1848,930],"f":4,"a":0},{"p":[2160,342],"f":4,"a":90},{"p":[2160,810],"f":4,"a":180},{"p":[2280,666],"f":8,"a":0},{"p":[2280,606],"f":8,"a":0},{"p":[1806,360],"f":9,"a":90},{"p":[1746,462],"f":9,"a":90},{"p":[1674,360],"f":9,"a":90},{"p":[1596,462],"f":9,"a":90},{"p":[1512,360],"f":9,"a":90},{"p":[1422,462],"f":9,"a":90},{"p":[1848,348],"f":10,"a":90},{"p":[1848,426],"f":10,"a":90}],"ai_waypoints":[{"p":[2175,455],"n":1},{"p":[2315,618],"n":2},{"p":[2286,910],"n":3},{"p":[1985,1128],"n":4},{"p":[1862,1523],"n":5},{"p":[1605,1666],"n":6},{"p":[762,1595],"n":7},{"p":[645,1442],"n":8},{"p":[737,1272],"n":9},{"p":[918,1088],"n":10},{"p":[813,932],"n":11},{"p":[337,779],"n":12},{"p":[250,505],"n":13},{"p":[335,248],"n":14},{"p":[567,217],"n":15},{"p":[804,262],"n":16},{"p":[1044,400],"n":17},{"p":[1584,411],"n":18}],"checkpoints":[{"p":[1891,294],"n":1},{"p":[2202,831],"n":2},{"p":[1773,1459],"n":3},{"p":[548,1473],"n":4},{"p":[604,1107],"n":5},{"p":[701,743],"n":6},{"p":[163,700],"n":7},{"p":[219,75],"n":8},{"p":[710,95],"n":9}],"start_positions":[{"p":[1758,354],"n":1,"a":90},{"p":[1698,456],"n":2,"a":90},{"p":[1626,354],"n":3,"a":90},{"p":[1548,456],"n":4,"a":90},{"p":[1464,354],"n":5,"a":90},{"p":[1374,456],"n":6,"a":90}],"dict":{"1":"9tires.png","2":"3tires.png","3":"tire.png","4":"dideliskampas.png","5":"ilgas.png","6":"lenktas.png","7":"paprastas.png","8":"trumpas.png","9":"white_bar.png","10":"startbar.png"}}
 },{}],8:[function(require,module,exports){
-exports["greenring"] = require("./greenring.js");
-exports["drycircuit"] = require("./drycircuit.js");
-exports["snowpeakcircuit"] = require("./snowpeakcircuit.js");
-exports["deathvalley"] = require("./deathvalley.js");
-exports["frogfoot"] = require("./frogfoot.js");
-exports["spiralraceway"] = require("./spiralraceway.js");
+exports["greenring"] = require("./greenring.js");exports["greenring"].id = "greenring";
+exports["drycircuit"] = require("./drycircuit.js");exports["drycircuit"].id = "drycircuit";
+exports["snowpeakcircuit"] = require("./snowpeakcircuit.js");exports["snowpeakcircuit"].id = "snowpeakcircuit";
+exports["deathvalley"] = require("./deathvalley.js");exports["deathvalley"].id = "deathvalley";
+exports["frogfoot"] = require("./frogfoot.js");exports["frogfoot"].id = "frogfoot";
+exports["spiralraceway"] = require("./spiralraceway.js");exports["spiralraceway"].id = "spiralraceway";
 },{"./deathvalley.js":4,"./drycircuit.js":5,"./frogfoot.js":6,"./greenring.js":7,"./snowpeakcircuit.js":9,"./spiralraceway.js":10}],9:[function(require,module,exports){
 module.exports ={"size":[2800,2200],"title":"Snowpeak Circuit","bgtile":"snow.png","props":[{"p":[233,677],"f":1,"a":0},{"p":[359,647],"f":2,"a":0},{"p":[373,620],"f":2,"a":0},{"p":[396,600],"f":2,"a":0},{"p":[426,588],"f":2,"a":0},{"p":[458,465],"f":1,"a":270},{"p":[729,553],"f":3,"a":270},{"p":[820,554],"f":3,"a":270},{"p":[912,588],"f":2,"a":0},{"p":[942,601],"f":2,"a":0},{"p":[963,622],"f":2,"a":0},{"p":[981,650],"f":2,"a":0},{"p":[955,680],"f":3,"a":180},{"p":[952,762],"f":3,"a":165},{"p":[982,844],"f":3,"a":150},{"p":[1035,914],"f":3,"a":135},{"p":[1117,965],"f":3,"a":105},{"p":[1216,986],"f":3,"a":90},{"p":[1308,896],"f":1,"a":270},{"p":[1580,986],"f":3,"a":90},{"p":[1673,987],"f":3,"a":90},{"p":[1746,949],"f":3,"a":60},{"p":[1817,895],"f":3,"a":45},{"p":[1869,821],"f":3,"a":30},{"p":[1906,747],"f":3,"a":0},{"p":[1907,657],"f":3,"a":0},{"p":[1952,629],"f":2,"a":0},{"p":[1974,608],"f":2,"a":0},{"p":[2002,589],"f":2,"a":0},{"p":[2033,465],"f":1,"a":270},{"p":[2293,551],"f":3,"a":285},{"p":[2360,595],"f":3,"a":150},{"p":[2306,697],"f":1,"a":180},{"p":[2307,969],"f":1,"a":180},{"p":[2398,1243],"f":3,"a":180},{"p":[2415,1319],"f":3,"a":165},{"p":[2435,1418],"f":3,"a":180},{"p":[2412,1502],"f":3,"a":195},{"p":[2398,1600],"f":3,"a":180},{"p":[2349,1667],"f":3,"a":225},{"p":[2104,1628],"f":1,"a":90},{"p":[2011,1716],"f":3,"a":270},{"p":[1917,1657],"f":3,"a":315},{"p":[1909,1594],"f":3,"a":0},{"p":[1896,1494],"f":3,"a":345},{"p":[1857,1403],"f":3,"a":330},{"p":[1800,1329],"f":3,"a":315},{"p":[1731,1288],"f":3,"a":285},{"p":[1470,1197],"f":1,"a":90},{"p":[1200,1198],"f":1,"a":90},{"p":[928,1196],"f":1,"a":90},{"p":[655,1199],"f":1,"a":90},{"p":[562,1288],"f":3,"a":270},{"p":[472,1290],"f":3,"a":270},{"p":[369,1259],"f":3,"a":300},{"p":[319,1201],"f":3,"a":345},{"p":[231,942],"f":1,"a":0},{"p":[427,1424],"f":1,"a":270},{"p":[697,1423],"f":1,"a":270},{"p":[969,1424],"f":1,"a":270},{"p":[1240,1424],"f":1,"a":270},{"p":[1512,1515],"f":3,"a":270},{"p":[1583,1512],"f":3,"a":300},{"p":[1646,1576],"f":3,"a":330},{"p":[1677,1678],"f":3,"a":0},{"p":[1676,1757],"f":3,"a":345},{"p":[1711,1834],"f":3,"a":330},{"p":[1778,1893],"f":3,"a":300},{"p":[1871,1930],"f":3,"a":285},{"p":[1971,1860],"f":1,"a":270},{"p":[2242,1859],"f":1,"a":270},{"p":[2490,1905],"f":3,"a":240},{"p":[2556,1840],"f":3,"a":210},{"p":[2601,1763],"f":3,"a":195},{"p":[2626,1683],"f":3,"a":180},{"p":[2535,1411],"f":1,"a":180},{"p":[2535,1137],"f":1,"a":180},{"p":[2536,865],"f":1,"a":180},{"p":[2534,593],"f":1,"a":180},{"p":[2599,493],"f":3,"a":165},{"p":[2554,405],"f":3,"a":150},{"p":[2486,347],"f":3,"a":120},{"p":[2407,322],"f":3,"a":105},{"p":[2322,325],"f":3,"a":90},{"p":[2046,235],"f":1,"a":90},{"p":[1953,322],"f":3,"a":90},{"p":[1852,325],"f":3,"a":75},{"p":[1761,362],"f":3,"a":60},{"p":[1700,433],"f":3,"a":30},{"p":[1676,523],"f":3,"a":15},{"p":[1675,623],"f":3,"a":0},{"p":[1639,693],"f":3,"a":30},{"p":[1646,783],"f":2,"a":0},{"p":[1376,670],"f":1,"a":90},{"p":[1286,754],"f":3,"a":90},{"p":[1190,697],"f":3,"a":135},{"p":[1186,633],"f":3,"a":180},{"p":[1186,543],"f":3,"a":180},{"p":[1142,441],"f":3,"a":150},{"p":[1080,367],"f":3,"a":135},{"p":[1006,331],"f":3,"a":105},{"p":[746,238],"f":1,"a":90},{"p":[473,239],"f":1,"a":90},{"p":[382,325],"f":3,"a":90},{"p":[290,334],"f":3,"a":75},{"p":[206,366],"f":3,"a":60},{"p":[138,427],"f":3,"a":45},{"p":[100,511],"f":3,"a":15},{"p":[89,605],"f":3,"a":0},{"p":[1,695],"f":1,"a":0},{"p":[2,967],"f":1,"a":0},{"p":[335,1517],"f":3,"a":270},{"p":[220,1472],"f":3,"a":300},{"p":[143,1412],"f":3,"a":315},{"p":[101,1346],"f":3,"a":345},{"p":[92,1238],"f":3,"a":0},{"p":[125,1327],"f":2,"a":0}],"decals":[{"p":[156,1230],"f":4,"a":270},{"p":[468,1302],"f":5,"a":0},{"p":[756,1302],"f":5,"a":0},{"p":[1044,1302],"f":5,"a":0},{"p":[1332,1302],"f":5,"a":0},{"p":[1620,1350],"f":4,"a":90},{"p":[1740,1662],"f":4,"a":270},{"p":[2052,1734],"f":5,"a":0},{"p":[2340,1662],"f":4,"a":180},{"p":[2460,1470],"f":6,"a":0},{"p":[2460,1278],"f":7,"a":0},{"p":[2460,1086],"f":8,"a":0},{"p":[2460,894],"f":8,"a":0},{"p":[2460,702],"f":8,"a":0},{"p":[2340,390],"f":4,"a":90},{"p":[2052,342],"f":5,"a":180},{"p":[1740,390],"f":4,"a":0},{"p":[1620,702],"f":4,"a":180},{"p":[1332,774],"f":5,"a":180},{"p":[1020,702],"f":4,"a":270},{"p":[900,390],"f":4,"a":90},{"p":[612,342],"f":5,"a":180},{"p":[108,942],"f":5,"a":270},{"p":[156,750],"f":8,"a":0},{"p":[156,390],"f":4,"a":0},{"p":[468,390],"f":8,"a":90},{"p":[156,702],"f":8,"a":180},{"p":[1374,1356],"f":9,"a":270},{"p":[1374,1434],"f":9,"a":270},{"p":[1356,1368],"f":10,"a":90},{"p":[1260,1476],"f":10,"a":90},{"p":[1164,1368],"f":10,"a":90},{"p":[1050,1476],"f":10,"a":90},{"p":[948,1368],"f":10,"a":90},{"p":[828,1476],"f":10,"a":90}],"laps":4,"ai_waypoints":[{"p":[1459,1440],"n":1},{"p":[1728,1536],"n":2},{"p":[1954,1793],"n":3},{"p":[2420,1800],"n":4},{"p":[2527,1549],"n":5},{"p":[2566,1121],"n":6},{"p":[2580,824],"n":7},{"p":[2411,548],"n":8},{"p":[1916,556],"n":9},{"p":[1676,829],"n":10},{"p":[1205,822],"n":11},{"p":[981,549],"n":12},{"p":[363,526],"n":13},{"p":[218,866],"n":14},{"p":[279,1336],"n":15}],"checkpoints":[{"p":[1418,1297],"n":1},{"p":[2035,1746],"n":2},{"p":[2433,1140],"n":3},{"p":[2377,416],"n":4},{"p":[1729,420],"n":5},{"p":[991,685],"n":6},{"p":[163,380],"n":7},{"p":[176,1264],"n":8}],"start_positions":[{"p":[1306,1361],"n":1,"a":90},{"p":[1214,1469],"n":2,"a":90},{"p":[1116,1362],"n":3,"a":90},{"p":[1000,1469],"n":4,"a":90},{"p":[901,1364],"n":5,"a":90},{"p":[780,1471],"n":6,"a":90}],"dict":{"1":"9tires.png","2":"tire.png","3":"3tires.png","4":"dideliskampas.png","5":"ilgas.png","6":"sonaslenktas2.png","7":"sonaslenktas1.png","8":"paprastas.png","9":"startbar.png","10":"white_bar.png"}}
 },{}],10:[function(require,module,exports){
@@ -13283,6 +13283,78 @@ Director.prototype.tick = function (timestamp) {
 	}
 };
 },{}],100:[function(require,module,exports){
+var util = require('util'),
+	EventEmitter = require('events').EventEmitter,
+	levels = require('../../data/levels');
+
+var Client = module.exports = function(world, adapter) {
+	this.world = world;
+	this.adapter = adapter;
+	this.time = 0;
+
+	var self = this;
+	this.adapter
+	.on('connected', function(){
+		self.handle_connected.apply(self, arguments);
+	})
+	.on('message', function() {
+		self.handle_message.apply(self, arguments);
+	});
+};
+
+util.inherits(Client, EventEmitter);
+
+Client.prototype.handle_connected = function () {
+	this.adapter.send('givelevel');
+};
+
+Client.prototype.handle_message = function(message, data){
+	if(this['handle_message_'+message]) {
+		this['handle_message_'+message](data);
+	} else {
+		console.log("Client: received unknown message"+message);
+	}
+};
+
+Client.prototype.handle_message_level = function (data) {
+	if(!this.world.level) {
+		var level = levels[data.levelid];
+		if(level){
+			this.world.loadLevel(level);
+			this.time = data.time;
+			this.emit('level_loaded');
+			this.adapter.send("spawns");
+		} else {
+			console.log("Client: unknown level ["+data.levelid+"]");
+		}
+	}
+};
+
+Client.prototype.handle_message_event = function (data) {
+	console.log('receive event', data);
+	this.world.handle_event(data);
+};
+
+Client.prototype.handle_message_update = function (data) {
+	var self = this;
+	data.u.forEach(function(update){
+		obj = self.world.objects.get(update[0]);
+		
+		if(obj) {
+			Object.keys(update[1]).forEach(function(key){
+				if(obj[key] !== update[1][key]){
+					obj[key] = update[1][key];
+				}
+			});
+		}
+	});
+};
+
+
+Client.prototype.tick = function(msDuration) {
+	this.time += msDuration;
+};
+},{"../../data/levels":8,"events":20,"util":24}],101:[function(require,module,exports){
 exports.CONTROLS = {
 	ACC: {
 		FORWARD: 1,
@@ -13311,7 +13383,7 @@ exports.KEYS = {
 	ALT : 18,
 	ESC : 27
 };
-},{}],101:[function(require,module,exports){
+},{}],102:[function(require,module,exports){
 var BaseController = module.exports = function() {
 
 
@@ -13326,11 +13398,11 @@ BaseController.prototype.get_acceleration = function () {
 BaseController.prototype.get_steer = function () {
 	return 0;
 };	
-},{}],102:[function(require,module,exports){
+},{}],103:[function(require,module,exports){
 exports.BaseController = require('./base-controller');
 exports.KeyboardController = require('./keyboard-controller');
 
-},{"./base-controller":101,"./keyboard-controller":103}],103:[function(require,module,exports){
+},{"./base-controller":102,"./keyboard-controller":104}],104:[function(require,module,exports){
 var util = require('util'),
 	BaseController = require('./base-controller');
 
@@ -13369,7 +13441,7 @@ BaseController.prototype.get_acceleration = function () {
 BaseController.prototype.get_steer = function () {
 	return this._get_variable('steer');
 };	
-},{"./base-controller":101,"util":24}],104:[function(require,module,exports){
+},{"./base-controller":102,"util":24}],105:[function(require,module,exports){
 var m = require('./index');
 
 m.c('base', {
@@ -13382,7 +13454,7 @@ m.c('base', {
 
 	}
 });
-},{"./index":112}],105:[function(require,module,exports){
+},{"./index":113}],106:[function(require,module,exports){
 var m = require('../index'),
 	PIXI = require('pixi');
 
@@ -13403,7 +13475,7 @@ m.c('drawable', {
 		this.create_drawable();
 	}
 });
-},{"../index":112,"pixi":62}],106:[function(require,module,exports){
+},{"../index":113,"pixi":62}],107:[function(require,module,exports){
 var m = require('../index'),
 	PIXI = require('pixi');
 
@@ -13419,10 +13491,10 @@ m.c('drawable_sprite', {
 		return sprite;
 	}
 });
-},{"../index":112,"pixi":62}],107:[function(require,module,exports){
+},{"../index":113,"pixi":62}],108:[function(require,module,exports){
 require('./drawable');
 require('./drawable_sprite');
-},{"./drawable":105,"./drawable_sprite":106}],108:[function(require,module,exports){
+},{"./drawable":106,"./drawable_sprite":107}],109:[function(require,module,exports){
 var m = require('../index'),
 	box2d = require('box2dweb'),
 	Wheel = require('./wheel'),
@@ -13546,11 +13618,11 @@ m.c('car', {
 		
 	}
 });
-},{"../../constants":100,"../index":112,"./wheel":111,"box2dweb":11,"xtend":94}],109:[function(require,module,exports){
+},{"../../constants":101,"../index":113,"./wheel":112,"box2dweb":11,"xtend":94}],110:[function(require,module,exports){
 require('./car');
 require('./prop');
 
-},{"./car":108,"./prop":110}],110:[function(require,module,exports){
+},{"./car":109,"./prop":111}],111:[function(require,module,exports){
 var m = require('../index'),
 	box2d = require('box2dweb');
 
@@ -13577,7 +13649,7 @@ m.c('prop', {
 
 	on_update_after_physics_update_position: function(){}
 });
-},{"../index":112,"box2dweb":11}],111:[function(require,module,exports){
+},{"../index":113,"box2dweb":11}],112:[function(require,module,exports){
 var box2d = require('box2dweb');
 
 var Wheel = module.exports =  function(pars){
@@ -13669,7 +13741,7 @@ Wheel.prototype.killSidewaysVelocity=function(){
 
 };
 
-},{"box2dweb":11}],112:[function(require,module,exports){
+},{"box2dweb":11}],113:[function(require,module,exports){
 var CEM = require('cem');
 module.exports = new CEM.Manager();
 
@@ -13677,9 +13749,9 @@ require('./base');
 require('./drawables');
 require('./physics');
 require('./game');
-},{"./base":104,"./drawables":107,"./game":109,"./physics":113,"cem":16}],113:[function(require,module,exports){
+},{"./base":105,"./drawables":108,"./game":110,"./physics":114,"cem":16}],114:[function(require,module,exports){
 require('./physical');
-},{"./physical":114}],114:[function(require,module,exports){
+},{"./physical":115}],115:[function(require,module,exports){
 var m = require('../index'),
 	box2d = require('box2dweb');
 
@@ -13706,7 +13778,6 @@ m.c('physical', {
 	//relay position & angle to body & vice versa
 	on_update_update_body: function () {
 		if(this._pos_dirty) {
-			console.log('setpos');
 			this._body.SetPositionAndAngle(new box2d.b2Vec2(this.x / this._world.SCALE, this.y / this._world.SCALE), this.angle);
 		}
 	},
@@ -13764,7 +13835,110 @@ m.c('physical', {
 		drawable.rotation  = this.angle;
 	}
 });
-},{"../index":112,"box2dweb":11}],115:[function(require,module,exports){
+},{"../index":113,"box2dweb":11}],116:[function(require,module,exports){
+var Server = module.exports = function(world, adapter) {
+	this.world = world;
+	this.adapter = adapter;
+	this.clients = {};
+	this.adapter.start();
+	this.adapter
+	var self = this;
+
+	this.adapter
+	.on('connect', function () {
+		self.handle_connect.apply(self, arguments);
+	})
+	.on('close', function () {
+		self.handle_close.apply(self, arguments);
+	})
+	.on('message', function () {
+		self.handle_message.apply(self, arguments);
+	});
+};
+
+/* EVENT HANDLERS */
+
+Server.prototype.handle_connect = function (client_id){
+	this.clients[client_id] = {
+		max_event: 0,
+		id: client_id
+	};
+};
+
+Server.prototype.handle_close = function(client_id){
+	delete this.clients[client_id];
+};
+
+Server.prototype.handle_open = function(client_id) {
+	this.clients[client_id].open = true;
+};
+
+Server.prototype.handle_message = function(client_id, message, data){
+	var client = this.clients[client_id];
+	if(client) {
+		if(this['handle_message_'+message]) {
+			this['handle_message_'+message](client, data);
+		} else {
+			console.log('Server: unknown message ['+message+']');
+		}
+	}
+};
+
+/* MESSAGE HANDLERS */
+Server.prototype.handle_message_givelevel = function(client, data) {
+	//send level id and server time
+	this.adapter.send(client.id, 'level', {
+		levelid: this.world.level.id,
+		time: this.world.time
+	});
+};
+
+Server.prototype.handle_message_spawns = function(client, data) {
+	//send spawn events for live objects
+	var self = this;
+	this.world.objects.each(function (obj) {
+		var evt = self.world.spawn_events[obj.id];
+		if(obj._sync !== false && evt){
+			self.sendEvent(client.id, evt);
+		}
+	});
+};
+
+
+
+/* UTILS */
+
+Server.prototype.sendEvent = function(client_id, evt) {
+	if(this.clients[client_id]){
+		console.log('send event', evt);
+		this.adapter.send(client_id, 'event', evt);
+		this.clients[client_id].max_event = Math.max(this.clients[client_id].max_event, evt.n);
+	}
+};
+
+Server.prototype.tick = function(msDuration) {
+		//send events
+	var client, self = this;;
+	Object.keys(this.clients).forEach(function(client_id){
+		client = self.clients[client_id];
+		for(var i = client.max_event.event_no; i++; i<=self.world.event_no) {
+			self.sendEvent(client_id, self.world.events[i]);
+		}
+	});
+
+	//send updates
+	updates = [];
+	this.world.objects.each(function(obj){
+		if(obj._sync !== false) {
+			updates.push([obj.id, obj.__properties]);
+		}
+	});
+	this.adapter.broadcast('update', {
+		t: this.world.time,
+		u: updates
+	});
+};
+},{}],117:[function(require,module,exports){
 var manager = require('./objects'),
 	CEM = require('cem'),
 	box2d = require('box2dweb'),
@@ -13781,6 +13955,13 @@ var World = module.exports = function World(size, slave) {
 	this.event_no = 0;
 	this.events = {};
 	this.spawn_events = {};
+	this.level = null;
+};
+
+World.prototype.loadLevel = function(level) {
+	this.level = level;
+	this.size = level.size;
+	this.loadPropsFromLevel(level);
 };
 
 
@@ -13920,7 +14101,7 @@ World.prototype.deserialize_props = function(properties) {
 
 	
 
-},{"../utils":133,"./objects":112,"box2dweb":11,"cem":16}],116:[function(require,module,exports){
+},{"../utils":135,"./objects":113,"box2dweb":11,"cem":16}],118:[function(require,module,exports){
 var Director = require('./director'),
 	scenes = require('./scenes');
 	PIXI = require('pixi'),
@@ -13967,7 +14148,7 @@ Game.prototype.initAndRun = function () {
 		self.start();
 	});
 };
-},{"../data/assets":1,"./director":99,"./input":117,"./scenes":127,"./utils":133,"pixi":62}],117:[function(require,module,exports){
+},{"../data/assets":1,"./director":99,"./input":119,"./scenes":129,"./utils":135,"pixi":62}],119:[function(require,module,exports){
 var Input = module.exports = function () {
 	this.keys_down = {};
 	$('body').on('keydown', $.proxy(this.onKeyDown, this));
@@ -13985,9 +14166,9 @@ Input.prototype.onKeyUp = function(e) {
 Input.prototype.isDown = function(key) {
 	return this.keys_down[key] !== undefined ? this.keys_down[key] : false;
 };
-},{}],118:[function(require,module,exports){
+},{}],120:[function(require,module,exports){
 window.Racer = require('./game');
-},{"./game":116}],119:[function(require,module,exports){
+},{"./game":118}],121:[function(require,module,exports){
 var EventEmitter = require('events').EventEmitter;
 var util = require('util');
 
@@ -14009,7 +14190,7 @@ Base.prototype.fmt_message = function(message, data){
 		d: data 
 	};
 };
-},{"events":20,"util":24}],120:[function(require,module,exports){
+},{"events":20,"util":24}],122:[function(require,module,exports){
 var BaseAdapter = require('../base');
 var util = require('util');
 
@@ -14030,7 +14211,7 @@ Base.prototype.send = function(msg, data) {
 Base.prototype.disconnect = function(){
 	throw new Error('disconnect');
 };
-},{"../base":119,"util":24}],121:[function(require,module,exports){
+},{"../base":121,"util":24}],123:[function(require,module,exports){
 var BaseClient = require('./base'),
 	util = require('util'),
 	config = require('../../../data/config');
@@ -14059,7 +14240,7 @@ PeerClient.prototype.connect = function(server_id) {
 	});
 
 	conn.on('data', function(data){
-		self.log('data', data);
+		//self.log('data', data);
 		self.emit('message', data.m, data.d);
 	});
 
@@ -14075,10 +14256,10 @@ PeerClient.prototype.send = function(msg, data){
 PeerClient.prototype.disconnect = function(){
 	this.conn.disconnect();
 };
-},{"../../../data/config":3,"./base":120,"util":24}],122:[function(require,module,exports){
+},{"../../../data/config":3,"./base":122,"util":24}],124:[function(require,module,exports){
 exports.PeerServer = require('./server/peer');
 exports.PeerClient = require('./client/peer');
-},{"./client/peer":121,"./server/peer":124}],123:[function(require,module,exports){
+},{"./client/peer":123,"./server/peer":126}],125:[function(require,module,exports){
 var BaseAdapter = require('../base');
 var util = require('util');
 
@@ -14111,7 +14292,7 @@ Base.prototype.send = function(client_id, message, data){
 Base.prototype.destroy = function(){
 	this.broadcast('destroyed');
 };
-},{"../base":119,"util":24}],124:[function(require,module,exports){
+},{"../base":121,"util":24}],126:[function(require,module,exports){
 var Base = require('./base'),
 	util = require('util'),
 	config = require('../../../data/config');
@@ -14155,6 +14336,10 @@ PeerServer.prototype.handleConnection = function(conn){
 		self.handleError(client_id, error);
 	});
 
+	conn.on('open', function() {
+		self.handleOpen(client_id);
+	});
+
 	conn.on('close', function() {
 		self.handleClose(client_id);
 	});
@@ -14162,8 +14347,10 @@ PeerServer.prototype.handleConnection = function(conn){
 
 PeerServer.prototype.send = function(client_id, message, data) {
 	if(this.clients[client_id]) {
-		this.log(client_id, 'send', message, JSON.stringify(data));
-		this.clients[client_id].send(this.fmt_message(message, data));
+		if(this.clients[client_id].__open) {
+			//this.log(client_id, 'send', message, JSON.stringify(data));
+			this.clients[client_id].send(this.fmt_message(message, data));
+		}
 	} else {
 		this.log(client_id, 'Conn not found!');
 	}
@@ -14177,6 +14364,9 @@ PeerServer.prototype.broadcast = function(message, data) {
 
 PeerServer.prototype.log = function(client_id, msg, data){
 	Base.prototype.log.apply(this, ['['+client_id+']', msg, data]);
+};
+PeerServer.prototype.handleOpen = function(client_id) {
+	this.clients[client_id].__open = true;
 };
 
 PeerServer.prototype.handleData = function(client_id, data){
@@ -14199,7 +14389,7 @@ PeerServer.prototype.handleClose = function(client_id) {
 
 
 
-},{"../../../data/config":3,"./base":123,"util":24}],125:[function(require,module,exports){
+},{"../../../data/config":3,"./base":125,"util":24}],127:[function(require,module,exports){
 var PIXI = require('pixi'),
 	utils = require('./utils');
 
@@ -14332,7 +14522,7 @@ Renderer.renderBackgroundTexture = function(level){
 
 
 
-},{"./utils":133,"pixi":62}],126:[function(require,module,exports){
+},{"./utils":135,"pixi":62}],128:[function(require,module,exports){
 var Renderer = require('../renderer'),
 	util = require('util'),
 	World = require('../engine/world'),
@@ -14354,9 +14544,9 @@ GameScene.prototype.setLevel = function(levelid) {
 	this.level = levels[levelid];
 };
 
-GameScene.prototype.initWorld = function(level) {
+GameScene.prototype.initWorld = function() {
 	this.world = new World(this.level.size);
-	this.world.loadPropsFromLevel(this.level);
+	this.world.loadLevel(this.level);
 	
 };
 
@@ -14368,7 +14558,7 @@ GameScene.prototype.spawnCar = function(definition, controller, start_position )
 	var car =  this.world.spawn('car', {
 		x: this.level.start_positions[start_position].p[0] + (definition.physical_properties.width * this.world.SCALE) / 2,
 		y: this.level.start_positions[start_position].p[1] + (definition.physical_properties.length * this.world.SCALE) /2,
-		sprite_filename: 'cars/thunderbolt_red.png',
+		sprite_filename: 'cars/'+definition.sprite+'_red.png',
 		angle: utils.radians(this.level.start_positions[start_position].a),
 		def: definition,
 	});
@@ -14387,12 +14577,12 @@ GameScene.prototype.tick = function(msDuration) {
 
 
 
-},{"../../data/cars":2,"../../data/levels":8,"../engine/controllers":102,"../engine/world":115,"../renderer":125,"../utils":133,"util":24}],127:[function(require,module,exports){
+},{"../../data/cars":2,"../../data/levels":8,"../engine/controllers":103,"../engine/world":117,"../renderer":127,"../utils":135,"util":24}],129:[function(require,module,exports){
 exports.game = require('./game');
 exports.main = require('./main');
 exports.mpserver = require('./mpserver');
 exports.mpclient = require('./mpclient');
-},{"./game":126,"./main":128,"./mpclient":129,"./mpserver":130}],128:[function(require,module,exports){
+},{"./game":128,"./main":130,"./mpclient":131,"./mpserver":132}],130:[function(require,module,exports){
 var View = require('./view');
 
 module.exports = View.extend({
@@ -14440,11 +14630,13 @@ module.exports = View.extend({
 
 	template: 'main'
 });
-},{"./view":131}],129:[function(require,module,exports){
+},{"./view":133}],131:[function(require,module,exports){
 var GameScene = require('./game'),
 	util = require('util'),
 	cars = require('../../data/cars'),
 	controllers = require('../engine/controllers'),
+	World = require('../engine/world'),
+	Client = require('../engine/client'),
 	networking = require('../networking');
 
 var MPClientScene = module.exports = function MPClientScene(game, options) {
@@ -14452,148 +14644,52 @@ var MPClientScene = module.exports = function MPClientScene(game, options) {
 	this.options = options;
 	this.controller = new controllers.KeyboardController(this.game.input);
 	game.container.empty().append('<p>Connecting...</p>');
-	this.initAdapter();
+	this.adapter = new networking.PeerClient();
+	this.world = new World([1000, 1000]);
+	this.client = new Client(this.world, this.adapter),
+	this.adapter.connect(this.options.gameid);
+
+	var self = this;
+	this.client.on('level_loaded', function(){
+		self.level = self.world.level;
+		self.initRenderer();
+	});
 };
 
 util.inherits(MPClientScene, GameScene);
 
-MPClientScene.prototype.initAdapter = function () {
-	var self = this;
-	this.adapter = new networking.PeerClient();
-	this.adapter.connect(this.options.gameid);
-	console.log('connecting');
-	this.adapter.on('message', function(message, data){
-		if(message === 'level'){
-			if(!self.world) {
-				self.setLevel(data.levelid);
-				self.initWorld();
-				self.world.time = data.time;
-				self.initRenderer();
-				self.adapter.send('spawns');
-			}
-		}
-
-		if(message === 'event') {
-			var aa = self.world.handle_event(data);
-			if(aa && aa.is('car')){
-				self.renderer.follow(aa);
-			}
-		}
-
-		if(message === 'update') {
-			var obj;
-			data.u.forEach(function(update){
-				obj = self.world.objects.get(update[0]);
-				
-				if(obj) {
-					console.log('upating', obj.id, update[1]);
-					Object.keys(update[1]).forEach(function(key){
-						if(obj[key] !== update[1][key]){
-							obj[key] = update[1][key];
-						}
-					});
-				}
-			});
-		}
-	});
-
-	this.adapter.on("connected", function(){
-		self.adapter.send('givelevel');
-	});
+MPClientScene.prototype.tick = function(msDuration) {
+	GameScene.prototype.tick.apply(this, arguments);
+	this.client.tick(msDuration);
 };
-},{"../../data/cars":2,"../engine/controllers":102,"../networking":122,"./game":126,"util":24}],130:[function(require,module,exports){
+},{"../../data/cars":2,"../engine/client":100,"../engine/controllers":103,"../engine/world":117,"../networking":124,"./game":128,"util":24}],132:[function(require,module,exports){
 var GameScene = require('./game'),
 	util = require('util'),
 	cars = require('../../data/cars'),
 	controllers = require('../engine/controllers'),
-	networking = require('../networking');
+	networking = require('../networking'),
+	Server = require('../engine/server');
 
 var MPServerScene = module.exports = function MPServerScene (game, options) {
 	this.game = game;
 	this.options = options;
 	this.setLevel(options.levelid);
 	this.initWorld();
-	this.initAdapter();
+	this.adapter = new networking.PeerServer(6, this.options.gameid);
+	this.server = new Server(this.world, this.adapter);
 	this.initRenderer();
 	this.start_pos = 0;
-	this.clients = {};
 	var car = this.spawnCar(cars.generic, new controllers.KeyboardController(this.game.input), this.start_pos++);
 	this.renderer.follow(car);
 };
 
 util.inherits(MPServerScene, GameScene);
 
-
-MPServerScene.prototype.initAdapter = function () {
-	var self = this;
-	this.adapter = new networking.PeerServer(6, this.options.gameid);
-	this.adapter.start();
-	this.adapter.on('connect', function(client_id){
-		console.log('conected', client_id);
-		self.clients[client_id] = {
-			max_event: 0
-		}
-	});
-
-	this.adapter.on('close', function(client_id){
-		delete self.clients[client_id];
-	});
-
-	this.adapter.on('message', function(client_id, message, data){
-		var client = self.clients[client_id];
-		if(message === 'givelevel') {
-			self.adapter.send(client_id, 'level', {
-				levelid: self.options.levelid,
-				time: self.world.time
-			});
-		}
-
-		//send spawn events for live objects
-		if(message === 'spawns') {
-			self.world.objects.each(function(obj){
-				var evt = self.world.spawn_events[obj.id];
-				if(obj._sync !== false && evt){
-					self.sendEvent(client_id, evt);
-				}
-			});
-		}
-	});
-};
-
-MPServerScene.prototype.sendEvent = function(client_id, evt) {
-	if(this.clients[client_id]){
-		this.adapter.send(client_id, 'event', evt);
-		this.clients[client_id].max_event = Math.max(this.clients[client_id].max_event, evt.n);
-	}
-};
-
 MPServerScene.prototype.tick = function(msDuration) {
 	GameScene.prototype.tick.apply(this, arguments);
-	
-
-	//send events
-	var client, self = this;;
-	Object.keys(this.clients).forEach(function(client_id){
-		client = self.clients[client_id];
-		for(var i = client.max_event.event_no; i++; i<=self.world.event_no) {
-			self.sendEvent(client_id, self.world.events[i]);
-		}
-	});
-
-	//send updates
-	updates = [];
-	this.world.objects.each(function(obj){
-		if(obj._sync !== false) {
-			updates.push([obj.id, obj.__properties]);
-		}
-	});
-	this.adapter.broadcast('update', {
-		t: this.world.time,
-		u: updates
-	});
-
+	this.server.tick(msDuration);
 };
-},{"../../data/cars":2,"../engine/controllers":102,"../networking":122,"./game":126,"util":24}],131:[function(require,module,exports){
+},{"../../data/cars":2,"../engine/controllers":103,"../engine/server":116,"../networking":124,"./game":128,"util":24}],133:[function(require,module,exports){
 var util = require('util'),
 	View = require('../ui/view');
 
@@ -14614,7 +14710,7 @@ module.exports = View.extend({
 	}
 });
 
-},{"../ui/view":132,"util":24}],132:[function(require,module,exports){
+},{"../ui/view":134,"util":24}],134:[function(require,module,exports){
 module.exports = Backbone.View.extend({
 	template: 'main',
 	
@@ -14630,7 +14726,7 @@ module.exports = Backbone.View.extend({
 		this.$el.html(this.renderTemplate(context || {}));
 	}
 });
-},{}],133:[function(require,module,exports){
+},{}],135:[function(require,module,exports){
 var box2d = require('box2dweb');
 
 box2d.b2Vec2 = box2d.Common.Math.b2Vec2;
@@ -14653,4 +14749,4 @@ exports.degrees = function(radians) {
 exports.radians = function(degrees) {
 	return degrees * (Math.PI / 180);
 };
-},{"box2dweb":11}]},{},[118])
+},{"box2dweb":11}]},{},[120])

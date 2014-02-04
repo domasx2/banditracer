@@ -19,9 +19,9 @@ GameScene.prototype.setLevel = function(levelid) {
 	this.level = levels[levelid];
 };
 
-GameScene.prototype.initWorld = function(level) {
+GameScene.prototype.initWorld = function() {
 	this.world = new World(this.level.size);
-	this.world.loadPropsFromLevel(this.level);
+	this.world.loadLevel(this.level);
 	
 };
 
@@ -33,7 +33,7 @@ GameScene.prototype.spawnCar = function(definition, controller, start_position )
 	var car =  this.world.spawn('car', {
 		x: this.level.start_positions[start_position].p[0] + (definition.physical_properties.width * this.world.SCALE) / 2,
 		y: this.level.start_positions[start_position].p[1] + (definition.physical_properties.length * this.world.SCALE) /2,
-		sprite_filename: 'cars/thunderbolt_red.png',
+		sprite_filename: 'cars/'+definition.sprite+'_red.png',
 		angle: utils.radians(this.level.start_positions[start_position].a),
 		def: definition,
 	});

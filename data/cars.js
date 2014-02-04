@@ -3,7 +3,7 @@ var extend = require('xtend');
 var generic = {
 	name:'Generic Car', 
 	__serializable: true,
-	sprite_name: 'cars/thunderbolt_red.png',
+	sprite: 'thunderbolt',
 
 	physical_properties: { 
 		width: 1.4,

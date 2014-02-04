@@ -41,6 +41,10 @@ PeerServer.prototype.handleConnection = function(conn){
 		self.handleError(client_id, error);
 	});
 
+	conn.on('open', function() {
+		self.handleOpen(client_id);
+	});
+
 	conn.on('close', function() {
 		self.handleClose(client_id);
 	});
@@ -48,8 +52,10 @@ PeerServer.prototype.handleConnection = function(conn){
 
 PeerServer.prototype.send = function(client_id, message, data) {
 	if(this.clients[client_id]) {
-		this.log(client_id, 'send', message, JSON.stringify(data));
-		this.clients[client_id].send(this.fmt_message(message, data));
+		if(this.clients[client_id].__open) {
+			//this.log(client_id, 'send', message, JSON.stringify(data));
+			this.clients[client_id].send(this.fmt_message(message, data));
+		}
 	} else {
 		this.log(client_id, 'Conn not found!');
 	}
@@ -63,6 +69,9 @@ PeerServer.prototype.broadcast = function(message, data) {
 
 PeerServer.prototype.log = function(client_id, msg, data){
 	Base.prototype.log.apply(this, ['['+client_id+']', msg, data]);
+};
+PeerServer.prototype.handleOpen = function(client_id) {
+	this.clients[client_id].__open = true;
 };
 
 PeerServer.prototype.handleData = function(client_id, data){

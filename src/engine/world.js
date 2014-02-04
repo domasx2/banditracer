@@ -14,6 +14,13 @@ var World = module.exports = function World(size, slave) {
 	this.event_no = 0;
 	this.events = {};
 	this.spawn_events = {};
+	this.level = null;
+};
+
+World.prototype.loadLevel = function(level) {
+	this.level = level;
+	this.size = level.size;
+	this.loadPropsFromLevel(level);
 };
 
 
