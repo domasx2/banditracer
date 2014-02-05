@@ -108,7 +108,7 @@ Server.prototype.tick = function(msDuration) {
 	});
 
 	//send updates
-	var updates = [], data, keys, i;
+	var updates = {}, data, keys, i, do_broadcast = false;
 	this.world.objects.each(function(obj){
 		if(obj.is('syncable')) {
 			keys = Object.keys(obj._dirty);
@@ -118,13 +118,14 @@ Server.prototype.tick = function(msDuration) {
 					data[keys[i]] = obj.__properties[keys[i]];
 				}
 			
-				updates.push([obj.id, data]);
+				updates[obj.id] = data;
 				obj.clean();
+				do_broadcast = true;
 			}
 		}
 	});
 
-	if(updates.length) {
+	if(do_broadcast) {
 		this.adapter.broadcast('update', {
 			t: this.world.time,
 			u: updates
