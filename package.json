@@ -13,7 +13,7 @@
     "grunt": "~0.4.2",
     "pixi": "~0.2.1",
     "box2dweb": "~2.1.0b",
-    "cem": "~0.0.2",
+    "cem": "~0.0.3",
     "grunt-contrib-watch": "~0.5.3",
     "browserify": "~3.20.0",
     "grunt-browserify": "~1.3.0",

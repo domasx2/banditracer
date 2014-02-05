@@ -108,18 +108,26 @@ Server.prototype.tick = function(msDuration) {
 	});
 
 	//send updates
-	updates = [];
+	var updates = [], data, keys, i;
 	this.world.objects.each(function(obj){
-		if(obj._sync !== false) {
-			updates.push([obj.id, {
-				x: obj.__properties.x,
-				y: obj.__properties.y,
-				angle: obj.__properties.angle
-			}]);
+		if(obj.is('syncable')) {
+			keys = Object.keys(obj._dirty);
+			if(keys.length) {
+				data = {};
+				for(var i=0;i<keys.length;i++){
+					data[keys[i]] = obj.__properties[keys[i]];
+				}
+			
+				updates.push([obj.id, data]);
+				obj.clean();
+			}
 		}
 	});
-	this.adapter.broadcast('update', {
-		t: this.world.time,
-		u: updates
-	});
+
+	if(updates.length) {
+		this.adapter.broadcast('update', {
+			t: this.world.time,
+			u: updates
+		});
+	}
 };

@@ -50,10 +50,19 @@ PeerServer.prototype.handleConnection = function(conn){
 	});
 };
 
+PeerServer.prototype.send_raw = function(client_id, raw_data) {
+	if(this.clients[client_id]) {
+		if(this.clients[client_id].__open) {
+			this.clients[client_id].send(raw_data);
+		}
+	} else {
+		this.log(client_id, 'Conn not found!');
+	}
+}
+
 PeerServer.prototype.send = function(client_id, message, data) {
 	if(this.clients[client_id]) {
 		if(this.clients[client_id].__open) {
-			//this.log(client_id, 'send', message, JSON.stringify(data));
 			this.clients[client_id].send(this.fmt_message(message, data));
 		}
 	} else {
@@ -62,8 +71,9 @@ PeerServer.prototype.send = function(client_id, message, data) {
 };
 
 PeerServer.prototype.broadcast = function(message, data) {
+	var raw_data = this.fmt_message(message, data);
 	Object.keys(this.clients).forEach(function(id){
-		this.send(id, message, data);
+		this.send_raw(id, raw_data);
 	}, this);
 };
 
@@ -75,7 +85,6 @@ PeerServer.prototype.handleOpen = function(client_id) {
 };
 
 PeerServer.prototype.handleData = function(client_id, data){
-	this.log(client_id, 'data', JSON.stringify(data));
 	this.emit('message', client_id, data.m, data.d);
 };
 

@@ -7,7 +7,7 @@ var m = require('../index'),
 
 
 m.c('car', {
-	requires:'base physical drawable_sprite',
+	requires:'base syncable physical drawable_sprite',
 
 	wheel_angle: 0,
 

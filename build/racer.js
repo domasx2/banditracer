@@ -11186,7 +11186,10 @@ Entity.prototype.__extend = function(component) {
                         Object.defineProperty(self, key, {
                             set: function (val){
                                 self.__properties[key] = val;
-                                if(self.trigger) self.trigger('set_'+key, [val]);
+                                if(self.trigger) {
+                                    self.trigger('set_'+key, [val]);
+                                    self.trigger('set', [key, val]);
+                                }
                             },
                             get: function () {
                                 return self.__properties[key];
@@ -13555,7 +13558,7 @@ var m = require('../index'),
 
 
 m.c('car', {
-	requires:'base physical drawable_sprite',
+	requires:'base syncable physical drawable_sprite',
 
 	wheel_angle: 0,
 
@@ -13799,9 +13802,10 @@ module.exports = new CEM.Manager();
 
 require('./base');
 require('./drawables');
+require('./syncable');
 require('./physics');
 require('./game');
-},{"./base":106,"./drawables":109,"./game":111,"./physics":115,"cem":16}],115:[function(require,module,exports){
+},{"./base":106,"./drawables":109,"./game":111,"./physics":115,"./syncable":117,"cem":16}],115:[function(require,module,exports){
 require('./physical');
 },{"./physical":116}],116:[function(require,module,exports){
 var m = require('../index'),
@@ -13888,6 +13892,29 @@ m.c('physical', {
 	}
 });
 },{"../index":114,"box2dweb":11}],117:[function(require,module,exports){
+var m = require('./index');
+
+m.c('syncable', {
+
+	bootstrap: function () {
+		this.clean();
+		this._prev_value = {};
+	},
+
+	clean: function () {
+		this._dirty = {}; 
+	},
+
+	on_set_mark_as_dirty: function(prop, val) {
+		if((typeof val === 'number' || typeof val === 'string') && this._prev_value[prop] === val) {
+			return;
+		}
+		this._dirty[prop] = true;
+		this._prev_value[prop] = val;
+	}
+});
+
+},{"./index":114}],118:[function(require,module,exports){
 var controllers = require('./controllers');
 
 var Server = module.exports = function(world, adapter) {
@@ -13998,22 +14025,30 @@ Server.prototype.tick = function(msDuration) {
 	});
 
 	//send updates
-	updates = [];
+	var updates = [], data, keys, i;
 	this.world.objects.each(function(obj){
-		if(obj._sync !== false) {
-			updates.push([obj.id, {
-				x: obj.__properties.x,
-				y: obj.__properties.y,
-				angle: obj.__properties.angle
-			}]);
+		if(obj.is('syncable')) {
+			keys = Object.keys(obj._dirty);
+			if(keys.length) {
+				data = {};
+				for(var i=0;i<keys.length;i++){
+					data[keys[i]] = obj.__properties[keys[i]];
+				}
+			
+				updates.push([obj.id, data]);
+				obj.clean();
+			}
 		}
 	});
-	this.adapter.broadcast('update', {
-		t: this.world.time,
-		u: updates
-	});
+
+	if(updates.length) {
+		this.adapter.broadcast('update', {
+			t: this.world.time,
+			u: updates
+		});
+	}
 };
-},{"./controllers":104}],118:[function(require,module,exports){
+},{"./controllers":104}],119:[function(require,module,exports){
 var manager = require('./objects'),
 	CEM = require('cem'),
 	box2d = require('box2dweb'),
@@ -14190,7 +14225,7 @@ World.prototype.deserialize_props = function(properties) {
 
 	
 
-},{"../utils":136,"./objects":114,"box2dweb":11,"cem":16}],119:[function(require,module,exports){
+},{"../utils":137,"./objects":114,"box2dweb":11,"cem":16}],120:[function(require,module,exports){
 var Director = require('./director'),
 	scenes = require('./scenes');
 	PIXI = require('pixi'),
@@ -14237,7 +14272,7 @@ Game.prototype.initAndRun = function () {
 		self.start();
 	});
 };
-},{"../data/assets":1,"./director":99,"./input":120,"./scenes":130,"./utils":136,"pixi":62}],120:[function(require,module,exports){
+},{"../data/assets":1,"./director":99,"./input":121,"./scenes":131,"./utils":137,"pixi":62}],121:[function(require,module,exports){
 var Input = module.exports = function () {
 	this.keys_down = {};
 	$('body').on('keydown', $.proxy(this.onKeyDown, this));
@@ -14255,9 +14290,9 @@ Input.prototype.onKeyUp = function(e) {
 Input.prototype.isDown = function(key) {
 	return this.keys_down[key] !== undefined ? this.keys_down[key] : false;
 };
-},{}],121:[function(require,module,exports){
+},{}],122:[function(require,module,exports){
 window.Racer = require('./game');
-},{"./game":119}],122:[function(require,module,exports){
+},{"./game":120}],123:[function(require,module,exports){
 var EventEmitter = require('events').EventEmitter;
 var util = require('util');
 
@@ -14279,7 +14314,7 @@ Base.prototype.fmt_message = function(message, data){
 		d: data 
 	};
 };
-},{"events":20,"util":24}],123:[function(require,module,exports){
+},{"events":20,"util":24}],124:[function(require,module,exports){
 var BaseAdapter = require('../base');
 var util = require('util');
 
@@ -14300,7 +14335,7 @@ Base.prototype.send = function(msg, data) {
 Base.prototype.disconnect = function(){
 	throw new Error('disconnect');
 };
-},{"../base":122,"util":24}],124:[function(require,module,exports){
+},{"../base":123,"util":24}],125:[function(require,module,exports){
 var BaseClient = require('./base'),
 	util = require('util'),
 	config = require('../../../data/config');
@@ -14345,10 +14380,10 @@ PeerClient.prototype.send = function(msg, data){
 PeerClient.prototype.disconnect = function(){
 	this.conn.disconnect();
 };
-},{"../../../data/config":3,"./base":123,"util":24}],125:[function(require,module,exports){
+},{"../../../data/config":3,"./base":124,"util":24}],126:[function(require,module,exports){
 exports.PeerServer = require('./server/peer');
 exports.PeerClient = require('./client/peer');
-},{"./client/peer":124,"./server/peer":127}],126:[function(require,module,exports){
+},{"./client/peer":125,"./server/peer":128}],127:[function(require,module,exports){
 var BaseAdapter = require('../base');
 var util = require('util');
 
@@ -14381,7 +14416,7 @@ Base.prototype.send = function(client_id, message, data){
 Base.prototype.destroy = function(){
 	this.broadcast('destroyed');
 };
-},{"../base":122,"util":24}],127:[function(require,module,exports){
+},{"../base":123,"util":24}],128:[function(require,module,exports){
 var Base = require('./base'),
 	util = require('util'),
 	config = require('../../../data/config');
@@ -14434,10 +14469,19 @@ PeerServer.prototype.handleConnection = function(conn){
 	});
 };
 
+PeerServer.prototype.send_raw = function(client_id, raw_data) {
+	if(this.clients[client_id]) {
+		if(this.clients[client_id].__open) {
+			this.clients[client_id].send(raw_data);
+		}
+	} else {
+		this.log(client_id, 'Conn not found!');
+	}
+}
+
 PeerServer.prototype.send = function(client_id, message, data) {
 	if(this.clients[client_id]) {
 		if(this.clients[client_id].__open) {
-			//this.log(client_id, 'send', message, JSON.stringify(data));
 			this.clients[client_id].send(this.fmt_message(message, data));
 		}
 	} else {
@@ -14446,8 +14490,9 @@ PeerServer.prototype.send = function(client_id, message, data) {
 };
 
 PeerServer.prototype.broadcast = function(message, data) {
+	var raw_data = this.fmt_message(message, data);
 	Object.keys(this.clients).forEach(function(id){
-		this.send(id, message, data);
+		this.send_raw(id, raw_data);
 	}, this);
 };
 
@@ -14459,7 +14504,6 @@ PeerServer.prototype.handleOpen = function(client_id) {
 };
 
 PeerServer.prototype.handleData = function(client_id, data){
-	this.log(client_id, 'data', JSON.stringify(data));
 	this.emit('message', client_id, data.m, data.d);
 };
 
@@ -14478,7 +14522,7 @@ PeerServer.prototype.handleClose = function(client_id) {
 
 
 
-},{"../../../data/config":3,"./base":126,"util":24}],128:[function(require,module,exports){
+},{"../../../data/config":3,"./base":127,"util":24}],129:[function(require,module,exports){
 var PIXI = require('pixi'),
 	utils = require('./utils');
 
@@ -14611,7 +14655,7 @@ Renderer.renderBackgroundTexture = function(level){
 
 
 
-},{"./utils":136,"pixi":62}],129:[function(require,module,exports){
+},{"./utils":137,"pixi":62}],130:[function(require,module,exports){
 var Renderer = require('../renderer'),
 	util = require('util'),
 	World = require('../engine/world'),
@@ -14654,12 +14698,12 @@ GameScene.prototype.tick = function(msDuration) {
 
 
 
-},{"../../data/cars":2,"../../data/levels":8,"../engine/controllers":104,"../engine/world":118,"../renderer":128,"../utils":136,"util":24}],130:[function(require,module,exports){
+},{"../../data/cars":2,"../../data/levels":8,"../engine/controllers":104,"../engine/world":119,"../renderer":129,"../utils":137,"util":24}],131:[function(require,module,exports){
 exports.game = require('./game');
 exports.main = require('./main');
 exports.mpserver = require('./mpserver');
 exports.mpclient = require('./mpclient');
-},{"./game":129,"./main":131,"./mpclient":132,"./mpserver":133}],131:[function(require,module,exports){
+},{"./game":130,"./main":132,"./mpclient":133,"./mpserver":134}],132:[function(require,module,exports){
 var View = require('./view');
 
 module.exports = View.extend({
@@ -14707,7 +14751,7 @@ module.exports = View.extend({
 
 	template: 'main'
 });
-},{"./view":134}],132:[function(require,module,exports){
+},{"./view":135}],133:[function(require,module,exports){
 var GameScene = require('./game'),
 	util = require('util'),
 	cars = require('../../data/cars'),
@@ -14742,7 +14786,7 @@ MPClientScene.prototype.tick = function(msDuration) {
 	GameScene.prototype.tick.apply(this, arguments);
 	this.client.tick(msDuration);
 };
-},{"../../data/cars":2,"../engine/client":100,"../engine/controllers":104,"../engine/world":118,"../networking":125,"./game":129,"util":24}],133:[function(require,module,exports){
+},{"../../data/cars":2,"../engine/client":100,"../engine/controllers":104,"../engine/world":119,"../networking":126,"./game":130,"util":24}],134:[function(require,module,exports){
 var GameScene = require('./game'),
 	util = require('util'),
 	cars = require('../../data/cars'),
@@ -14768,7 +14812,7 @@ MPServerScene.prototype.tick = function(msDuration) {
 	GameScene.prototype.tick.apply(this, arguments);
 	this.server.tick(msDuration);
 };
-},{"../../data/cars":2,"../engine/controllers":104,"../engine/server":117,"../networking":125,"./game":129,"util":24}],134:[function(require,module,exports){
+},{"../../data/cars":2,"../engine/controllers":104,"../engine/server":118,"../networking":126,"./game":130,"util":24}],135:[function(require,module,exports){
 var util = require('util'),
 	View = require('../ui/view');
 
@@ -14789,7 +14833,7 @@ module.exports = View.extend({
 	}
 });
 
-},{"../ui/view":135,"util":24}],135:[function(require,module,exports){
+},{"../ui/view":136,"util":24}],136:[function(require,module,exports){
 module.exports = Backbone.View.extend({
 	template: 'main',
 	
@@ -14805,7 +14849,7 @@ module.exports = Backbone.View.extend({
 		this.$el.html(this.renderTemplate(context || {}));
 	}
 });
-},{}],136:[function(require,module,exports){
+},{}],137:[function(require,module,exports){
 var box2d = require('box2dweb');
 
 box2d.b2Vec2 = box2d.Common.Math.b2Vec2;
@@ -14828,4 +14872,4 @@ exports.degrees = function(radians) {
 exports.radians = function(degrees) {
 	return degrees * (Math.PI / 180);
 };
-},{"box2dweb":11}]},{},[121])
+},{"box2dweb":11}]},{},[122])
