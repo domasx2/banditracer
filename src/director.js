@@ -9,7 +9,7 @@ var Director = module.exports = function Director() {
 
 Director.prototype.setScene = function(scene) {
 	this.scene = scene;
-}
+};
 
 Director.prototype.start = function () {
 	this.running = true;

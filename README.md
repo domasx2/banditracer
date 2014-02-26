@@ -1,6 +1,6 @@
 ## Requirements
 
-Latest node with NPM must be installed. http://nodejs.org/
+Latest node with NPM http://nodejs.org/
 
 ## Install
 

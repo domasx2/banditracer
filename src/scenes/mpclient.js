@@ -29,6 +29,9 @@ var MPClientScene = module.exports = function MPClientScene(game, options) {
 util.inherits(MPClientScene, GameScene);
 
 MPClientScene.prototype.tick = function(msDuration) {
-	GameScene.prototype.tick.apply(this, arguments);
 	this.client.tick(msDuration);
+
+	if(this.renderer) {
+		this.renderer.render(msDuration);
+	}
 };

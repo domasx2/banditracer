@@ -13261,7 +13261,7 @@ var Director = module.exports = function Director() {
 
 Director.prototype.setScene = function(scene) {
 	this.scene = scene;
-}
+};
 
 Director.prototype.start = function () {
 	this.running = true;
@@ -13295,7 +13295,8 @@ var Client = module.exports = function(world, adapter, controller) {
 	this.adapter = adapter;
 	this.controller = controller;
 	this.time = 0;
-	this.delta = 40;
+	this.delta = 30;
+	//this.delta = 0;
 	this.my_car_id = null;
 	this.car = null;
 	this.prevcontrols;
@@ -13402,7 +13403,7 @@ Client.prototype.proc_past_update = function(data) {
 				obj_data[key] = {
 					t: data.t,
 					v: update[key]
-				}
+				};
 			}
 		}, this);
 	}, this);
@@ -13441,8 +13442,19 @@ Client.prototype.tick = function(msDuration) {
 
 	//no next state known, will need to simulate
 	if(!next_t) {
-		//console.log("nope", target);
-
+		//set values to last known
+		Object.keys(this.updateable_objects).forEach(function(id){
+			obj = this.updateable_objects[id];
+			prev_data = this.obj_data[id];
+			if(prev_data) {
+				Object.keys(prev_data).forEach(function(key){
+					obj[key] = prev_data[key].v;
+				}, this);
+			}
+		}, this);
+		//console.log("simulating", target-this.world.time);
+		this.world.time = this.prev_update_time;
+		this.world.update(target - this.prev_update_time);
 	//next state known - merge with prev state
 	} else {
 		var update = this.next_updates[next_t],
@@ -13454,6 +13466,7 @@ Client.prototype.tick = function(msDuration) {
 			if(next_data) {
 				Object.keys(next_data).forEach(function(prop){
 					if(typeof next_data[prop] === 'number' && prev_data && prev_data[prop] !== undefined) {
+
 						o = (target - prev_data[prop].t) / (next_t - prev_data[prop].t);
 						
 						obj[prop] = prev_data[prop].v + (next_data[prop] - prev_data[prop].v) * o;
@@ -13466,6 +13479,7 @@ Client.prototype.tick = function(msDuration) {
 
 			}
 		}, this);
+		this.world.time = target;
 	}
 
 	//if controls changed, send controls
@@ -13656,6 +13670,7 @@ m.c('car', {
 		steer: 0
 	},
 
+	acc: 0,
 
 	bootstrap: function () {
 		this._wheels = [];
@@ -13702,10 +13717,16 @@ m.c('car', {
 
 	on_update_car: function(msDuration) {
 
+		var steer, acc;
 		if(this._controller) {
-			var steer = this._controller.get('steer') || 0;
-			var acc = this._controller.get('acceleration') || 0;
+			steer =  this._controller.get('steer') || 0;
+			acc = this.acc = this._controller.get('acceleration') || 0;
+		} else {
+			acc = this.acc;
 		}
+
+		//console.log(steer, acc);
+		
 
 		//kill velocity
 		this._wheels.forEach(function(wheel){
@@ -13898,12 +13919,14 @@ require('./game');
 require('./physical');
 },{"./physical":116}],116:[function(require,module,exports){
 var m = require('../index'),
-	box2d = require('box2dweb');
+	box2d = require('box2dweb'),
+	utils = require('../../../utils');
 
 m.c('physical', {
 	x: 0,
 	y: 0,
 	angle : 0,
+	velocity: [0, 0],
 
 	_pos_dirty: false, //does physical body need to be updated?
 
@@ -13924,14 +13947,22 @@ m.c('physical', {
 	on_update_update_body: function () {
 		if(this._pos_dirty) {
 			this._body.SetPositionAndAngle(new box2d.b2Vec2(this.x / this._world.SCALE, this.y / this._world.SCALE), this.angle);
+			this._body.SetLinearVelocity(new box2d.b2Vec2(this.velocity[0], this.velocity[1]));
 		}
 	},
 
 	on_update_after_physics_update_position: function () {
-		var pos = this._body.GetPosition();
-		this.x = pos.x * this._world.SCALE;
-		this.y = pos.y * this._world.SCALE;
-		this.angle = this._body.GetAngle();
+		var pos = this._body.GetPosition(), 
+			x = pos.x * this._world.SCALE,
+			y = pos.y * this._world.SCALE,
+			angle = this._body.GetAngle(),
+			vel = this._body.GetLinearVelocity().array();
+
+		if(this.x !== x) this.x = x;
+		if(this.y !== y) this.y = y;
+		if(this.angle !== angle) this.angle = angle;
+		if(!utils.arrayVecsEqual(vel, this.velocity)) this.velocity = vel;
+		
 		this._pos_dirty = false;
 	},
 
@@ -13944,6 +13975,10 @@ m.c('physical', {
 	},
 
 	on_set_angle: function () {
+		this._pos_dirty = true;
+	},
+
+	on_set_vel: function () {
 		this._pos_dirty = true;
 	},
 	//end relay
@@ -13980,7 +14015,7 @@ m.c('physical', {
 		drawable.rotation  = this.angle;
 	}
 });
-},{"../index":114,"box2dweb":11}],117:[function(require,module,exports){
+},{"../../../utils":137,"../index":114,"box2dweb":11}],117:[function(require,module,exports){
 var m = require('./index');
 
 m.c('syncable', {
@@ -14105,6 +14140,7 @@ Server.prototype.sendEvent = function(client_id, evt) {
 
 Server.prototype.tick = function(msDuration) {
 		//send events
+
 	var client, self = this;;
 	Object.keys(this.clients).forEach(function(client_id){
 		client = self.clients[client_id];
@@ -14132,8 +14168,8 @@ Server.prototype.tick = function(msDuration) {
 	});
 
 	if(do_broadcast) {
-		this.adapter.broadcast('update', {
-			t: this.world.time,
+		self.adapter.broadcast('update', {
+			t: self.world.time,
 			u: updates
 		});
 	}
@@ -14873,8 +14909,11 @@ var MPClientScene = module.exports = function MPClientScene(game, options) {
 util.inherits(MPClientScene, GameScene);
 
 MPClientScene.prototype.tick = function(msDuration) {
-	GameScene.prototype.tick.apply(this, arguments);
 	this.client.tick(msDuration);
+
+	if(this.renderer) {
+		this.renderer.render(msDuration);
+	}
 };
 },{"../../data/cars":2,"../engine/client":100,"../engine/controllers":104,"../engine/world":119,"../networking":126,"./game":130,"util":24}],134:[function(require,module,exports){
 var GameScene = require('./game'),
@@ -14948,12 +14987,20 @@ box2d.b2Vec2 = box2d.Common.Math.b2Vec2;
 box2d.b2Vec2.prototype.rotate = function(angle) {
 	return new box2d.b2Vec2(this.x * Math.cos(angle) - this.y * Math.sin(angle),
 							this.x * Math.sin(angle) + this.y * Math.cos(angle));
-}
+};
+
+box2d.b2Vec2.prototype.array = function() {
+	return [this.x, this.y];
+};
 
 box2d.b2Vec2.prototype.dotProd = function(vec) {
 	//return (v1[0] * v2[0]) + (v1[1] * v2[1]);
 	return this.x * vec.x + this.y * vec.y;
-}
+};
+
+exports.arrayVecsEqual = function(a, b){
+	return  a[0] === b[0] && a[1] === b[1];
+};
 
 exports.degrees = function(radians) {
 	return radians * (180 / Math.PI);

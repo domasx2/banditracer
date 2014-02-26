@@ -16,6 +16,7 @@ m.c('car', {
 		steer: 0
 	},
 
+	acc: 0,
 
 	bootstrap: function () {
 		this._wheels = [];
@@ -62,10 +63,16 @@ m.c('car', {
 
 	on_update_car: function(msDuration) {
 
+		var steer, acc;
 		if(this._controller) {
-			var steer = this._controller.get('steer') || 0;
-			var acc = this._controller.get('acceleration') || 0;
+			steer =  this._controller.get('steer') || 0;
+			acc = this.acc = this._controller.get('acceleration') || 0;
+		} else {
+			acc = this.acc;
 		}
+
+		//console.log(steer, acc);
+		
 
 		//kill velocity
 		this._wheels.forEach(function(wheel){

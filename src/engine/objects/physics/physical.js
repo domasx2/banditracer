@@ -1,10 +1,12 @@
 var m = require('../index'),
-	box2d = require('box2dweb');
+	box2d = require('box2dweb'),
+	utils = require('../../../utils');
 
 m.c('physical', {
 	x: 0,
 	y: 0,
 	angle : 0,
+	velocity: [0, 0],
 
 	_pos_dirty: false, //does physical body need to be updated?
 
@@ -25,14 +27,22 @@ m.c('physical', {
 	on_update_update_body: function () {
 		if(this._pos_dirty) {
 			this._body.SetPositionAndAngle(new box2d.b2Vec2(this.x / this._world.SCALE, this.y / this._world.SCALE), this.angle);
+			this._body.SetLinearVelocity(new box2d.b2Vec2(this.velocity[0], this.velocity[1]));
 		}
 	},
 
 	on_update_after_physics_update_position: function () {
-		var pos = this._body.GetPosition();
-		this.x = pos.x * this._world.SCALE;
-		this.y = pos.y * this._world.SCALE;
-		this.angle = this._body.GetAngle();
+		var pos = this._body.GetPosition(), 
+			x = pos.x * this._world.SCALE,
+			y = pos.y * this._world.SCALE,
+			angle = this._body.GetAngle(),
+			vel = this._body.GetLinearVelocity().array();
+
+		if(this.x !== x) this.x = x;
+		if(this.y !== y) this.y = y;
+		if(this.angle !== angle) this.angle = angle;
+		if(!utils.arrayVecsEqual(vel, this.velocity)) this.velocity = vel;
+		
 		this._pos_dirty = false;
 	},
 
@@ -45,6 +55,10 @@ m.c('physical', {
 	},
 
 	on_set_angle: function () {
+		this._pos_dirty = true;
+	},
+
+	on_set_vel: function () {
 		this._pos_dirty = true;
 	},
 	//end relay

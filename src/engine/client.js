@@ -7,7 +7,8 @@ var Client = module.exports = function(world, adapter, controller) {
 	this.adapter = adapter;
 	this.controller = controller;
 	this.time = 0;
-	this.delta = 40;
+	this.delta = 30;
+	//this.delta = 0;
 	this.my_car_id = null;
 	this.car = null;
 	this.prevcontrols;
@@ -114,7 +115,7 @@ Client.prototype.proc_past_update = function(data) {
 				obj_data[key] = {
 					t: data.t,
 					v: update[key]
-				}
+				};
 			}
 		}, this);
 	}, this);
@@ -153,8 +154,19 @@ Client.prototype.tick = function(msDuration) {
 
 	//no next state known, will need to simulate
 	if(!next_t) {
-		//console.log("nope", target);
-
+		//set values to last known
+		Object.keys(this.updateable_objects).forEach(function(id){
+			obj = this.updateable_objects[id];
+			prev_data = this.obj_data[id];
+			if(prev_data) {
+				Object.keys(prev_data).forEach(function(key){
+					obj[key] = prev_data[key].v;
+				}, this);
+			}
+		}, this);
+		//console.log("simulating", target-this.world.time);
+		this.world.time = this.prev_update_time;
+		this.world.update(target - this.prev_update_time);
 	//next state known - merge with prev state
 	} else {
 		var update = this.next_updates[next_t],
@@ -166,6 +178,7 @@ Client.prototype.tick = function(msDuration) {
 			if(next_data) {
 				Object.keys(next_data).forEach(function(prop){
 					if(typeof next_data[prop] === 'number' && prev_data && prev_data[prop] !== undefined) {
+
 						o = (target - prev_data[prop].t) / (next_t - prev_data[prop].t);
 						
 						obj[prop] = prev_data[prop].v + (next_data[prop] - prev_data[prop].v) * o;
@@ -178,6 +191,7 @@ Client.prototype.tick = function(msDuration) {
 
 			}
 		}, this);
+		this.world.time = target;
 	}
 
 	//if controls changed, send controls

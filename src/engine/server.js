@@ -99,6 +99,7 @@ Server.prototype.sendEvent = function(client_id, evt) {
 
 Server.prototype.tick = function(msDuration) {
 		//send events
+
 	var client, self = this;;
 	Object.keys(this.clients).forEach(function(client_id){
 		client = self.clients[client_id];
@@ -126,8 +127,8 @@ Server.prototype.tick = function(msDuration) {
 	});
 
 	if(do_broadcast) {
-		this.adapter.broadcast('update', {
-			t: this.world.time,
+		self.adapter.broadcast('update', {
+			t: self.world.time,
 			u: updates
 		});
 	}
