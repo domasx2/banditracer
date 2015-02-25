@@ -1,11 +1,3 @@
-#main-scene h1{text-align:center}
-#main-scene .menu{width:500px;margin:auto;}
-#main-scene .menu li{margin-top:20px}
-#main-scene .menu .play button{width:100%}
-#main-scene .menu .multiplayer input{width:100%}
-#main-scene .menu .multiplayer button{width:50%}
-
+#main-scene h1{text-align:center}#main-scene .menu{width:500px;margin:auto;}#main-scene .menu li{margin-top:20px}#main-scene .menu .play button{width:100%}#main-scene .menu .multiplayer input{width:100%}#main-scene .menu .multiplayer button{width:50%}
 .scene-view{width:100%;height:100%}
-
-ul{list-style:none}
-*{box-sizing:border-box}
+*{padding:0;margin:0}html{height:100%}body{margin:0;padding:0;height:100%;overflow:hidden}#container{height:100%;}#container > div{height:100%}ul{list-style:none}*{box-sizing:border-box}

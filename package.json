@@ -21,6 +21,7 @@
     "grunt-concurrent": "~0.4.3",
     "zepto-browserify": "~1.0.0",
     "xtend": "~2.1.2",
-    "grunt-emblem": "~0.1.0"
+    "grunt-emblem": "~0.1.0",
+    "grunt-contrib-stylus": "^0.20.0"
   }
 }

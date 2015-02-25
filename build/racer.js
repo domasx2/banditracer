@@ -1,5 +1,5 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-exports.images=["assets/images/generic/sprite_placeholder.png","assets/images/backgrounds/snow.png","assets/images/backgrounds/grass.png","assets/images/backgrounds/sand.png","assets/images/cars/thunderbolt_blue.png","assets/images/cars/thunderbolt_yellow.png","assets/images/cars/thunderbolt_green.png","assets/images/cars/thunderbolt_red.png","assets/images/decals/siauras.png","assets/images/decals/lenktas.png","assets/images/decals/siaurejantis2.png","assets/images/decals/issisakojimas.png","assets/images/decals/uglyduckling.png","assets/images/decals/siaurejantis1.png","assets/images/decals/arrow5.png","assets/images/decals/sonaslenktas2.png","assets/images/decals/paprastas.png","assets/images/decals/arrow3.png","assets/images/decals/startbar.png","assets/images/decals/sonaslenktas1.png","assets/images/decals/arrow2.png","assets/images/decals/arrow.png","assets/images/decals/siaurasiplatu.png","assets/images/decals/arrow4.png","assets/images/decals/trumpas.png","assets/images/decals/white_bar.png","assets/images/decals/dideliskampas.png","assets/images/decals/susikerta.png","assets/images/decals/ilgas.png","assets/images/decals/kryzius.png","assets/images/props/3tires.png","assets/images/props/9tires.png","assets/images/props/tire.png"];
+exports.images=["assets/images/backgrounds/grass.png","assets/images/backgrounds/sand.png","assets/images/backgrounds/snow.png","assets/images/cars/thunderbolt_blue.png","assets/images/cars/thunderbolt_green.png","assets/images/cars/thunderbolt_red.png","assets/images/cars/thunderbolt_yellow.png","assets/images/decals/arrow.png","assets/images/decals/arrow2.png","assets/images/decals/arrow3.png","assets/images/decals/arrow4.png","assets/images/decals/arrow5.png","assets/images/decals/dideliskampas.png","assets/images/decals/ilgas.png","assets/images/decals/issisakojimas.png","assets/images/decals/kryzius.png","assets/images/decals/lenktas.png","assets/images/decals/paprastas.png","assets/images/decals/siauras.png","assets/images/decals/siaurasiplatu.png","assets/images/decals/siaurejantis1.png","assets/images/decals/siaurejantis2.png","assets/images/decals/sonaslenktas1.png","assets/images/decals/sonaslenktas2.png","assets/images/decals/startbar.png","assets/images/decals/susikerta.png","assets/images/decals/trumpas.png","assets/images/decals/uglyduckling.png","assets/images/decals/white_bar.png","assets/images/generic/sprite_placeholder.png","assets/images/props/3tires.png","assets/images/props/9tires.png","assets/images/props/tire.png"];
 },{}],2:[function(require,module,exports){
 var extend = require('xtend');
 
@@ -47,11 +47,11 @@ module.exports ={"size":[2500,2500],"title":"Frogfoot Circuit","bgtile":"sand.pn
 },{}],7:[function(require,module,exports){
 module.exports ={"size":[2700,2100],"title":"Grennglade Ring","bgtile":"grass.png","props":[{"p":[998,187],"f":1,"a":270},{"p":[1268,187],"f":1,"a":270},{"p":[1540,187],"f":1,"a":270},{"p":[1810,188],"f":1,"a":270},{"p":[2081,277],"f":2,"a":270},{"p":[2173,277],"f":2,"a":270},{"p":[2252,281],"f":2,"a":285},{"p":[2327,310],"f":2,"a":300},{"p":[2388,374],"f":2,"a":330},{"p":[2428,463],"f":2,"a":345},{"p":[2357,563],"f":1,"a":0},{"p":[2448,834],"f":2,"a":0},{"p":[2425,912],"f":2,"a":15},{"p":[2374,981],"f":2,"a":45},{"p":[2307,1042],"f":2,"a":60},{"p":[2228,1084],"f":2,"a":75},{"p":[2150,1101],"f":2,"a":90},{"p":[2046,1101],"f":2,"a":60},{"p":[2049,1189],"f":3,"a":0},{"p":[1927,1219],"f":1,"a":0},{"p":[2018,1490],"f":2,"a":0},{"p":[1975,1559],"f":2,"a":30},{"p":[1919,1629],"f":2,"a":45},{"p":[1853,1687],"f":2,"a":75},{"p":[1778,1718],"f":2,"a":90},{"p":[1507,1630],"f":1,"a":270},{"p":[1235,1629],"f":1,"a":270},{"p":[965,1631],"f":1,"a":270},{"p":[692,1629],"f":1,"a":270},{"p":[589,1670],"f":2,"a":120},{"p":[522,1608],"f":2,"a":150},{"p":[489,1531],"f":2,"a":165},{"p":[398,1271],"f":1,"a":180},{"p":[500,1170],"f":2,"a":30},{"p":[561,1102],"f":2,"a":60},{"p":[645,1066],"f":2,"a":75},{"p":[743,1061],"f":2,"a":90},{"p":[834,1090],"f":3,"a":0},{"p":[852,1062],"f":3,"a":0},{"p":[768,964],"f":2,"a":135},{"p":[525,860],"f":1,"a":90},{"p":[434,955],"f":2,"a":90},{"p":[345,954],"f":2,"a":90},{"p":[245,915],"f":2,"a":120},{"p":[165,864],"f":2,"a":135},{"p":[111,793],"f":2,"a":150},{"p":[13,542],"f":1,"a":0},{"p":[101,451],"f":2,"a":180},{"p":[100,360],"f":2,"a":180},{"p":[99,271],"f":2,"a":180},{"p":[104,169],"f":2,"a":210},{"p":[154,95],"f":2,"a":225},{"p":[230,47],"f":2,"a":240},{"p":[334,-54],"f":1,"a":270},{"p":[605,34],"f":2,"a":270},{"p":[694,35],"f":2,"a":270},{"p":[783,35],"f":2,"a":270},{"p":[853,46],"f":2,"a":300},{"p":[915,109],"f":2,"a":330},{"p":[957,213],"f":2,"a":0},{"p":[511,180],"f":1,"a":270},{"p":[726,331],"f":2,"a":0},{"p":[737,401],"f":2,"a":330},{"p":[801,465],"f":2,"a":300},{"p":[903,417],"f":1,"a":270},{"p":[1173,418],"f":1,"a":270},{"p":[1443,416],"f":1,"a":270},{"p":[1713,415],"f":1,"a":270},{"p":[1985,504],"f":2,"a":270},{"p":[2075,504],"f":2,"a":270},{"p":[2144,505],"f":2,"a":300},{"p":[2120,593],"f":1,"a":180},{"p":[2152,832],"f":2,"a":240},{"p":[2080,867],"f":2,"a":270},{"p":[1979,865],"f":2,"a":255},{"p":[1889,890],"f":2,"a":240},{"p":[1822,950],"f":2,"a":210},{"p":[1787,1038],"f":2,"a":195},{"p":[1692,1138],"f":1,"a":180},{"p":[1763,1398],"f":2,"a":195},{"p":[1702,1457],"f":2,"a":240},{"p":[1452,1401],"f":1,"a":90},{"p":[1182,1402],"f":1,"a":90},{"p":[910,1402],"f":1,"a":90},{"p":[809,1477],"f":2,"a":285},{"p":[719,1427],"f":2,"a":315},{"p":[716,1352],"f":2,"a":15},{"p":[778,1292],"f":2,"a":75},{"p":[878,1290],"f":2,"a":90},{"p":[945,1244],"f":2,"a":60},{"p":[1012,1186],"f":2,"a":30},{"p":[967,935],"f":1,"a":0},{"p":[1008,836],"f":2,"a":330},{"p":[951,761],"f":2,"a":315},{"p":[879,724],"f":2,"a":285},{"p":[617,634],"f":1,"a":270},{"p":[408,264],"f":2,"a":255},{"p":[342,322],"f":2,"a":195},{"p":[248,422],"f":1,"a":180},{"p":[346,669],"f":2,"a":135},{"p":[443,718],"f":2,"a":90},{"p":[530,724],"f":2,"a":90}],"decals":[{"p":[168,102],"f":4,"a":0},{"p":[480,54],"f":5,"a":0},{"p":[768,102],"f":6,"a":90},{"p":[792,318],"f":6,"a":270},{"p":[480,738],"f":5,"a":0},{"p":[168,666],"f":4,"a":270},{"p":[168,474],"f":7,"a":0},{"p":[168,366],"f":8,"a":0},{"p":[1008,294],"f":5,"a":180},{"p":[1296,294],"f":5,"a":180},{"p":[1584,294],"f":5,"a":180},{"p":[1872,294],"f":5,"a":180},{"p":[768,786],"f":4,"a":90},{"p":[864,1098],"f":6,"a":180},{"p":[552,1122],"f":4,"a":0},{"p":[552,1434],"f":4,"a":270},{"p":[864,1506],"f":5,"a":180},{"p":[1152,1506],"f":5,"a":180},{"p":[1440,1506],"f":5,"a":180},{"p":[1728,1434],"f":4,"a":180},{"p":[1848,1242],"f":7,"a":0},{"p":[1848,930],"f":4,"a":0},{"p":[2160,342],"f":4,"a":90},{"p":[2160,810],"f":4,"a":180},{"p":[2280,666],"f":8,"a":0},{"p":[2280,606],"f":8,"a":0},{"p":[1806,360],"f":9,"a":90},{"p":[1746,462],"f":9,"a":90},{"p":[1674,360],"f":9,"a":90},{"p":[1596,462],"f":9,"a":90},{"p":[1512,360],"f":9,"a":90},{"p":[1422,462],"f":9,"a":90},{"p":[1848,348],"f":10,"a":90},{"p":[1848,426],"f":10,"a":90}],"ai_waypoints":[{"p":[2175,455],"n":1},{"p":[2315,618],"n":2},{"p":[2286,910],"n":3},{"p":[1985,1128],"n":4},{"p":[1862,1523],"n":5},{"p":[1605,1666],"n":6},{"p":[762,1595],"n":7},{"p":[645,1442],"n":8},{"p":[737,1272],"n":9},{"p":[918,1088],"n":10},{"p":[813,932],"n":11},{"p":[337,779],"n":12},{"p":[250,505],"n":13},{"p":[335,248],"n":14},{"p":[567,217],"n":15},{"p":[804,262],"n":16},{"p":[1044,400],"n":17},{"p":[1584,411],"n":18}],"checkpoints":[{"p":[1891,294],"n":1},{"p":[2202,831],"n":2},{"p":[1773,1459],"n":3},{"p":[548,1473],"n":4},{"p":[604,1107],"n":5},{"p":[701,743],"n":6},{"p":[163,700],"n":7},{"p":[219,75],"n":8},{"p":[710,95],"n":9}],"start_positions":[{"p":[1758,354],"n":1,"a":90},{"p":[1698,456],"n":2,"a":90},{"p":[1626,354],"n":3,"a":90},{"p":[1548,456],"n":4,"a":90},{"p":[1464,354],"n":5,"a":90},{"p":[1374,456],"n":6,"a":90}],"dict":{"1":"9tires.png","2":"3tires.png","3":"tire.png","4":"dideliskampas.png","5":"ilgas.png","6":"lenktas.png","7":"paprastas.png","8":"trumpas.png","9":"white_bar.png","10":"startbar.png"}}
 },{}],8:[function(require,module,exports){
-exports["greenring"] = require("./greenring.js");exports["greenring"].id = "greenring";
-exports["drycircuit"] = require("./drycircuit.js");exports["drycircuit"].id = "drycircuit";
-exports["snowpeakcircuit"] = require("./snowpeakcircuit.js");exports["snowpeakcircuit"].id = "snowpeakcircuit";
 exports["deathvalley"] = require("./deathvalley.js");exports["deathvalley"].id = "deathvalley";
+exports["drycircuit"] = require("./drycircuit.js");exports["drycircuit"].id = "drycircuit";
 exports["frogfoot"] = require("./frogfoot.js");exports["frogfoot"].id = "frogfoot";
+exports["greenring"] = require("./greenring.js");exports["greenring"].id = "greenring";
+exports["snowpeakcircuit"] = require("./snowpeakcircuit.js");exports["snowpeakcircuit"].id = "snowpeakcircuit";
 exports["spiralraceway"] = require("./spiralraceway.js");exports["spiralraceway"].id = "spiralraceway";
 },{"./deathvalley.js":4,"./drycircuit.js":5,"./frogfoot.js":6,"./greenring.js":7,"./snowpeakcircuit.js":9,"./spiralraceway.js":10}],9:[function(require,module,exports){
 module.exports ={"size":[2800,2200],"title":"Snowpeak Circuit","bgtile":"snow.png","props":[{"p":[233,677],"f":1,"a":0},{"p":[359,647],"f":2,"a":0},{"p":[373,620],"f":2,"a":0},{"p":[396,600],"f":2,"a":0},{"p":[426,588],"f":2,"a":0},{"p":[458,465],"f":1,"a":270},{"p":[729,553],"f":3,"a":270},{"p":[820,554],"f":3,"a":270},{"p":[912,588],"f":2,"a":0},{"p":[942,601],"f":2,"a":0},{"p":[963,622],"f":2,"a":0},{"p":[981,650],"f":2,"a":0},{"p":[955,680],"f":3,"a":180},{"p":[952,762],"f":3,"a":165},{"p":[982,844],"f":3,"a":150},{"p":[1035,914],"f":3,"a":135},{"p":[1117,965],"f":3,"a":105},{"p":[1216,986],"f":3,"a":90},{"p":[1308,896],"f":1,"a":270},{"p":[1580,986],"f":3,"a":90},{"p":[1673,987],"f":3,"a":90},{"p":[1746,949],"f":3,"a":60},{"p":[1817,895],"f":3,"a":45},{"p":[1869,821],"f":3,"a":30},{"p":[1906,747],"f":3,"a":0},{"p":[1907,657],"f":3,"a":0},{"p":[1952,629],"f":2,"a":0},{"p":[1974,608],"f":2,"a":0},{"p":[2002,589],"f":2,"a":0},{"p":[2033,465],"f":1,"a":270},{"p":[2293,551],"f":3,"a":285},{"p":[2360,595],"f":3,"a":150},{"p":[2306,697],"f":1,"a":180},{"p":[2307,969],"f":1,"a":180},{"p":[2398,1243],"f":3,"a":180},{"p":[2415,1319],"f":3,"a":165},{"p":[2435,1418],"f":3,"a":180},{"p":[2412,1502],"f":3,"a":195},{"p":[2398,1600],"f":3,"a":180},{"p":[2349,1667],"f":3,"a":225},{"p":[2104,1628],"f":1,"a":90},{"p":[2011,1716],"f":3,"a":270},{"p":[1917,1657],"f":3,"a":315},{"p":[1909,1594],"f":3,"a":0},{"p":[1896,1494],"f":3,"a":345},{"p":[1857,1403],"f":3,"a":330},{"p":[1800,1329],"f":3,"a":315},{"p":[1731,1288],"f":3,"a":285},{"p":[1470,1197],"f":1,"a":90},{"p":[1200,1198],"f":1,"a":90},{"p":[928,1196],"f":1,"a":90},{"p":[655,1199],"f":1,"a":90},{"p":[562,1288],"f":3,"a":270},{"p":[472,1290],"f":3,"a":270},{"p":[369,1259],"f":3,"a":300},{"p":[319,1201],"f":3,"a":345},{"p":[231,942],"f":1,"a":0},{"p":[427,1424],"f":1,"a":270},{"p":[697,1423],"f":1,"a":270},{"p":[969,1424],"f":1,"a":270},{"p":[1240,1424],"f":1,"a":270},{"p":[1512,1515],"f":3,"a":270},{"p":[1583,1512],"f":3,"a":300},{"p":[1646,1576],"f":3,"a":330},{"p":[1677,1678],"f":3,"a":0},{"p":[1676,1757],"f":3,"a":345},{"p":[1711,1834],"f":3,"a":330},{"p":[1778,1893],"f":3,"a":300},{"p":[1871,1930],"f":3,"a":285},{"p":[1971,1860],"f":1,"a":270},{"p":[2242,1859],"f":1,"a":270},{"p":[2490,1905],"f":3,"a":240},{"p":[2556,1840],"f":3,"a":210},{"p":[2601,1763],"f":3,"a":195},{"p":[2626,1683],"f":3,"a":180},{"p":[2535,1411],"f":1,"a":180},{"p":[2535,1137],"f":1,"a":180},{"p":[2536,865],"f":1,"a":180},{"p":[2534,593],"f":1,"a":180},{"p":[2599,493],"f":3,"a":165},{"p":[2554,405],"f":3,"a":150},{"p":[2486,347],"f":3,"a":120},{"p":[2407,322],"f":3,"a":105},{"p":[2322,325],"f":3,"a":90},{"p":[2046,235],"f":1,"a":90},{"p":[1953,322],"f":3,"a":90},{"p":[1852,325],"f":3,"a":75},{"p":[1761,362],"f":3,"a":60},{"p":[1700,433],"f":3,"a":30},{"p":[1676,523],"f":3,"a":15},{"p":[1675,623],"f":3,"a":0},{"p":[1639,693],"f":3,"a":30},{"p":[1646,783],"f":2,"a":0},{"p":[1376,670],"f":1,"a":90},{"p":[1286,754],"f":3,"a":90},{"p":[1190,697],"f":3,"a":135},{"p":[1186,633],"f":3,"a":180},{"p":[1186,543],"f":3,"a":180},{"p":[1142,441],"f":3,"a":150},{"p":[1080,367],"f":3,"a":135},{"p":[1006,331],"f":3,"a":105},{"p":[746,238],"f":1,"a":90},{"p":[473,239],"f":1,"a":90},{"p":[382,325],"f":3,"a":90},{"p":[290,334],"f":3,"a":75},{"p":[206,366],"f":3,"a":60},{"p":[138,427],"f":3,"a":45},{"p":[100,511],"f":3,"a":15},{"p":[89,605],"f":3,"a":0},{"p":[1,695],"f":1,"a":0},{"p":[2,967],"f":1,"a":0},{"p":[335,1517],"f":3,"a":270},{"p":[220,1472],"f":3,"a":300},{"p":[143,1412],"f":3,"a":315},{"p":[101,1346],"f":3,"a":345},{"p":[92,1238],"f":3,"a":0},{"p":[125,1327],"f":2,"a":0}],"decals":[{"p":[156,1230],"f":4,"a":270},{"p":[468,1302],"f":5,"a":0},{"p":[756,1302],"f":5,"a":0},{"p":[1044,1302],"f":5,"a":0},{"p":[1332,1302],"f":5,"a":0},{"p":[1620,1350],"f":4,"a":90},{"p":[1740,1662],"f":4,"a":270},{"p":[2052,1734],"f":5,"a":0},{"p":[2340,1662],"f":4,"a":180},{"p":[2460,1470],"f":6,"a":0},{"p":[2460,1278],"f":7,"a":0},{"p":[2460,1086],"f":8,"a":0},{"p":[2460,894],"f":8,"a":0},{"p":[2460,702],"f":8,"a":0},{"p":[2340,390],"f":4,"a":90},{"p":[2052,342],"f":5,"a":180},{"p":[1740,390],"f":4,"a":0},{"p":[1620,702],"f":4,"a":180},{"p":[1332,774],"f":5,"a":180},{"p":[1020,702],"f":4,"a":270},{"p":[900,390],"f":4,"a":90},{"p":[612,342],"f":5,"a":180},{"p":[108,942],"f":5,"a":270},{"p":[156,750],"f":8,"a":0},{"p":[156,390],"f":4,"a":0},{"p":[468,390],"f":8,"a":90},{"p":[156,702],"f":8,"a":180},{"p":[1374,1356],"f":9,"a":270},{"p":[1374,1434],"f":9,"a":270},{"p":[1356,1368],"f":10,"a":90},{"p":[1260,1476],"f":10,"a":90},{"p":[1164,1368],"f":10,"a":90},{"p":[1050,1476],"f":10,"a":90},{"p":[948,1368],"f":10,"a":90},{"p":[828,1476],"f":10,"a":90}],"laps":4,"ai_waypoints":[{"p":[1459,1440],"n":1},{"p":[1728,1536],"n":2},{"p":[1954,1793],"n":3},{"p":[2420,1800],"n":4},{"p":[2527,1549],"n":5},{"p":[2566,1121],"n":6},{"p":[2580,824],"n":7},{"p":[2411,548],"n":8},{"p":[1916,556],"n":9},{"p":[1676,829],"n":10},{"p":[1205,822],"n":11},{"p":[981,549],"n":12},{"p":[363,526],"n":13},{"p":[218,866],"n":14},{"p":[279,1336],"n":15}],"checkpoints":[{"p":[1418,1297],"n":1},{"p":[2035,1746],"n":2},{"p":[2433,1140],"n":3},{"p":[2377,416],"n":4},{"p":[1729,420],"n":5},{"p":[991,685],"n":6},{"p":[163,380],"n":7},{"p":[176,1264],"n":8}],"start_positions":[{"p":[1306,1361],"n":1,"a":90},{"p":[1214,1469],"n":2,"a":90},{"p":[1116,1362],"n":3,"a":90},{"p":[1000,1469],"n":4,"a":90},{"p":[901,1364],"n":5,"a":90},{"p":[780,1471],"n":6,"a":90}],"dict":{"1":"9tires.png","2":"tire.png","3":"3tires.png","4":"dideliskampas.png","5":"ilgas.png","6":"sonaslenktas2.png","7":"sonaslenktas1.png","8":"paprastas.png","9":"startbar.png","10":"white_bar.png"}}
@@ -10915,384 +10915,6 @@ for (i = 0; i < Box2D.postDefs.length; ++i) Box2D.postDefs[i]();
 
 module.exports = Box2D
 },{}],12:[function(require,module,exports){
-module.exports = {
-
-    _objects: [],
-    _objects_by_id: {},
-    length: 0,
-
-    bootstrap: function () {
-        this._objects = [];
-        this._objects_by_id = {};
-    },
-
-    add: function(object){
-        this._objects.push(object);
-        this._objects_by_id[object.id] = object;
-        this.observe('object', object);
-        this.length++;
-        this.trigger('add', [object]);
-        object.on('destroy', function(){
-            this.remove(object);
-        }, this);
-    },
-
-    get: function(id) {
-        return this._objects_by_id[id];
-    },
-
-    remove: function(object) {
-        this.unobserve(object);
-        this.length--;
-        delete this._objects_by_id[object.id];
-        this._objects = this._objects.filter(function(obj){
-            return obj.id != object.id;
-        });
-        object.off("destroy", null, this);
-        this.trigger('remove', [object]);
-    },
-
-    each: function(cb, context) {
-        this._objects.forEach(cb, context);
-    }
-};
-},{}],13:[function(require,module,exports){
-function evlist(events){
-    if( (typeof events) === 'string'){
-        events = events.split(' ');
-    }
-    return events;
-};
-
-module.exports = {
-
-    _callbacks: {},
-    _observed_by: [],
-    _suppress_events: false,
-
-    bootstrap: function () {
-        //make event_x work
-        this._callbacks = {};
-        this._observed_by = [];
-
-        for(var key in this) {
-            if(key.substring(0, 6) == 'event_'){
-                (function(key, fn, self){
-                    self[key] = function () {
-                        self.trigger(key, Array.prototype.slice.call(arguments));
-                    }
-                    self.on(key, fn, self);
-                })(key.substring(6), this[key], this);
-            }
-        }
-    },
-
-
-    _on: function(event, callback, context, once) {
-
-        this._callbacks[event] = this._callbacks[event] || [];
-        this._callbacks[event].push({
-            callback: callback,
-            context: context,
-            once: once
-        });
-
-        if(context && context.on) {
-            var self = this;
-            context.on('destroy', function () {
-                self.off(event, callback, context);
-            });
-        }
-    },
-
-
-    on: function(events, callback, context, once) {
-        evlist(events).forEach(function (event) {
-            this._on(event, callback, context, once);
-        }, this);
-    },
-
-    _off: function (event, callback, context) {
-        if(this._callbacks[event])  {
-            this._callbacks[event] = this._callbacks[event].filter(function(evt){
-                return (callback && (callback.toString() != evt.callback.toString())) || (context && (context !== evt.context));
-            });
-        }
-    },
-
-    off: function(events, callback, context) {
-        evlist(events).forEach(function (event) {
-            this._off(event, callback, context);
-        }, this);
-    },
-
-
-    once: function(events, callback, context) {
-        this.on(events, callback, context, true);
-    },
-
-    observe: function(prefix, target) {
-        if(target === this) {
-            throw new Error("Tryin to obsrver self.");
-        }
-        if(target._observed_by) {
-            target._observed_by.push({
-                prefix: prefix,
-                observer: this
-            });
-        } else {
-            throw new Error('trying to observe unobservable', target);
-        }
-    },
-
-    unobserve: function(target) {
-        if(target._observed_by) {
-            target._observed_by = target._observed_by.filter(function(x){
-                return x.observer !== this;
-            }, this);
-        }
-    },
-
-    _trigger: function(event, args){
-        if(this._callbacks[event]){
-            this._callbacks[event] = this._callbacks[event].filter(function(cb){
-                if(!this.destroyed) {
-                    cb.callback.apply(cb.context, args);
-                }
-                return !cb.once;
-            }, this);
-        }
-    },
-    
-    trigger: function(event, args){
-        args = (args || []).slice(0);
-        if(this._suppress_events) return;
-        for(var key in this) {
-            if(key.indexOf('on_'+event) == 0 && !this.destroyed) {
-                this[key].apply(this, args);
-            }
-        }
-
-        if(!args) args = [this];
-        else args.splice(0, 0, this);
-        this._trigger(event, args);
-        this._observed_by.forEach(function(o){
-            o.observer.trigger(o.prefix+':'+event, args);
-        }, this);
-
-        args.splice(0, 0, event);
-        this._trigger('*', args);
-    }
-};  
-},{}],14:[function(require,module,exports){
-exports.collection = require('./collection');
-exports.evented = require('./evented');
-exports.object = require('./object');
-},{"./collection":12,"./evented":13,"./object":15}],15:[function(require,module,exports){
-module.exports = {
-    requires: 'evented'
-};
-},{}],16:[function(require,module,exports){
-exports.Manager = require('./manager');
-exports.Entity = require('./entity');
-
-if (typeof window !== 'undefined') {
-    window.CEM = exports;
-}
-},{"./entity":17,"./manager":18}],17:[function(require,module,exports){
-var utils = require('./utils');
-
-var RESERVED = {
-    requires: true,
-    bootstrap: true,
-    destroy: true
-}
-
-var Entity = module.exports = function (manager) {
-    this.id = null;
-    this.destroyed = false;
-    this.__manager = manager;
-    this.__components = [];
-    this.__component_hash = {};
-    this.__properties = {};
-};
-
-Entity.prototype.bootstrap = function () {
-    var args = arguments;
-    this.__components.forEach(function (component) {
-        if (component.bootstrap) {
-            component.bootstrap.apply(this, args);
-        }
-    }, this);
-};
-
-Entity.prototype.destroy = function () {
-
-    if(this.trigger) this.trigger('destroy');
-    this.destroyed = true;
-};
-
-
-Entity.prototype.__extend = function(component) {
-    var c, key, property, self = this;
-
-    //if component name was passed, get component object from manager
-    if( (typeof component) === 'string'){
-        var c = this.__manager.components[component];
-        if(!c) {
-            throw 'Unknown component: '+component;
-        }
-        component = c;
-    }
-
-    //register component with this entity
-    
-    if(component.__name) {
-        if(!this.__component_hash[component.__name]) {
-            this.__component_hash[component.__name] = component;
-        } else {
-            return;
-        }
-    }
-    this.__components.push(component);
-
-    //if component has sub components, extend w. them first
-    if(component.requires) {
-        component.requires.split(' ').forEach(function (component) {
-            if(component) {
-                this.__extend(component);
-            }
-        }, this);
-    }
-
-    //copy properties
-    Object.keys(component).forEach(function(key) {
-        if(key.slice(0, 2) !== '__' && !RESERVED[key]){
-            property = component[key];
-            if((typeof property) === 'function') {
-                if(!component.__name) {
-                    console.log('Adding functions via anonymous components is not recommended! These properties will not be restored on deserialization.');
-                }
-                self[key] = property;
-
-            } else {
-                if(key.slice(0, 1) !== '_') {
-                    if ((typeof property) === 'object') {
-                        property = utils.deep_copy(property);
-                    } 
-
-                    if(self.__properties[key] === undefined){
-
-                        Object.defineProperty(self, key, {
-                            set: function (val){
-                                self.__properties[key] = val;
-                                if(self.trigger) {
-                                    self.trigger('set_'+key, [val]);
-                                    self.trigger('set', [key, val]);
-                                }
-                            },
-                            get: function () {
-                                return self.__properties[key];
-                            }   
-                        });
-                    }
-
-                    self.__properties[key] = property;
-                } else {
-                    self[key] = property;
-                }
-            }
-        }
-    });
-},
-
-Entity.prototype.is = function(component_name) {
-    return this.__component_hash[component_name] != undefined;
-};
-},{"./utils":19}],18:[function(require,module,exports){
-var Entity = require('./entity'),
-    utils = require('./utils'),
-    builtins = require('./builtins');
-
-var Manager = module.exports = function () {
-    this.components = {};
-    this.entities = {};
-    this.register_builtins();  
-};
-
-Manager.prototype.register_builtins = function () {
-    this.c('evented', builtins.evented);
-    this.c('object', builtins.object);
-    this.c('collection', builtins.collection);
-};
-
-Manager.prototype.base_component = 'object';
-
-Manager.prototype.clone = function () {
-    var retv = new Manager();
-    retv.components = this.components;
-    return retv;
-};
-
-Manager.prototype.component = Manager.prototype.c = function (name, component) {
-    component = component || {};
-    component.__name = name;
-    if(this.components[name]) {
-        console.log('WARNING! Component already registered: '+name);
-    } 
-    this.components[name] = component;
-};
-
-Manager.prototype.get = function (entity_id) {
-    return this.entities[entity_id];
-};
-
-Manager.prototype.entity = Manager.prototype.e = function () {
-    if(!arguments.length) {
-        throw 'No components specified.'
-    }
-    var e = new Entity(this), i;
-
-    if(this.base_component) e.__extend(this.base_component);
-
-    for(var i=0; i<arguments.length; i++) {
-        e.__extend(arguments[i]);
-    };
-
-    if(!e.id) {
-        e.id = utils.generate_id();
-    }
-
-    if(this.entities[e.id]){
-        throw 'Entity with this id already exists';
-    }
-
-    e.bootstrap();
-
-    this.entities[e.id] = e;
-
-    if(e.on) {
-        e.on('destroy', function () {
-            delete this.entities[e.id];
-        }, this);
-    }
-
-    return e;
-};
-},{"./builtins":14,"./entity":17,"./utils":19}],19:[function(require,module,exports){
-exports.deep_copy = function(obj){
-    return JSON.parse(JSON.stringify(obj));
-}
-
-exports.generate_id = function(){
-    //v4 guid
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-        var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
-        return v.toString(16);
-    });
-}
-
-},{}],20:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -11352,10 +10974,8 @@ EventEmitter.prototype.emit = function(type) {
       er = arguments[1];
       if (er instanceof Error) {
         throw er; // Unhandled 'error' event
-      } else {
-        throw TypeError('Uncaught, unspecified "error" event.');
       }
-      return false;
+      throw TypeError('Uncaught, unspecified "error" event.');
     }
   }
 
@@ -11440,7 +11060,10 @@ EventEmitter.prototype.addListener = function(type, listener) {
                     'leak detected. %d listeners added. ' +
                     'Use emitter.setMaxListeners() to increase limit.',
                     this._events[type].length);
-      console.trace();
+      if (typeof console.trace === 'function') {
+        // not supported in IE 10
+        console.trace();
+      }
     }
   }
 
@@ -11594,7 +11217,7 @@ function isUndefined(arg) {
   return arg === void 0;
 }
 
-},{}],21:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -11619,7 +11242,7 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],22:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -11674,14 +11297,14 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],23:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 module.exports = function isBuffer(arg) {
   return arg && typeof arg === 'object'
     && typeof arg.copy === 'function'
     && typeof arg.fill === 'function'
     && typeof arg.readUInt8 === 'function';
 }
-},{}],24:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 var process=require("__browserify_process"),global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};// Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -12269,7 +11892,385 @@ function hasOwnProperty(obj, prop) {
   return Object.prototype.hasOwnProperty.call(obj, prop);
 }
 
-},{"./support/isBuffer":23,"__browserify_process":22,"inherits":21}],25:[function(require,module,exports){
+},{"./support/isBuffer":15,"__browserify_process":14,"inherits":13}],17:[function(require,module,exports){
+module.exports = {
+
+    _objects: [],
+    _objects_by_id: {},
+    length: 0,
+
+    bootstrap: function () {
+        this._objects = [];
+        this._objects_by_id = {};
+    },
+
+    add: function(object){
+        this._objects.push(object);
+        this._objects_by_id[object.id] = object;
+        this.observe('object', object);
+        this.length++;
+        this.trigger('add', [object]);
+        object.on('destroy', function(){
+            this.remove(object);
+        }, this);
+    },
+
+    get: function(id) {
+        return this._objects_by_id[id];
+    },
+
+    remove: function(object) {
+        this.unobserve(object);
+        this.length--;
+        delete this._objects_by_id[object.id];
+        this._objects = this._objects.filter(function(obj){
+            return obj.id != object.id;
+        });
+        object.off("destroy", null, this);
+        this.trigger('remove', [object]);
+    },
+
+    each: function(cb, context) {
+        this._objects.forEach(cb, context);
+    }
+};
+},{}],18:[function(require,module,exports){
+function evlist(events){
+    if( (typeof events) === 'string'){
+        events = events.split(' ');
+    }
+    return events;
+};
+
+module.exports = {
+
+    _callbacks: {},
+    _observed_by: [],
+    _suppress_events: false,
+
+    bootstrap: function () {
+        //make event_x work
+        this._callbacks = {};
+        this._observed_by = [];
+
+        for(var key in this) {
+            if(key.substring(0, 6) == 'event_'){
+                (function(key, fn, self){
+                    self[key] = function () {
+                        self.trigger(key, Array.prototype.slice.call(arguments));
+                    }
+                    self.on(key, fn, self);
+                })(key.substring(6), this[key], this);
+            }
+        }
+    },
+
+
+    _on: function(event, callback, context, once) {
+
+        this._callbacks[event] = this._callbacks[event] || [];
+        this._callbacks[event].push({
+            callback: callback,
+            context: context,
+            once: once
+        });
+
+        if(context && context.on) {
+            var self = this;
+            context.on('destroy', function () {
+                self.off(event, callback, context);
+            });
+        }
+    },
+
+
+    on: function(events, callback, context, once) {
+        evlist(events).forEach(function (event) {
+            this._on(event, callback, context, once);
+        }, this);
+    },
+
+    _off: function (event, callback, context) {
+        if(this._callbacks[event])  {
+            this._callbacks[event] = this._callbacks[event].filter(function(evt){
+                return (callback && (callback.toString() != evt.callback.toString())) || (context && (context !== evt.context));
+            });
+        }
+    },
+
+    off: function(events, callback, context) {
+        evlist(events).forEach(function (event) {
+            this._off(event, callback, context);
+        }, this);
+    },
+
+
+    once: function(events, callback, context) {
+        this.on(events, callback, context, true);
+    },
+
+    observe: function(prefix, target) {
+        if(target === this) {
+            throw new Error("Tryin to obsrver self.");
+        }
+        if(target._observed_by) {
+            target._observed_by.push({
+                prefix: prefix,
+                observer: this
+            });
+        } else {
+            throw new Error('trying to observe unobservable', target);
+        }
+    },
+
+    unobserve: function(target) {
+        if(target._observed_by) {
+            target._observed_by = target._observed_by.filter(function(x){
+                return x.observer !== this;
+            }, this);
+        }
+    },
+
+    _trigger: function(event, args){
+        if(this._callbacks[event]){
+            this._callbacks[event] = this._callbacks[event].filter(function(cb){
+                if(!this.destroyed) {
+                    cb.callback.apply(cb.context, args);
+                }
+                return !cb.once;
+            }, this);
+        }
+    },
+    
+    trigger: function(event, args){
+        args = (args || []).slice(0);
+        if(this._suppress_events) return;
+        for(var key in this) {
+            if(key.indexOf('on_'+event) == 0 && !this.destroyed) {
+                this[key].apply(this, args);
+            }
+        }
+
+        if(!args) args = [this];
+        else args.splice(0, 0, this);
+        this._trigger(event, args);
+        this._observed_by.forEach(function(o){
+            o.observer.trigger(o.prefix+':'+event, args);
+        }, this);
+
+        args.splice(0, 0, event);
+        this._trigger('*', args);
+    }
+};  
+},{}],19:[function(require,module,exports){
+exports.collection = require('./collection');
+exports.evented = require('./evented');
+exports.object = require('./object');
+},{"./collection":17,"./evented":18,"./object":20}],20:[function(require,module,exports){
+module.exports = {
+    requires: 'evented'
+};
+},{}],21:[function(require,module,exports){
+exports.Manager = require('./manager');
+exports.Entity = require('./entity');
+
+if (typeof window !== 'undefined') {
+    window.CEM = exports;
+}
+},{"./entity":22,"./manager":23}],22:[function(require,module,exports){
+var utils = require('./utils');
+
+var RESERVED = {
+    requires: true,
+    bootstrap: true,
+    destroy: true
+}
+
+var Entity = module.exports = function (manager) {
+    this.id = null;
+    this.destroyed = false;
+    this.__manager = manager;
+    this.__components = [];
+    this.__component_hash = {};
+    this.__properties = {};
+};
+
+Entity.prototype.bootstrap = function () {
+    var args = arguments;
+    this.__components.forEach(function (component) {
+        if (component.bootstrap) {
+            component.bootstrap.apply(this, args);
+        }
+    }, this);
+};
+
+Entity.prototype.destroy = function () {
+
+    if(this.trigger) this.trigger('destroy');
+    this.destroyed = true;
+};
+
+
+Entity.prototype.__extend = function(component) {
+    var c, key, property, self = this;
+
+    //if component name was passed, get component object from manager
+    if( (typeof component) === 'string'){
+        var c = this.__manager.components[component];
+        if(!c) {
+            throw 'Unknown component: '+component;
+        }
+        component = c;
+    }
+
+    //register component with this entity
+    
+    if(component.__name) {
+        if(!this.__component_hash[component.__name]) {
+            this.__component_hash[component.__name] = component;
+        } else {
+            return;
+        }
+    }
+    this.__components.push(component);
+
+    //if component has sub components, extend w. them first
+    if(component.requires) {
+        component.requires.split(' ').forEach(function (component) {
+            if(component) {
+                this.__extend(component);
+            }
+        }, this);
+    }
+
+    //copy properties
+    Object.keys(component).forEach(function(key) {
+        if(key.slice(0, 2) !== '__' && !RESERVED[key]){
+            property = component[key];
+            if((typeof property) === 'function') {
+                if(!component.__name) {
+                    console.log('Adding functions via anonymous components is not recommended! These properties will not be restored on deserialization.');
+                }
+                self[key] = property;
+
+            } else {
+                if(key.slice(0, 1) !== '_') {
+                    if ((typeof property) === 'object') {
+                        property = utils.deep_copy(property);
+                    } 
+
+                    if(self.__properties[key] === undefined){
+
+                        Object.defineProperty(self, key, {
+                            set: function (val){
+                                self.__properties[key] = val;
+                                if(self.trigger) {
+                                    self.trigger('set_'+key, [val]);
+                                    self.trigger('set', [key, val]);
+                                }
+                            },
+                            get: function () {
+                                return self.__properties[key];
+                            }   
+                        });
+                    }
+
+                    self.__properties[key] = property;
+                } else {
+                    self[key] = property;
+                }
+            }
+        }
+    });
+},
+
+Entity.prototype.is = function(component_name) {
+    return this.__component_hash[component_name] != undefined;
+};
+},{"./utils":24}],23:[function(require,module,exports){
+var Entity = require('./entity'),
+    utils = require('./utils'),
+    builtins = require('./builtins');
+
+var Manager = module.exports = function () {
+    this.components = {};
+    this.entities = {};
+    this.register_builtins();  
+};
+
+Manager.prototype.register_builtins = function () {
+    this.c('evented', builtins.evented);
+    this.c('object', builtins.object);
+    this.c('collection', builtins.collection);
+};
+
+Manager.prototype.base_component = 'object';
+
+Manager.prototype.clone = function () {
+    var retv = new Manager();
+    retv.components = this.components;
+    return retv;
+};
+
+Manager.prototype.component = Manager.prototype.c = function (name, component) {
+    component = component || {};
+    component.__name = name;
+    if(this.components[name]) {
+        console.log('WARNING! Component already registered: '+name);
+    } 
+    this.components[name] = component;
+};
+
+Manager.prototype.get = function (entity_id) {
+    return this.entities[entity_id];
+};
+
+Manager.prototype.entity = Manager.prototype.e = function () {
+    if(!arguments.length) {
+        throw 'No components specified.'
+    }
+    var e = new Entity(this), i;
+
+    if(this.base_component) e.__extend(this.base_component);
+
+    for(var i=0; i<arguments.length; i++) {
+        e.__extend(arguments[i]);
+    };
+
+    if(!e.id) {
+        e.id = utils.generate_id();
+    }
+
+    if(this.entities[e.id]){
+        throw 'Entity with this id already exists';
+    }
+
+    e.bootstrap();
+
+    this.entities[e.id] = e;
+
+    if(e.on) {
+        e.on('destroy', function () {
+            delete this.entities[e.id];
+        }, this);
+    }
+
+    return e;
+};
+},{"./builtins":19,"./entity":22,"./utils":24}],24:[function(require,module,exports){
+exports.deep_copy = function(obj){
+    return JSON.parse(JSON.stringify(obj));
+}
+
+exports.generate_id = function(){
+    //v4 guid
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+        return v.toString(16);
+    });
+}
+
+},{}],25:[function(require,module,exports){
 /**
  * pixi 0.2.1 (6aa0030)
  * http://drkibitz.github.io/node-pixi/
@@ -13498,7 +13499,7 @@ Client.prototype.tick = function(msDuration) {
 		this.prevcontrols = sdata;
 	}
 };
-},{"../../data/levels":8,"events":20,"util":24}],101:[function(require,module,exports){
+},{"../../data/levels":8,"events":12,"util":16}],101:[function(require,module,exports){
 exports.CONTROLS = {
 	ACC: {
 		FORWARD: 1,
@@ -13558,7 +13559,7 @@ util.inherits(DummyController, BaseController);
 DummyController.prototype.get = function(x){
 	return this.values[x];
 };
-},{"./base-controller":102,"util":24}],104:[function(require,module,exports){
+},{"./base-controller":102,"util":16}],104:[function(require,module,exports){
 exports.BaseController = require('./base-controller');
 exports.KeyboardController = require('./keyboard-controller');
 exports.DummyController = require('./dummy-controller');
@@ -13598,7 +13599,7 @@ BaseController.prototype._get_variable = function(fn) {
 BaseController.prototype.get = function (x) {
 	return this._get_variable(x);
 };
-},{"./base-controller":102,"util":24}],106:[function(require,module,exports){
+},{"./base-controller":102,"util":16}],106:[function(require,module,exports){
 var m = require('./index');
 
 m.c('base', {
@@ -13682,7 +13683,7 @@ m.c('car', {
 	    def.type = box2d.Dynamics.b2Body.b2_dynamicBody;
 	    def.position = new box2d.b2Vec2(this.x / this._world.SCALE, this.y / this._world.SCALE);
 	    def.angle = this.angle; 
-	    def.linearDamping - this.def.physical_properties.linearDamping; 
+	    def.linearDamping = this.def.physical_properties.linearDamping; 
 	    def.bullet = true; 
 	    def.angularDamping = this.def.physical_properties.angularDamping;
 	    var body=this._world.b2world.CreateBody(def);
@@ -13915,7 +13916,7 @@ require('./drawables');
 require('./syncable');
 require('./physics');
 require('./game');
-},{"./base":106,"./drawables":109,"./game":111,"./physics":115,"./syncable":117,"cem":16}],115:[function(require,module,exports){
+},{"./base":106,"./drawables":109,"./game":111,"./physics":115,"./syncable":117,"cem":21}],115:[function(require,module,exports){
 require('./physical');
 },{"./physical":116}],116:[function(require,module,exports){
 var m = require('../index'),
@@ -14351,7 +14352,7 @@ World.prototype.deserialize_props = function(properties) {
 
 	
 
-},{"../utils":137,"./objects":114,"box2dweb":11,"cem":16}],120:[function(require,module,exports){
+},{"../utils":137,"./objects":114,"box2dweb":11,"cem":21}],120:[function(require,module,exports){
 var Director = require('./director'),
 	scenes = require('./scenes');
 	PIXI = require('pixi'),
@@ -14440,7 +14441,7 @@ Base.prototype.fmt_message = function(message, data){
 		d: data 
 	};
 };
-},{"events":20,"util":24}],124:[function(require,module,exports){
+},{"events":12,"util":16}],124:[function(require,module,exports){
 var BaseAdapter = require('../base');
 var util = require('util');
 
@@ -14461,7 +14462,7 @@ Base.prototype.send = function(msg, data) {
 Base.prototype.disconnect = function(){
 	throw new Error('disconnect');
 };
-},{"../base":123,"util":24}],125:[function(require,module,exports){
+},{"../base":123,"util":16}],125:[function(require,module,exports){
 var BaseClient = require('./base'),
 	util = require('util'),
 	config = require('../../../data/config');
@@ -14506,7 +14507,7 @@ PeerClient.prototype.send = function(msg, data){
 PeerClient.prototype.disconnect = function(){
 	this.conn.disconnect();
 };
-},{"../../../data/config":3,"./base":124,"util":24}],126:[function(require,module,exports){
+},{"../../../data/config":3,"./base":124,"util":16}],126:[function(require,module,exports){
 exports.PeerServer = require('./server/peer');
 exports.PeerClient = require('./client/peer');
 },{"./client/peer":125,"./server/peer":128}],127:[function(require,module,exports){
@@ -14542,7 +14543,7 @@ Base.prototype.send = function(client_id, message, data){
 Base.prototype.destroy = function(){
 	this.broadcast('destroyed');
 };
-},{"../base":123,"util":24}],128:[function(require,module,exports){
+},{"../base":123,"util":16}],128:[function(require,module,exports){
 var Base = require('./base'),
 	util = require('util'),
 	config = require('../../../data/config');
@@ -14648,7 +14649,7 @@ PeerServer.prototype.handleClose = function(client_id) {
 
 
 
-},{"../../../data/config":3,"./base":127,"util":24}],129:[function(require,module,exports){
+},{"../../../data/config":3,"./base":127,"util":16}],129:[function(require,module,exports){
 var PIXI = require('pixi'),
 	utils = require('./utils');
 
@@ -14824,7 +14825,7 @@ GameScene.prototype.tick = function(msDuration) {
 
 
 
-},{"../../data/cars":2,"../../data/levels":8,"../engine/controllers":104,"../engine/world":119,"../renderer":129,"../utils":137,"util":24}],131:[function(require,module,exports){
+},{"../../data/cars":2,"../../data/levels":8,"../engine/controllers":104,"../engine/world":119,"../renderer":129,"../utils":137,"util":16}],131:[function(require,module,exports){
 exports.game = require('./game');
 exports.main = require('./main');
 exports.mpserver = require('./mpserver');
@@ -14915,7 +14916,7 @@ MPClientScene.prototype.tick = function(msDuration) {
 		this.renderer.render(msDuration);
 	}
 };
-},{"../../data/cars":2,"../engine/client":100,"../engine/controllers":104,"../engine/world":119,"../networking":126,"./game":130,"util":24}],134:[function(require,module,exports){
+},{"../../data/cars":2,"../engine/client":100,"../engine/controllers":104,"../engine/world":119,"../networking":126,"./game":130,"util":16}],134:[function(require,module,exports){
 var GameScene = require('./game'),
 	util = require('util'),
 	cars = require('../../data/cars'),
@@ -14941,7 +14942,7 @@ MPServerScene.prototype.tick = function(msDuration) {
 	GameScene.prototype.tick.apply(this, arguments);
 	this.server.tick(msDuration);
 };
-},{"../../data/cars":2,"../engine/controllers":104,"../engine/server":118,"../networking":126,"./game":130,"util":24}],135:[function(require,module,exports){
+},{"../../data/cars":2,"../engine/controllers":104,"../engine/server":118,"../networking":126,"./game":130,"util":16}],135:[function(require,module,exports){
 var util = require('util'),
 	View = require('../ui/view');
 
@@ -14962,7 +14963,7 @@ module.exports = View.extend({
 	}
 });
 
-},{"../ui/view":136,"util":24}],136:[function(require,module,exports){
+},{"../ui/view":136,"util":16}],136:[function(require,module,exports){
 module.exports = Backbone.View.extend({
 	template: 'main',
 	
