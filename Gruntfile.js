@@ -63,6 +63,19 @@ module.exports = function(grunt) {
             options: {
                 logConcurrentOutput: true
             }
+        },
+        bower_concat: {
+          all: {
+            dest: 'build/_bower.js',
+            cssDest: 'build/_bower.css',
+            dependencies: {
+              'underscore': 'zepto',
+              'backbone': 'underscore'
+            },
+            bowerOptions: {
+              relative: false
+            }
+          }
         }
     });
 
@@ -73,11 +86,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-emblem');
     grunt.loadNpmTasks('grunt-contrib-stylus');
+    grunt.loadNpmTasks('grunt-bower-concat');
     grunt.loadTasks('tasks');
 
 
     //build all resources
-    grunt.registerTask('build', ['compileassets', 'emblem:compile', 'stylus', 'browserify']);
+    grunt.registerTask('build', ['compileassets', 'emblem:compile', 'stylus', 'bower_concat:all', 'browserify']);
 
     // start watch & server
     grunt.registerTask('develop', ['build', 'concurrent:develop']);

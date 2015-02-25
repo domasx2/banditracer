@@ -5,7 +5,7 @@ Latest node with NPM http://nodejs.org/
 ## Install
 
 ```
-npm install grunt-cli -g
+npm install grunt-cli bower -g
 npm install
 grunt
 ```

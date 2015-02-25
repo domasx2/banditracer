@@ -1,0 +1,32 @@
+{
+  "name": "racer",
+  "version": "0.0.0",
+  "homepage": "https://github.com/domasx2/banditracer",
+  "authors": [
+    "Domas Lapinskas <domasx2@gmail.com>"
+  ],
+  "moduleType": [
+    "globals"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "scripts": {
+    "postinstall": "bower install"
+  },
+  "dependencies": {
+    "backbone": "~1.1.2",
+    "peerjs": "~0.3.14",
+    "zepto": "~1.1.6",
+    "handlebars": "~3.0.0",
+    "emblem.js": "~0.4.0"
+  },
+  "resolutions": {
+    "handlebars": "~> 1.1.0"
+  }
+}
